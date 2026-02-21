@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Owli-AI OpenGraph placeholder">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1e3a8a"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="930" cy="140" r="140" fill="#22d3ee" opacity="0.25"/>
+  <circle cx="160" cy="560" r="180" fill="#34d399" opacity="0.2"/>
+  <g transform="translate(110 180)">
+    <text x="0" y="0" fill="#e2e8f0" font-family="Segoe UI, Arial, sans-serif" font-size="44" letter-spacing="4">OWLI-AI</text>
+    <text x="0" y="88" fill="#f8fafc" font-family="Georgia, serif" font-size="74" font-weight="700">Assistenz-Apps mit Fokus</text>
+    <text x="0" y="168" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="38">Way-Buddy. Assist. Magnify. Hear-Clean. Zoom.</text>
+    <text x="0" y="236" fill="#cbd5e1" font-family="Segoe UI, Arial, sans-serif" font-size="30">Platzhalterbild fuer Social Sharing</text>
+  </g>
+</svg>
