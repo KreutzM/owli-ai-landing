@@ -1,0 +1,60 @@
+---
+interface MediaItem {
+  src: string;
+  avif?: string;
+  webp?: string;
+  alt: string;
+  caption?: string;
+  width?: number;
+  height?: number;
+}
+
+interface Props {
+  media: MediaItem[];
+  appName: string;
+}
+
+const { media, appName } = Astro.props;
+const items =
+  media.length > 0
+    ? media
+    : [
+        {
+          src: "/brand/owli-ai-logo-placeholder.svg",
+          alt: `Platzhaltergrafik fuer ${appName}`,
+          caption: "Medien folgen"
+        }
+      ];
+
+const ensureAlt = (item: MediaItem, index: number) => item.alt?.trim() || `${appName} Screenshot ${index + 1}`;
+const ensureCaption = (item: MediaItem, index: number) => item.caption?.trim() || `Ansicht ${index + 1}`;
+---
+
+<section aria-labelledby="media-heading" class="space-y-4">
+  <h2 id="media-heading" class="text-2xl font-semibold tracking-tight">Einblicke</h2>
+  <ul class="grid gap-4 sm:grid-cols-2">
+    {
+      items.map((item, index) => (
+        <li class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+          <figure>
+            <picture>
+              {item.avif && <source srcset={item.avif} type="image/avif" />}
+              {item.webp && <source srcset={item.webp} type="image/webp" />}
+              <img
+                src={item.src}
+                alt={ensureAlt(item, index)}
+                width={item.width ?? 1200}
+                height={item.height ?? 675}
+                class="h-52 w-full bg-slate-50 object-contain p-6"
+                loading="lazy"
+                decoding="async"
+              />
+            </picture>
+            <figcaption class="border-t border-slate-200 px-4 py-3 text-sm text-slate-700">{ensureCaption(item, index)}</figcaption>
+          </figure>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="text-xs text-slate-600">Empfehlung: Screenshots bevorzugt als AVIF/WebP bereitstellen, PNG nur als Fallback.</p>
+</section>

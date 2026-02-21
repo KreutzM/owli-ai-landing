@@ -1,7 +1,1 @@
----
-slug: home
----
-
-# Owli‑AI
-
-Eine Suite von Assistenz‑Apps für mehr Selbstständigkeit – auf Android und Windows.
+Eine Suite von Assistenz-Apps fuer mehr Selbststaendigkeit auf Android und Windows.

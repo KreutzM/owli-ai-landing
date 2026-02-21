@@ -1,0 +1,36 @@
+---
+import type { PlatformFilter } from "../../lib/content";
+
+interface Props {
+  active: PlatformFilter;
+}
+
+const { active } = Astro.props;
+
+const filters = [
+  { key: "all", label: "Alle", href: "/apps" },
+  { key: "android", label: "Android", href: "/apps/platform/android" },
+  { key: "windows", label: "Windows", href: "/apps/platform/windows" }
+] as const;
+---
+
+<nav aria-label="App-Filter nach Plattform" class="rounded-2xl border border-slate-200 bg-white/90 p-2 shadow-sm backdrop-blur">
+  <ul class="flex flex-wrap gap-2">
+    {
+      filters.map((filter) => (
+        <li>
+          <a
+            href={filter.href}
+            class:list={[
+              "inline-flex rounded-full px-4 py-2 text-sm font-medium transition",
+              active === filter.key ? "bg-slate-900 text-white" : "bg-slate-100 text-slate-800 hover:bg-slate-200"
+            ]}
+            aria-current={active === filter.key ? "page" : undefined}
+          >
+            {filter.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>

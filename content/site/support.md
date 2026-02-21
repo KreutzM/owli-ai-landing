@@ -1,7 +1,3 @@
----
-slug: support
----
-
 # Support
 
 - Kontakt: (Platzhalter)

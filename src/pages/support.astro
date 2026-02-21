@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { render } from "astro:content";
+import { getSiteBySlug } from "../lib/content";
+
+const supportEntry = await getSiteBySlug("support");
+const SupportContent = supportEntry ? (await render(supportEntry)).Content : null;
+---
+
+<BaseLayout title="Support" description="Support-Informationen zur Owli-AI App-Suite.">
+  <section class="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    {SupportContent ? (
+      <div class="content-markdown">
+        <SupportContent />
+      </div>
+    ) : (
+      <>
+        <h1 class="text-3xl font-semibold">Support</h1>
+        <p class="text-slate-700">Support-Inhalte werden vorbereitet.</p>
+      </>
+    )}
+  </section>
+</BaseLayout>

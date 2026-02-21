@@ -1,27 +1,41 @@
-# owli-ai.com — Landing Site
+# owli-ai.com - Landing Site
 
-Dieses Repo enthält die Website für die **Owli‑AI App‑Suite**.
+Dieses Repo enth�lt die statische Marketing-/Info-Webseite f�r die **Owli-AI App-Suite**.
 
-## Status
-Aktuell liegt eine sehr einfache statische HTML-Version vor. Der geplante nächste Schritt ist der Umbau zu einer **Static-Site (SSG)** (voraussichtlich Astro), damit Inhalte datengetrieben gepflegt werden können (App-Seiten, FAQs, Releases etc.).
+## Stack
 
-## Produkt-Reihenfolge
-1. Owli‑AI Way‑Buddy
-2. Owli‑AI Assist
-3. Owli‑AI Magnify
-4. Owli‑AI Hear‑Clean
-5. Owli‑AI Zoom
+- Astro + TypeScript + Tailwind
+- Static-first (SSG, keine SSR/Pages Functions)
+- Build-Output: `dist/` (Cloudflare Pages)
 
-## Cloudflare Pages
-Die Seite wird über **Cloudflare Pages (Free)** ausgeliefert. Im MVP vermeiden wir SSR/Functions und bleiben static-first.
+## Entwicklung mit pnpm
 
-Details: siehe `CLOUDFLARE_PAGES.md`.
+```bash
+pnpm install
+pnpm dev
+pnpm lint
+pnpm build
+pnpm preview
+```
+
+## Routen (MVP)
+
+- `/`
+- `/apps`
+- `/apps/[slug]`
+- `/privacy`
+- `/imprint`
+- `/support`
+- `/accessibility`
 
 ## Content
-- App-Stubs: `content/apps/*.md`
-- Generelle Seiten-Texte: `content/site/`
 
-## Nächster Schritt (Codex)
-- Stack scaffolden (Astro + TS + Tailwind)
-- Content-Model einlesen und Seiten generieren
-- A11y/SEO/Performance Baseline
+- App-Stubs: `content/apps/*.md`
+- Site-Stubs: `content/site/*.md`
+
+Die App-Reihenfolge bleibt konsistent:
+1. Owli-AI Way-Buddy
+2. Owli-AI Assist
+3. Owli-AI Magnify
+4. Owli-AI Hear-Clean
+5. Owli-AI Zoom

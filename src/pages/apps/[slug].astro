@@ -1,0 +1,99 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getApps } from "../../lib/content";
+import AppHero from "../../components/apps/AppHero.astro";
+import FeatureGrid from "../../components/apps/FeatureGrid.astro";
+import PrivacyCard from "../../components/apps/PrivacyCard.astro";
+import RequirementsList from "../../components/apps/RequirementsList.astro";
+import MediaGallery from "../../components/apps/MediaGallery.astro";
+import CtaBar from "../../components/apps/CtaBar.astro";
+
+export async function getStaticPaths() {
+  const apps = await getApps();
+
+  return apps.map((app) => ({
+    params: { slug: app.data.slug },
+    props: { app }
+  }));
+}
+
+interface Props {
+  app: CollectionEntry<"apps">;
+}
+
+const { app } = Astro.props;
+const { Content } = await render(app);
+
+const features = app.data.features;
+const requirements = app.data.requirements;
+const media = app.data.media;
+const privacy = app.data.privacy;
+const seoTitle = `${app.data.name} (${app.data.platform})`;
+const seoDescription = app.data.seo.description ?? app.data.valueProp ?? app.data.tagline ?? "Produktdetails folgen.";
+const seoOgImage = app.data.seo.ogImage ?? app.data.featureGraphic?.src ?? "/og/owli-default-og.svg";
+
+const primaryCta = app.data.links.primary ?? { label: `${app.data.name} testen`, href: "/support" };
+const secondaryCta = app.data.links.secondary ?? { label: "Zur App-Uebersicht", href: "/apps" };
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} ogType="article" ogImage={seoOgImage}>
+  <article class="space-y-8">
+    <AppHero
+      name={app.data.name}
+      tagline={app.data.tagline}
+      valueProp={app.data.valueProp || app.data.tagline}
+      audience={app.data.audience}
+      platform={app.data.platform}
+      status={app.data.status}
+      icon={app.data.icon}
+      logo={app.data.logo}
+    />
+
+    {app.data.featureGraphic && (
+      <figure class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+        <img
+          src={app.data.featureGraphic.src}
+          alt={app.data.featureGraphic.alt || `Feature-Grafik von ${app.data.name}`}
+          width={app.data.featureGraphic.width ?? 1024}
+          height={app.data.featureGraphic.height ?? 500}
+          class="mx-auto h-auto w-full rounded-lg bg-slate-50 object-contain"
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+    )}
+
+    {app.data.slug === "assist" && (
+      <section class="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 shadow-sm">
+        <h2 class="text-2xl font-semibold tracking-tight text-indigo-950">Cloud Mode im Fokus</h2>
+        <ul class="mt-3 list-disc space-y-2 pl-5 text-indigo-900">
+          <li>Snapshot aufnehmen und als VLM-Anfrage senden.</li>
+          <li>Kontextbasierte Follow-up Fragen ohne Neustart.</li>
+          <li>Auto-Scan fuer regelmaessige Szenenupdates.</li>
+          <li>Voice Input fuer haendefreie Bedienung.</li>
+          <li>Streaming TTS fuer schnelle Rueckmeldung.</li>
+        </ul>
+      </section>
+    )}
+
+    <div class="grid gap-6 lg:grid-cols-[2fr,1fr]">
+      <FeatureGrid features={features} />
+      <PrivacyCard privacy={privacy} />
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <RequirementsList requirements={requirements} />
+      <section class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+        <h2 class="text-2xl font-semibold tracking-tight">Weitere Details</h2>
+        <div class="content-markdown mt-4">
+          <Content />
+        </div>
+      </section>
+    </div>
+
+    <MediaGallery media={media} appName={app.data.name} />
+
+    <CtaBar primary={primaryCta} secondary={secondaryCta} />
+  </article>
+</BaseLayout>

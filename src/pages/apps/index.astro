@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getApps } from "../../lib/content";
+import AppCard from "../../components/apps/AppCard.astro";
+import PlatformFilterNav from "../../components/apps/PlatformFilterNav.astro";
+
+const apps = await getApps();
+---
+
+<BaseLayout title="Apps" description="Uebersicht der Owli-AI Produktreihe mit Plattform-Filter und klaren CTAs.">
+  <section class="space-y-8">
+    <header class="max-w-4xl space-y-3">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI App-Suite</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Fuenf Produkte, klar positioniert</h1>
+      <p class="text-lg text-slate-700">
+        Alle Karten sind content-getrieben und folgen der festen Produktreihenfolge. Der Plattformfilter funktioniert ohne JavaScript.
+      </p>
+    </header>
+
+    <PlatformFilterNav active="all" />
+
+    <p class="text-sm text-slate-600">
+      {apps.length} Apps in der Reihenfolge: Way-Buddy, Assist, Magnify, Hear-Clean, Zoom.
+    </p>
+
+    <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        apps.map((app) => (
+          <li>
+            <AppCard app={app} />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>

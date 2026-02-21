@@ -1,0 +1,38 @@
+---
+interface LinkDef {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  primary: LinkDef;
+  secondary?: LinkDef;
+}
+
+const { primary, secondary } = Astro.props;
+---
+
+<section class="rounded-2xl border border-slate-200 bg-slate-900 p-5 text-white shadow-sm">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h2 class="text-xl font-semibold tracking-tight">Naechster Schritt</h2>
+      <p class="text-sm text-slate-200">Testzugang, Fragen oder Partnerschaft: wir antworten strukturiert und zeitnah.</p>
+    </div>
+    <div class="flex flex-wrap gap-2">
+      <a
+        href={primary.href}
+        class="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+      >
+        {primary.label}
+      </a>
+      {secondary && (
+        <a
+          href={secondary.href}
+          class="inline-flex items-center rounded-full border border-slate-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+        >
+          {secondary.label}
+        </a>
+      )}
+    </div>
+  </div>
+</section>
