@@ -1,0 +1,18 @@
+# Node
+node_modules/
+.pnpm-store/
+
+# Builds
+.dist/
+dist/
+.build/
+.next/
+out/
+
+# Env
+.env
+.env.*
+
+# OS / IDE
+.DS_Store
+.vscode/settings.json
