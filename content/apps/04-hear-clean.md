@@ -51,10 +51,10 @@ links:
     href: /support
 media:
   - src: /apps/hear-clean/icon-placeholder.svg
-    alt: Platzhalter-Icon von Owli-AI Hear-Clean
+    alt: App-Icon von Owli-AI Hear-Clean
     caption: Hear-Clean App-Icon
   - src: /apps/hear-clean/icon-placeholder.svg
-    alt: Platzhalter-Screenshot von Owli-AI Hear-Clean
+    alt: Beispielansicht von Owli-AI Hear-Clean mit Live-Transkription
     caption: Transkript-Ansicht Platzhalter
 seo:
   description: Owli-AI Hear-Clean wandelt gesprochene Sprache in Echtzeit in verständlichen Text oder optimierte Sprachausgabe um. Entwickelt für Menschen mit Hörbehinderung sowie kombinierter Hör- und Sehbeeinträchtigung.

@@ -50,10 +50,10 @@ links:
     href: /privacy
 media:
   - src: /apps/assist/icon-placeholder.svg
-    alt: Platzhalter-Icon von Owli-AI Assist
+    alt: App-Icon von Owli-AI Assist
     caption: Assist App-Icon
   - src: /apps/assist/icon-placeholder.svg
-    alt: Platzhalter-Screenshot von Owli-AI Assist Cloud Mode
+    alt: Beispielansicht von Owli-AI Assist im Cloud-Mode mit Szenenbeschreibung
     caption: Cloud Mode Ansicht Platzhalter
 seo:
   description: Owli-AI Assist beschreibt deine Umgebung mithilfe eines KI-gestützten Cloud-Systems. Du kannst Szenen analysieren lassen, Rückfragen stellen und Antworten per Sprachausgabe erhalten.

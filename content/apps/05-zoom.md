@@ -51,10 +51,10 @@ links:
     href: /support
 media:
   - src: /apps/zoom/icon-placeholder.svg
-    alt: Platzhalter-Icon von Owli-AI Zoom
+    alt: App-Icon von Owli-AI Zoom
     caption: Zoom App-Icon
   - src: /apps/zoom/icon-placeholder.svg
-    alt: Platzhalter-Screenshot von Owli-AI Zoom
+    alt: Beispielansicht von Owli-AI Zoom mit Desktop-Vergroesserung
     caption: Desktop-Vorschau Platzhalter
 seo:
   description: Owli-AI Zoom ist ein Desktop-Tool zur Bildschirmvergrößerung und Kontrastverbesserung. Entwickelt für Menschen mit Sehbehinderung - aktuell für Windows, Linux-Unterstützung in Planung.

@@ -48,10 +48,10 @@ links:
     href: /support
 media:
   - src: /apps/way-buddy/icon-placeholder.svg
-    alt: Platzhalter-Icon von Owli-AI Way-Buddy
+    alt: App-Icon von Owli-AI Way-Buddy
     caption: App-Icon Platzhalter
   - src: /apps/way-buddy/icon-placeholder.svg
-    alt: Platzhalter-Screenshot von Owli-AI Way-Buddy
+    alt: Beispielansicht von Owli-AI Way-Buddy mit Wegerkennung und Audio-Orientierung
     caption: UI-Vorschau Platzhalter
 seo:
   description: Owli-AI Way-Buddy analysiert mit Hilfe der Smartphone-Kamera begehbare Wege und unterstützt dich durch akustisches Feedback bei der Orientierung. Die Verarbeitung erfolgt direkt auf dem Gerät.
