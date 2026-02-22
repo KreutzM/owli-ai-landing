@@ -5,6 +5,8 @@ import AppCard from "../../components/apps/AppCard.astro";
 import PlatformFilterNav from "../../components/apps/PlatformFilterNav.astro";
 
 const apps = await getApps();
+const appsAndroid = apps.filter((app) => app.data.platform === "Android");
+const appsWindows = apps.filter((app) => app.data.platform === "Windows");
 ---
 
 <BaseLayout title="Apps" description="Uebersicht der Owli-AI Produktreihe mit Plattform-Filter und klaren CTAs.">
@@ -17,7 +19,7 @@ const apps = await getApps();
       </p>
     </header>
 
-    <PlatformFilterNav active="all" />
+    <PlatformFilterNav active="all" androidCount={appsAndroid.length} windowsCount={appsWindows.length} />
 
     <p class="text-sm text-slate-600">
       {apps.length} Apps in der Reihenfolge: Way-Buddy, Assist, Magnify, Hear-Clean, Zoom.

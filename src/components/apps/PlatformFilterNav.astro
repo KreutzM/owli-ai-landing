@@ -3,14 +3,21 @@ import type { PlatformFilter } from "../../lib/content";
 
 interface Props {
   active: PlatformFilter;
+  androidCount?: number;
+  windowsCount?: number;
 }
 
-const { active } = Astro.props;
+const { active, androidCount, windowsCount } = Astro.props;
+
+// Hide platform tabs when there are no apps for that platform.
+// Keep the active tab visible to avoid confusing navigation states.
+const showAndroid = androidCount === undefined ? true : androidCount > 0 || active === "android";
+const showWindows = windowsCount === undefined ? true : windowsCount > 0 || active === "windows";
 
 const filters = [
   { key: "all", label: "Alle", href: "/apps" },
-  { key: "android", label: "Android", href: "/apps/platform/android" },
-  { key: "windows", label: "Windows", href: "/apps/platform/windows" }
+  ...(showAndroid ? [{ key: "android", label: "Android", href: "/apps/platform/android" } as const] : []),
+  ...(showWindows ? [{ key: "windows", label: "Windows", href: "/apps/platform/windows" } as const] : [])
 ] as const;
 ---
 

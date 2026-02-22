@@ -11,7 +11,10 @@ export async function getStaticPaths() {
 const platformParam = Astro.params.platform;
 const platform: Exclude<PlatformFilter, "all"> = platformParam === "windows" ? "windows" : "android";
 
-const apps = filterAppsByPlatform(await getApps(), platform);
+const allApps = await getApps();
+const apps = filterAppsByPlatform(allApps, platform);
+const androidCount = allApps.filter((app) => app.data.platform === "Android").length;
+const windowsCount = allApps.filter((app) => app.data.platform === "Windows").length;
 const platformTitle = platform === "android" ? "Android" : "Windows";
 ---
 
@@ -23,7 +26,7 @@ const platformTitle = platform === "android" ? "Android" : "Windows";
       <p class="text-lg text-slate-700">Filteransicht ohne JavaScript. Jede Karte fuehrt direkt zur Detailseite.</p>
     </header>
 
-    <PlatformFilterNav active={platform} />
+    <PlatformFilterNav active={platform} androidCount={androidCount} windowsCount={windowsCount} />
 
     {apps.length === 0 ? (
       <p class="rounded-2xl border border-slate-200 bg-white p-5 text-slate-700 shadow-sm">Keine Apps fuer diese Plattform gefunden.</p>
