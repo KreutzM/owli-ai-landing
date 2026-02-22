@@ -36,13 +36,13 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
           <div class="flex flex-wrap gap-3">
             <a
               href="/apps"
-              class="inline-flex items-center rounded-full bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800"
+              class="btn-brand inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
             >
               Apps entdecken
             </a>
             <a
               href="/apps/way-buddy"
-              class="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-100"
+              class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
             >
               Way-Buddy entdecken
             </a>
@@ -84,6 +84,12 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
           apps.map((app) => {
             const iconSrc = app.data.icon?.src ?? `/apps/${app.data.slug}/icon-placeholder.svg`;
             const iconAlt = app.data.icon?.alt?.trim() || `Icon von ${app.data.name}`;
+            const statusBadgeClass =
+              app.data.status.toLowerCase() === "prototype"
+                ? "badge-status-accent"
+                : app.data.status.toLowerCase() === "beta"
+                  ? "badge-status-neutral"
+                  : "badge-status-accent";
 
             return (
               <li class="flex h-full flex-col rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
@@ -98,8 +104,8 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
                     decoding="async"
                   />
                   <div class="flex flex-wrap justify-end gap-1.5">
-                    <span class="rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">{app.data.platform}</span>
-                    <span class="rounded-full bg-slate-200 px-2.5 py-1 text-xs font-semibold text-slate-800">{app.data.status}</span>
+                    <span class="badge-platform rounded-full px-2.5 py-1 text-xs font-semibold">{app.data.platform}</span>
+                    <span class:list={["rounded-full px-2.5 py-1 text-xs font-semibold", statusBadgeClass]}>{app.data.status}</span>
                   </div>
                 </div>
 
@@ -113,7 +119,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
                 <div class="mt-4">
                   <a
                     href={`/apps/${app.data.slug}`}
-                    class="inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-100"
+                    class="btn-brand inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition"
                   >
                     Details ansehen
                   </a>

@@ -7,17 +7,14 @@ interface Props {
 
 const { app } = Astro.props;
 
-const platformBadgeClass =
-  app.data.platform === "Android"
-    ? "bg-emerald-100 text-emerald-900"
-    : "bg-sky-100 text-sky-900";
+const platformBadgeClass = "badge-platform";
 
 const statusBadgeClass =
   app.data.status.toLowerCase() === "prototype"
-    ? "bg-amber-100 text-amber-900"
+    ? "badge-status-accent"
     : app.data.status.toLowerCase() === "beta"
-      ? "bg-indigo-100 text-indigo-900"
-      : "bg-slate-200 text-slate-900";
+      ? "badge-status-neutral"
+      : "badge-status-accent";
 
 const valueLine = app.data.valueProp || app.data.tagline;
 const primaryCta = app.data.links.primary ?? { label: "Details ansehen", href: `/apps/${app.data.slug}` };
@@ -48,14 +45,14 @@ const iconHeight = app.data.icon?.height ?? 64;
   <div class="mt-4">
     <a
       href={`/apps/${app.data.slug}`}
-      class="inline-flex items-center gap-2 rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+      class="btn-brand inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition"
     >
       Details ansehen
     </a>
     {primaryCta.href !== `/apps/${app.data.slug}` && (
       <a
         href={primaryCta.href}
-        class="ml-2 inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-100"
+        class="btn-outline-neutral ml-2 inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition"
       >
         {primaryCta.label}
       </a>

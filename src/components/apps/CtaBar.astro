@@ -21,14 +21,14 @@ const { primary, secondary } = Astro.props;
     <div class="flex flex-wrap gap-2">
       <a
         href={primary.href}
-        class="inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-slate-900 transition hover:bg-slate-100"
+        class="btn-brand inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition"
       >
         {primary.label}
       </a>
       {secondary && (
         <a
           href={secondary.href}
-          class="inline-flex items-center rounded-full border border-slate-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
+          class="inline-flex items-center rounded-full border border-slate-500 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800 hover:text-white"
         >
           {secondary.label}
         </a>

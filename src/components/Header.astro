@@ -41,8 +41,8 @@ const isActive = (href: string) => {
               <a
                 href={item.href}
                 class:list={[
-                  "rounded-lg px-3 py-1.5",
-                  isActive(item.href) ? "bg-slate-900 text-white" : "hover:bg-slate-100"
+                  "rounded-lg border border-transparent px-3 py-1.5 transition",
+                  isActive(item.href) ? "nav-active" : "hover:bg-slate-100"
                 ]}
                 aria-current={isActive(item.href) ? "page" : undefined}
               >
@@ -62,10 +62,10 @@ const isActive = (href: string) => {
             navItems.map((item) => (
               <li>
                 <a
-                  href={item.href}
-                  class:list={[
-                    "block rounded px-2 py-2",
-                    isActive(item.href) ? "bg-slate-900 text-white" : "hover:bg-slate-100"
+                href={item.href}
+                class:list={[
+                    "block rounded border border-transparent px-2 py-2 transition",
+                    isActive(item.href) ? "nav-active" : "hover:bg-slate-100"
                   ]}
                   aria-current={isActive(item.href) ? "page" : undefined}
                 >

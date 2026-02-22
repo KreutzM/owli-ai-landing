@@ -18,6 +18,13 @@ interface Props {
 }
 
 const { name, tagline, valueProp, audience, platform, status, icon, logo } = Astro.props;
+const platformBadgeClass = "badge-platform";
+const statusBadgeClass =
+  status.toLowerCase() === "prototype"
+    ? "badge-status-accent"
+    : status.toLowerCase() === "beta"
+      ? "badge-status-neutral"
+      : "badge-status-accent";
 ---
 
 <header class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
@@ -40,9 +47,9 @@ const { name, tagline, valueProp, audience, platform, status, icon, logo } = Ast
           )
         }
         <div class="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider text-slate-700">
-          <span class="rounded-full bg-slate-100 px-3 py-1">{platform}</span>
-          <span class="rounded-full bg-slate-200 px-3 py-1">{status}</span>
-          <span class="rounded-full bg-slate-100 px-3 py-1">Zielgruppe: {audience}</span>
+          <span class:list={["rounded-full px-3 py-1", platformBadgeClass]}>{platform}</span>
+          <span class:list={["rounded-full px-3 py-1", statusBadgeClass]}>{status}</span>
+          <span class="rounded-full border border-slate-200 bg-slate-100 px-3 py-1">Zielgruppe: {audience}</span>
         </div>
       </div>
 
