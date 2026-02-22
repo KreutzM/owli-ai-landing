@@ -37,19 +37,26 @@ const ensureCaption = (item: MediaItem, index: number) => item.caption?.trim() |
       items.map((item, index) => (
         <li class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <figure>
-            <picture>
-              {item.avif && <source srcset={item.avif} type="image/avif" />}
-              {item.webp && <source srcset={item.webp} type="image/webp" />}
-              <img
-                src={item.src}
-                alt={ensureAlt(item, index)}
-                width={item.width ?? 1200}
-                height={item.height ?? 675}
-                class="h-52 w-full bg-slate-50 object-contain p-6"
-                loading="lazy"
-                decoding="async"
-              />
-            </picture>
+            <div
+              class:list={[
+                "flex items-center justify-center bg-slate-50",
+                (item.height ?? 0) > (item.width ?? 0) ? "h-[22rem] p-2 sm:h-[27rem] sm:p-3" : "h-56 p-3 sm:h-64"
+              ]}
+            >
+              <picture class="block h-full w-full">
+                {item.avif && <source srcset={item.avif} type="image/avif" />}
+                {item.webp && <source srcset={item.webp} type="image/webp" />}
+                <img
+                  src={item.src}
+                  alt={ensureAlt(item, index)}
+                  width={item.width ?? 1200}
+                  height={item.height ?? 675}
+                  class="h-full w-full object-contain"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </div>
             <figcaption class="border-t border-slate-200 px-4 py-3 text-sm text-slate-700">{ensureCaption(item, index)}</figcaption>
           </figure>
         </li>
