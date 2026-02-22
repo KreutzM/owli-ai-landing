@@ -28,6 +28,7 @@ const items =
 
 const ensureAlt = (item: MediaItem, index: number) => item.alt?.trim() || `${appName} Screenshot ${index + 1}`;
 const ensureCaption = (item: MediaItem, index: number) => item.caption?.trim() || `Ansicht ${index + 1}`;
+const isPortrait = (item: MediaItem) => (item.height ?? 0) > (item.width ?? 0);
 ---
 
 <section aria-labelledby="media-heading" class="space-y-4">
@@ -40,10 +41,10 @@ const ensureCaption = (item: MediaItem, index: number) => item.caption?.trim() |
             <div
               class:list={[
                 "flex items-center justify-center bg-slate-50",
-                (item.height ?? 0) > (item.width ?? 0) ? "h-[22rem] p-2 sm:h-[27rem] sm:p-3" : "h-56 p-3 sm:h-64"
+                isPortrait(item) ? "h-[22rem] p-2 sm:h-[27rem] sm:p-3" : "h-56 p-3 sm:h-64"
               ]}
             >
-              <picture class="block h-full w-full">
+              <picture class="flex h-full w-full items-center justify-center">
                 {item.avif && <source srcset={item.avif} type="image/avif" />}
                 {item.webp && <source srcset={item.webp} type="image/webp" />}
                 <img
@@ -51,7 +52,10 @@ const ensureCaption = (item: MediaItem, index: number) => item.caption?.trim() |
                   alt={ensureAlt(item, index)}
                   width={item.width ?? 1200}
                   height={item.height ?? 675}
-                  class="h-full w-full object-contain"
+                  class:list={[
+                    "rounded-2xl object-contain",
+                    isPortrait(item) ? "h-full w-auto" : "h-auto w-full"
+                  ]}
                   loading="lazy"
                   decoding="async"
                 />
