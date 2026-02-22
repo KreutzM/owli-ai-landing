@@ -33,12 +33,12 @@ requirements:
   - Android 9 oder neuer
   - Kamera-Zugriff
 icon:
-  src: /apps/magnify/icon-512-transparent.png
+  src: /apps/magnify/icon-512-transparent.webp
   alt: Icon von Owli-AI Magnify
   width: 512
   height: 512
 logo:
-  src: /apps/magnify/logo-1024-transparent.png
+  src: /apps/magnify/logo-1024-transparent.webp
   alt: Owli-AI Magnify Wort-Bildmarke
   width: 1024
   height: 1024
