@@ -33,7 +33,7 @@ const { name, tagline, valueProp, audience, platform, status, icon, logo } = Ast
               alt={icon.alt || `Icon von ${name}`}
               width={icon.width ?? 512}
               height={icon.height ?? 512}
-              class="h-16 w-16 rounded-2xl border border-slate-200 bg-slate-50 p-2 object-contain"
+              class="h-20 w-20 rounded-2xl border border-slate-200 bg-slate-50 p-2.5 object-contain sm:h-24 sm:w-24"
               loading="eager"
               decoding="async"
             />
@@ -53,7 +53,7 @@ const { name, tagline, valueProp, audience, platform, status, icon, logo } = Ast
             alt={logo.alt || `${name} Logo`}
             width={logo.width ?? 1024}
             height={logo.height ?? 1024}
-            class="hidden h-16 w-16 rounded object-contain xl:block"
+            class="hidden h-32 w-32 rounded object-contain lg:block xl:h-40 xl:w-40"
             loading="eager"
             decoding="async"
           />
