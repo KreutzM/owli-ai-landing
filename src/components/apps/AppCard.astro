@@ -34,7 +34,7 @@ const iconHeight = app.data.icon?.height ?? 64;
       alt={iconAlt}
       width={iconWidth}
       height={iconHeight}
-      class="h-20 w-20 rounded-xl border border-slate-200 bg-slate-50 p-2.5 object-contain sm:h-[90px] sm:w-[90px]"
+      class="h-20 w-20 rounded-xl object-contain drop-shadow-sm sm:h-[90px] sm:w-[90px]"
     />
     <div class="flex flex-wrap justify-end gap-2">
       <span class:list={["rounded-full px-3 py-1 text-xs font-semibold", platformBadgeClass]}>{app.data.platform}</span>
