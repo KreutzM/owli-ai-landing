@@ -9,21 +9,20 @@ const appsAndroid = apps.filter((app) => app.data.platform === "Android");
 const appsWindows = apps.filter((app) => app.data.platform === "Windows");
 ---
 
-<BaseLayout title="Apps" description="Uebersicht der Owli-AI Produktreihe mit Plattform-Filter und klaren CTAs.">
+<BaseLayout title="Apps" description="Übersicht der Owli-AI Apps mit Filter nach Plattform und Links zu Detailseiten.">
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI App-Suite</p>
-      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Fuenf Produkte, klar positioniert</h1>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Fünf Apps für mehr Selbstständigkeit</h1>
       <p class="text-lg text-slate-700">
-        Alle Karten sind content-getrieben und folgen der festen Produktreihenfolge. Der Plattformfilter funktioniert ohne JavaScript.
+        Wähle die passende App für deine Situation: Orientierung unterwegs, sehende Assistenz, Vergrößerung und Lesen, besseres
+        Sprachverständnis sowie Desktop-Unterstützung. Nutze den Filter, um Android- oder Windows-Apps zu sehen.
       </p>
     </header>
 
     <PlatformFilterNav active="all" androidCount={appsAndroid.length} windowsCount={appsWindows.length} />
 
-    <p class="text-sm text-slate-600">
-      {apps.length} Apps in der Reihenfolge: Way-Buddy, Assist, Magnify, Hear-Clean, Zoom.
-    </p>
+    <p class="text-sm text-slate-600">Aktuell umfasst die Suite {apps.length} Apps. Empfohlene Reihenfolge: Way-Buddy - Assist - Magnify - Hear-Clean - Zoom.</p>
 
     <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
