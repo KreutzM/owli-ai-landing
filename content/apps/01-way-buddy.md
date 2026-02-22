@@ -29,6 +29,16 @@ requirements:
   - Android 10 oder neuer
   - Kamera-Zugriff
   - Optional Internet fuer spaetere Cloud-Features
+icon:
+  src: /apps/way-buddy/icon-512-transparent.webp
+  alt: Icon von Owli-AI Way-Buddy
+  width: 512
+  height: 512
+logo:
+  src: /apps/way-buddy/logo-1024-transparent.webp
+  alt: Logo von Owli-AI Way-Buddy
+  width: 1024
+  height: 1024
 links:
   primary:
     label: Way-Buddy testen

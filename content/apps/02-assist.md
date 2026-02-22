@@ -31,6 +31,16 @@ requirements:
   - Android 10 oder neuer
   - Kamera und Mikrofon
   - Stabile Internetverbindung für Cloud-Mode
+icon:
+  src: /apps/assist/icon-512-transparent.webp
+  alt: Icon von Owli-AI Assist
+  width: 512
+  height: 512
+logo:
+  src: /apps/assist/logo-1024-transparent.webp
+  alt: Logo von Owli-AI Assist
+  width: 1024
+  height: 1024
 links:
   primary:
     label: Assist Cloud Mode testen

@@ -41,10 +41,10 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
               Apps entdecken
             </a>
             <a
-              href="/apps/magnify"
+              href="/apps/way-buddy"
               class="inline-flex items-center rounded-full border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 transition hover:bg-slate-100"
             >
-              Magnify entdecken
+              Way-Buddy entdecken
             </a>
           </div>
         </div>
@@ -55,7 +55,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
               alt="Owli-AI Markenlogo"
               width={512}
               height={512}
-              className="h-36 w-36 rounded-3xl border border-slate-200 bg-white p-3 object-contain shadow-sm"
+              className="h-[200px] w-[200px] rounded-3xl border border-slate-200 bg-white p-3 object-contain shadow-sm sm:h-[220px] sm:w-[220px]"
               priority={true}
             />
             <div class="space-y-1.5">
@@ -93,7 +93,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
                     alt={iconAlt}
                     width={app.data.icon?.width ?? 64}
                     height={app.data.icon?.height ?? 64}
-                    class="h-14 w-14 rounded-xl border border-slate-200 bg-slate-50 p-2 object-contain"
+                    class="h-20 w-20 rounded-xl border border-slate-200 bg-slate-50 p-2.5 object-contain sm:h-[90px] sm:w-[90px]"
                     loading="lazy"
                     decoding="async"
                   />
@@ -115,7 +115,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
                     href={`/apps/${app.data.slug}`}
                     class="inline-flex items-center rounded-full border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-100"
                   >
-                    Zur App
+                    Details ansehen
                   </a>
                 </div>
               </li>

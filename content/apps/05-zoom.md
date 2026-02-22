@@ -32,6 +32,16 @@ privacy:
 requirements:
   - Windows 10 oder neuer
   - Desktop- oder Notebook-Grafikbeschleunigung
+icon:
+  src: /apps/zoom/icon-512-transparent.webp
+  alt: Icon von Owli-AI Zoom
+  width: 512
+  height: 512
+logo:
+  src: /apps/zoom/logo-1024-transparent.webp
+  alt: Logo von Owli-AI Zoom
+  width: 1024
+  height: 1024
 links:
   primary:
     label: Zoom Roadmap anfragen

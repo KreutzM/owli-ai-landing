@@ -32,6 +32,16 @@ privacy:
 requirements:
   - Android 10 oder neuer
   - Mikrofon-Zugriff
+icon:
+  src: /apps/hear-clean/icon-512-transparent.webp
+  alt: Icon von Owli-AI Hear-Clean
+  width: 512
+  height: 512
+logo:
+  src: /apps/hear-clean/logo-1024-transparent.webp
+  alt: Logo von Owli-AI Hear-Clean
+  width: 1024
+  height: 1024
 links:
   primary:
     label: Hear-Clean testen

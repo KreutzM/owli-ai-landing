@@ -20,7 +20,7 @@ const statusBadgeClass =
       : "bg-slate-200 text-slate-900";
 
 const valueLine = app.data.valueProp || app.data.tagline;
-const primaryCta = app.data.links.primary ?? { label: "Zur App-Seite", href: `/apps/${app.data.slug}` };
+const primaryCta = app.data.links.primary ?? { label: "Details ansehen", href: `/apps/${app.data.slug}` };
 const iconSrc = app.data.icon?.src ?? `/apps/${app.data.slug}/icon-placeholder.svg`;
 const iconAlt = app.data.icon?.alt?.trim() || `Icon von ${app.data.name}`;
 const iconWidth = app.data.icon?.width ?? 64;
@@ -34,7 +34,7 @@ const iconHeight = app.data.icon?.height ?? 64;
       alt={iconAlt}
       width={iconWidth}
       height={iconHeight}
-      class="h-16 w-16 rounded-xl border border-slate-200 bg-slate-50 p-2 object-contain"
+      class="h-20 w-20 rounded-xl border border-slate-200 bg-slate-50 p-2.5 object-contain sm:h-[90px] sm:w-[90px]"
     />
     <div class="flex flex-wrap justify-end gap-2">
       <span class:list={["rounded-full px-3 py-1 text-xs font-semibold", platformBadgeClass]}>{app.data.platform}</span>
