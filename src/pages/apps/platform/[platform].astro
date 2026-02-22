@@ -8,11 +8,9 @@ export async function getStaticPaths() {
   return [{ params: { platform: "android" } }, { params: { platform: "windows" } }];
 }
 
-interface Props {
-  platform: Exclude<PlatformFilter, "all">;
-}
+const platformParam = Astro.params.platform;
+const platform: Exclude<PlatformFilter, "all"> = platformParam === "windows" ? "windows" : "android";
 
-const { platform } = Astro.props;
 const apps = filterAppsByPlatform(await getApps(), platform);
 const platformTitle = platform === "android" ? "Android" : "Windows";
 ---
