@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BrandLogo from "../components/BrandLogo.astro";
+import GptCard from "../components/gpts/GptCard.astro";
 import { render } from "astro:content";
-import { getApps, getSiteBySlug } from "../lib/content";
+import { getApps, getGpts, getSiteBySlug } from "../lib/content";
 
 const apps = await getApps();
+const gpts = (await getGpts()).slice(0, 3);
 const homeEntry = await getSiteBySlug("home");
 const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
 ---
@@ -73,6 +75,27 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
       {HomeContent ? <div class="content-markdown"><HomeContent /></div> : <p>Inhalte werden vorbereitet.</p>}
     </section>
 
+    <section aria-labelledby="gpts-teaser-title" class="space-y-4">
+      <div class="flex flex-wrap items-end justify-between gap-3">
+        <h2 id="gpts-teaser-title" class="text-3xl font-semibold tracking-tight">Auch als Custom GPTs verfuegbar</h2>
+        <a class="text-sm font-semibold underline underline-offset-2" href="/gpts">
+          Alle GPTs ansehen
+        </a>
+      </div>
+      <p class="text-base text-slate-700">
+        Ergaenzend zur App-Suite stehen spezialisierte Custom GPTs in ChatGPT zur Verfuegung.
+      </p>
+      <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          gpts.map((gpt) => (
+            <li>
+              <GptCard gpt={gpt} compact={true} />
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
     <section aria-labelledby="apps-overview-title" class="space-y-4">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <h2 id="apps-overview-title" class="text-3xl font-semibold tracking-tight">Apps im Ueberblick</h2>
@@ -133,5 +156,3 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
     </section>
   </section>
 </BaseLayout>
-
-

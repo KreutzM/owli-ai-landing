@@ -29,6 +29,18 @@ export async function getApps(): Promise<CollectionEntry<"apps">[]> {
   });
 }
 
+export async function getGpts(): Promise<CollectionEntry<"gpts">[]> {
+  const gpts = await getCollection("gpts");
+
+  return gpts.sort((a, b) => {
+    if (a.data.order !== b.data.order) {
+      return a.data.order - b.data.order;
+    }
+
+    return a.data.name.localeCompare(b.data.name, "de");
+  });
+}
+
 export function isPlatformFilter(value: string): value is PlatformFilter {
   return PLATFORM_FILTERS.includes(value as PlatformFilter);
 }

@@ -80,6 +80,31 @@ const apps = defineCollection({
   })
 });
 
+const gpts = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/gpts" }),
+  schema: z.object({
+    slug: z.string(),
+    order: z.number().int().positive(),
+    name: z.string(),
+    link: z.string().url(),
+    shortDescription: z.string(),
+    audienceBadges: z.array(z.string()).default([]),
+    typicalQuestions: z.array(z.string()).default([]),
+    limits: z.string(),
+    icon: appImage.optional(),
+    seo: z
+      .object({
+        title: z.string().optional(),
+        description: z.string(),
+        keywords: z.union([z.array(z.string()), z.string()]).optional(),
+        ogImage: z.string().optional()
+      })
+      .default({
+        description: "Details zu diesem Custom GPT folgen."
+      })
+  })
+});
+
 const site = defineCollection({
   loader: glob({ pattern: "*.md", base: "./content/site" }),
   schema: z.object({})
@@ -87,5 +112,6 @@ const site = defineCollection({
 
 export const collections = {
   apps,
+  gpts,
   site
 };

@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import GptCard from "../../components/gpts/GptCard.astro";
+import { getGpts } from "../../lib/content";
+
+const gpts = await getGpts();
+---
+
+<BaseLayout
+  title="Owli-AI GPTs in ChatGPT"
+  description="Übersicht der Owli-AI Custom GPTs in ChatGPT: Sozialberater Hessen, SeeForMe und TI-1 Tutor für Blinde."
+  keywords={["Custom GPT", "ChatGPT", "Sozialberater Hessen", "SeeForMe", "Technische Informatik Tutor"]}
+>
+  <section class="space-y-8">
+    <header class="max-w-4xl space-y-3">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Custom GPTs</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Owli-AI GPTs</h1>
+      <p class="text-lg text-slate-700">
+        Diese Seite bündelt ausgewählte Custom GPTs, die du direkt in ChatGPT nutzen kannst.
+      </p>
+      <p class="text-base text-slate-700">
+        Jeder GPT hat einen klaren Fokus, einen schnellen Einstieg und transparent benannte Grenzen.
+      </p>
+    </header>
+
+    <p class="text-sm text-slate-600">
+      Aktuell verfügbar: {gpts.length} GPTs. Weitere GPTs können in derselben Struktur ergänzt werden.
+    </p>
+
+    <ol class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+      {
+        gpts.map((gpt) => (
+          <li>
+            <GptCard gpt={gpt} />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>
