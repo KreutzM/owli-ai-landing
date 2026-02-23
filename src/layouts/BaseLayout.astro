@@ -6,6 +6,7 @@ import "../styles/global.css";
 interface Props {
   title?: string;
   description?: string;
+  keywords?: string[] | string;
   ogType?: "website" | "article";
   ogImage?: string;
 }
@@ -13,6 +14,7 @@ interface Props {
 const {
   title,
   description = "Owli-AI App-Suite: Assistenz-Apps fuer mehr Selbststaendigkeit auf Android und Windows.",
+  keywords,
   ogType = "website",
   ogImage = "/og/owli-default-og.svg"
 } = Astro.props;
@@ -21,6 +23,7 @@ const siteName = "Owli-AI";
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
 const ogImageUrl = ogImage.startsWith("http") ? ogImage : new URL(ogImage, Astro.site ?? Astro.url).toString();
+const pageKeywords = Array.isArray(keywords) ? keywords.join(", ") : keywords;
 ---
 
 <!doctype html>
@@ -30,6 +33,7 @@ const ogImageUrl = ogImage.startsWith("http") ? ogImage : new URL(ogImage, Astro
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
+    {pageKeywords && <meta name="keywords" content={pageKeywords} />}
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0f172a" />
     <link rel="canonical" href={canonicalUrl} />

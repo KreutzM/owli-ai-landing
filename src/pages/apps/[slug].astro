@@ -29,15 +29,29 @@ const features = app.data.features;
 const requirements = app.data.requirements;
 const media = app.data.media;
 const privacy = app.data.privacy;
-const seoTitle = `${app.data.name} (${app.data.platform})`;
-const seoDescription = app.data.seo.description ?? app.data.valueProp ?? app.data.tagline ?? "Produktdetails folgen.";
+const seoTitle = app.data.seo.title ?? `${app.data.name} (${app.data.platform})`;
+const seoDescription = app.data.seo.description;
+const seoKeywords = app.data.seo.keywords;
 const seoOgImage = app.data.seo.ogImage ?? app.data.featureGraphic?.src ?? "/og/owli-default-og.svg";
+const appUrl = new URL(`/apps/${app.data.slug}/`, Astro.site ?? Astro.url).toString();
+const softwareApplicationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: app.data.name,
+  operatingSystem: app.data.platform,
+  applicationCategory: "AssistiveApplication",
+  description: seoDescription,
+  url: appUrl
+};
 
 const primaryCta = app.data.links.primary ?? { label: `${app.data.name} testen`, href: "/support" };
 const secondaryCta = app.data.links.secondary ?? { label: "Zur App-Uebersicht", href: "/apps" };
 ---
 
-<BaseLayout title={seoTitle} description={seoDescription} ogType="article" ogImage={seoOgImage}>
+<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article" ogImage={seoOgImage}>
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(softwareApplicationJsonLd)} />
+  </Fragment>
   <article class="space-y-8">
     <AppHero
       name={app.data.name}

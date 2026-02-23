@@ -69,10 +69,14 @@ const apps = defineCollection({
       .default([]),
     seo: z
       .object({
-        description: z.string().optional(),
+        title: z.string().optional(),
+        description: z.string(),
+        keywords: z.union([z.array(z.string()), z.string()]).optional(),
         ogImage: z.string().optional()
       })
-      .default({})
+      .default({
+        description: "Produktdetails folgen."
+      })
   })
 });
 

@@ -4,31 +4,31 @@ order: 3
 name: Owli-AI Magnify
 platform: Android
 status: MVP
-tagline: Die Lupe für alles, was im Alltag zu klein ist.
-valueProp: Vergrößerung, Kontrast-Filter und Vorlesen - die Lupe für den Alltag auf deinem Android-Smartphone.
+tagline: Die Lupe fuer alles, was im Alltag zu klein ist.
+valueProp: Vergroesserung, Kontrast-Filter und Vorlesen - die Lupe fuer den Alltag auf deinem Android-Smartphone.
 audience: Sehbehindert (Low Vision)
 cloud: no
 features:
-  - title: Live-Vergrößerung
-    description: Stufenloser Zoom über Geste oder Slider - ideal für Preisschilder, Aufdrucke und kleine Details.
+  - title: Live-Vergroesserung
+    description: Stufenloser Zoom ueber Geste oder Slider - ideal fuer Preisschilder, Aufdrucke und kleine Details.
   - title: Kontrast- und Farbfilter
     description: Umschaltbare Modi wie Graustufen, hoher Kontrast oder invertierte Farben, damit Text sich vom Hintergrund abhebt.
   - title: Licht & Blitzsteuerung
     description: Taschenlampen-Modus und Bildschirm-Licht, um auch in schlecht beleuchteten Situationen lesbare Bilder zu erhalten.
   - title: Bild einfrieren & scharfstellen
-    description: Mit einem Tippen frierst du das aktuelle Bild ein, kannst in Ruhe nachjustieren und Details betrachten, ohne das Smartphone perfekt ruhig halten zu müssen.
-  - title: Vergrößerungsspiegel mit Frontkamera
-    description: Nutze die Frontkamera deines Smartphones als digitalen Spiegel. Ideal für Make-up, Rasur, Kontaktlinsen oder das Kontrollieren kleiner Details im Gesicht - mit Zoom und Kontrast-Filter für maximale Sichtbarkeit.
+    description: Mit einem Tippen frierst du das aktuelle Bild ein, kannst in Ruhe nachjustieren und Details betrachten, ohne das Smartphone perfekt ruhig halten zu muessen.
+  - title: Vergroesserungsspiegel mit Frontkamera
+    description: Nutze die Frontkamera deines Smartphones als digitalen Spiegel. Ideal fuer Make-up, Rasur, Kontaktlinsen oder das Kontrollieren kleiner Details im Gesicht - mit Zoom und Kontrast-Filter fuer maximale Sichtbarkeit.
   - title: Text erkennen (OCR) & vorlesen
-    description: Auf dem eingefrorenen Bild wird Text erkannt und anschließend per Sprachausgabe vorgelesen - praktisch, wenn Lesen anstrengend ist.
-  - title: Profile für verschiedene Situationen
+    description: Auf dem eingefrorenen Bild wird Text erkannt und anschliessend per Sprachausgabe vorgelesen - praktisch, wenn Lesen anstrengend ist.
+  - title: Profile fuer verschiedene Situationen
     description: Speichere deine Lieblings-Einstellungen (Zoom, Filter, Licht) als Profile, z. B. Supermarkt, Dokumente oder Abendlicht, damit du sie mit einem Tippen wechseln kannst.
   - title: Barrierefreie Bedienung
-    description: Große Bedienelemente, klare Symbole und Unterstützung für TalkBack machen die Nutzung auch mit geringer Sehkraft möglich.
+    description: Grosse Bedienelemente, klare Symbole und Unterstuetzung fuer TalkBack machen die Nutzung auch mit geringer Sehkraft moeglich.
 privacy:
   mode: local
-  summary: Owli-AI Magnify verarbeitet die Kamerabilder nur lokal auf deinem Gerät, um Vergrößerung, Filter und Texterkennung bereitzustellen. Es werden keine Bilder oder Texte an einen Server gesendet.
-  note: Die Verarbeitung erfolgt vollständig lokal auf dem Gerät.
+  summary: Owli-AI Magnify verarbeitet die Kamerabilder nur lokal auf deinem Geraet, um Vergroesserung, Filter und Texterkennung bereitzustellen. Es werden keine Bilder oder Texte an einen Server gesendet.
+  note: Die Verarbeitung erfolgt vollstaendig lokal auf dem Geraet.
 requirements:
   - Android 9 oder neuer
   - Kamera-Zugriff
@@ -92,63 +92,74 @@ media:
     width: 1080
     height: 2340
 seo:
-  description: Owli-AI Magnify ist eine mobile Lupen-App für Android. Sie vergrößert Texte und Objekte in Echtzeit, verbessert den Kontrast, liest eingefrorene Bilder per OCR vor und speichert deine Lieblings-Einstellungen als Profile.
+  title: Lupe App Android mit Vergroesserung, OCR und Vorlesen
+  description: Owli-AI Magnify ist eine Lupe App fuer Android mit starker Vergroesserung, Kontrastfilter, OCR vorlesen und Vergroesserungsspiegel ueber die Frontkamera.
+  keywords:
+    - Lupe App Android
+    - Vergroesserung
+    - Kontrastfilter
+    - OCR vorlesen
+    - Vergroesserungsspiegel
   ogImage: /apps/magnify/feature-graphic-1024x500.png
 ---
 
-## Für wen ist Owli-AI Magnify?
+## Fuer wen ist Owli-AI Magnify?
 
-Owli-AI Magnify richtet sich an Menschen mit Sehbehinderung oder Low-Vision, die im Alltag häufig zu kleinen oder kontrastarmen Texten und Objekten begegnen:
+Owli-AI Magnify richtet sich an Menschen mit Sehbehinderung oder Low-Vision, die im Alltag haeufig zu kleinen oder kontrastarmen Texten und Objekten begegnen:
+
+Wenn du eine Lupe App Android fuer klare Vergroesserung brauchst, kombiniert Magnify Zoom, Kontrastfilter und OCR vorlesen in einer barrierearmen Bedienung. Zusaetzlich kannst du den Vergroesserungsspiegel mit Frontkamera nutzen, um Details im Gesicht besser zu erkennen.
 
 - Beipackzettel und Rechnungen  
-- Preisschilder und Fahrpläne  
-- Bedienungsanleitungen oder Beschriftungen in Küche, Bad und Haushalt  
+- Preisschilder und Fahrplaene  
+- Bedienungsanleitungen oder Beschriftungen in Kueche, Bad und Haushalt  
 
-Mit der Frontkamera kannst du Owli-AI Magnify außerdem als Vergrößerungsspiegel nutzen, zum Beispiel für:
+Mit der Frontkamera kannst du Owli-AI Magnify ausserdem als Vergroesserungsspiegel nutzen, zum Beispiel fuer:
 
 - Make-up auftragen oder Rasur  
-- Kontaktlinsen einsetzen oder Augen prüfen  
+- Kontaktlinsen einsetzen oder Augen pruefen  
 - Augenbrauen zupfen oder Bartkonturen kontrollieren  
 - Hautstellen im Gesicht genauer ansehen  
-- Fremdkörper am Auge erkennen  
-- Zähne und Zahnzwischenräume prüfen  
+- Fremdkoerper am Auge erkennen  
+- Zaehne und Zahnzwischenraeume pruefen  
 - Lippenstift-Konturen kontrollieren  
 - Wimpern tuschen und Lidstrich setzen  
-- Spliss oder Haaransatz am Spiegel prüfen  
+- Spliss oder Haaransatz am Spiegel pruefen  
 - Kleine Verletzungen reinigen und kontrollieren  
 - Pflaster oder Verband am Gesicht korrekt anbringen  
-- Hautpflege präzise auftragen  
+- Hautpflege praezise auftragen  
 
-Statt separate Lupen mitzunehmen, nutzt du einfach dein Smartphone - mit Funktionen, die speziell für barrierefreie Nutzung optimiert wurden.
+Statt separate Lupen mitzunehmen, nutzt du einfach dein Smartphone - mit Funktionen, die speziell fuer barrierefreie Nutzung optimiert wurden.
 
-## Was löst die App für dich?
+## Was loest die App fuer dich?
 
-Viele Standard-Lupen-Apps sind entweder zu minimal oder zu überladen.  
+Viele Standard-Lupen-Apps sind entweder zu minimal oder zu ueberladen.  
 Owli-AI Magnify konzentriert sich auf drei Dinge:
 
-1. **Klar vergrößern:** Stufenloser Zoom mit Bildstabilisierung, damit das Bild ruhig bleibt.  
+1. **Klar vergroessern:** Stufenloser Zoom mit Bildstabilisierung, damit das Bild ruhig bleibt.  
 2. **Besser lesbar machen:** Kontrast- und Farbfilter heben Text und Kanten hervor, auch bei schlechtem Licht.  
-3. **Vorlesen statt mühsam entziffern:** Einfrieren, OCR ausführen und den Text per Sprachausgabe anhören.
+3. **Vorlesen statt muehsam entziffern:** Einfrieren, OCR ausfuehren und den Text per Sprachausgabe anhoeren.
 
 ## So funktioniert Owli-AI Magnify
 
-1. **Kamera öffnen und ausrichten**  
-   Starte Owli-AI Magnify und richte die Kamera auf den Text oder das Objekt, das du vergrößern willst.
+1. **Kamera oeffnen und ausrichten**  
+   Starte Owli-AI Magnify und richte die Kamera auf den Text oder das Objekt, das du vergroessern willst.
 
-2. **Vergrößern und Kontrast anpassen**  
-   Nutze die Zoom-Geste oder den Slider, bis die Größe für dich passt. Wenn der Hintergrund stört, aktiviere einen der Kontrast- oder Farbfilter.
+2. **Vergroessern und Kontrast anpassen**  
+   Nutze die Zoom-Geste oder den Slider, bis die Groesse fuer dich passt. Wenn der Hintergrund stoert, aktiviere einen der Kontrast- oder Farbfilter.
 
 3. **Bild einfrieren**  
    Mit einem Tippen frierst du das Bild ein. So kannst du das Smartphone bequem halten und die Details ohne Wackeln betrachten.
 
 4. **Text erkennen und vorlesen lassen**  
-   Wenn Text im Bild ist, kannst du ihn erkennen lassen und dir den Inhalt per Sprachausgabe anhören.
+   Wenn Text im Bild ist, kannst du ihn erkennen lassen und dir den Inhalt per Sprachausgabe anhoeren.
 
 5. **Profile nutzen**  
-   Speichere Einstellungen, die für dich gut funktionieren, als Profile. So wechselst du schnell zwischen verschiedenen Alltagssituationen, ohne jedes Mal neu justieren zu müssen.
+   Speichere Einstellungen, die fuer dich gut funktionieren, als Profile. So wechselst du schnell zwischen verschiedenen Alltagssituationen, ohne jedes Mal neu justieren zu muessen.
 
 ## Datenschutz & Verarbeitung
 
-Owli-AI Magnify verarbeitet die Kamerabilder **nur lokal** auf deinem Gerät, um Vergrößerung, Filter und Texterkennung bereitzustellen. Es werden **keine Bilder oder Texte an einen Server gesendet**.
+Owli-AI Magnify verarbeitet die Kamerabilder **nur lokal** auf deinem Geraet, um Vergroesserung, Filter und Texterkennung bereitzustellen. Es werden **keine Bilder oder Texte an einen Server gesendet**.
 
-Die App speichert nur Einstellungen und Profile auf deinem Gerät, damit du sie später wiederverwenden kannst.
+Die App speichert nur Einstellungen und Profile auf deinem Geraet, damit du sie spaeter wiederverwenden kannst.
+
+
