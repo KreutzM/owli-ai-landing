@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://owli-ai.com/sitemap.xml
