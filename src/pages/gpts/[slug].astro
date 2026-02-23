@@ -1,0 +1,148 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BrandLogo from "../../components/BrandLogo.astro";
+import { getGpts } from "../../lib/content";
+
+export async function getStaticPaths() {
+  const gpts = await getGpts();
+
+  return gpts.map((gpt) => ({
+    params: { slug: gpt.data.slug },
+    props: { gpt }
+  }));
+}
+
+interface Props {
+  gpt: CollectionEntry<"gpts">;
+}
+
+const { gpt } = Astro.props;
+const seoTitle = gpt.data.seo.title ?? `${gpt.data.name} in ChatGPT`;
+const seoDescription = gpt.data.seo.description;
+const seoKeywords = gpt.data.seo.keywords;
+const iconSrc = gpt.data.icon?.src;
+const iconAlt = gpt.data.icon?.alt?.trim() || `Icon von ${gpt.data.name}`;
+const bodyText = gpt.body ?? "";
+const wofuerMatch = bodyText.match(/##\s+Wofür ist das\?\s*([\s\S]*?)(?:\n##\s+|$)/u);
+const quickstartIntro = (wofuerMatch?.[1] ?? gpt.data.shortDescription).replace(/\s+/g, " ").trim();
+const whenHelpMatch = bodyText.match(/##\s+Wann hilft das\?\s*([\s\S]*?)(?:\n##\s+|$)/u);
+const useCasePrompts = (whenHelpMatch?.[1] ?? "")
+  .split("\n")
+  .map((line) => line.trim())
+  .filter((line) => line.startsWith("- "))
+  .map((line) => line.replace(/^-+\s*/, "").trim())
+  .map((line) => line.replace(/[.!?]\s*$/u, ""))
+  .slice(0, 3)
+  .map((useCase) => `Bitte unterstütze mich dabei: ${useCase}.`);
+const quickstartPrompts =
+  useCasePrompts.length > 0
+    ? useCasePrompts
+    : gpt.data.typicalQuestions.slice(0, 3).map((question) => `Bitte starte mit dieser Frage: ${question}`);
+const limitsCalloutClass =
+  gpt.data.slug === "sozialberater-hessen"
+    ? "border-amber-300 bg-amber-50 text-amber-950"
+    : "border-sky-200 bg-sky-50 text-slate-800";
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords}>
+  <article class="space-y-8">
+    <header class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Custom GPT</p>
+      <div class="mt-3 flex flex-wrap items-center gap-4">
+        {
+          iconSrc ? (
+            <img
+              src={iconSrc}
+              alt={iconAlt}
+              width={gpt.data.icon?.width ?? 64}
+              height={gpt.data.icon?.height ?? 64}
+              class="h-16 w-16 rounded-xl object-contain drop-shadow-sm"
+              loading="lazy"
+              decoding="async"
+            />
+          ) : (
+            <BrandLogo
+              alt={`Owli-AI Symbol für ${gpt.data.name}`}
+              width={64}
+              height={64}
+              className="h-16 w-16 rounded-xl object-contain drop-shadow-sm"
+            />
+          )
+        }
+        <h1 class="text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{gpt.data.name}</h1>
+      </div>
+      <p class="mt-4 text-base text-slate-700">{gpt.data.shortDescription}</p>
+      <ul class="mt-4 flex flex-wrap gap-2" aria-label="Tags">
+        {
+          gpt.data.audienceBadges.map((badge) => (
+            <li>
+              <span class="badge-platform rounded-full px-3 py-1 text-xs font-semibold">{badge}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </header>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="schnellstart-title">
+      <h2 id="schnellstart-title" class="text-2xl font-semibold tracking-tight">Schnellstart</h2>
+      <p class="mt-3 text-slate-700">
+        {quickstartIntro}
+      </p>
+      <ol class="mt-4 space-y-3 text-slate-700">
+        <li>
+          <span class="font-semibold">Öffnen:</span> Öffne den GPT über den ChatGPT-Link.
+        </li>
+        <li>
+          <span class="font-semibold">Kontext geben:</span> Beschreibe kurz deine Situation, damit der GPT zielgerichtet antworten kann.
+        </li>
+        <li>
+          <span class="font-semibold">Frage stellen:</span> Starte mit einer konkreten Frage oder Aufgabe.
+        </li>
+      </ol>
+      {quickstartPrompts.length > 0 && (
+        <>
+          <h3 class="mt-5 text-lg font-semibold tracking-tight">Beispiel-Prompts</h3>
+          <ul class="mt-2 list-disc space-y-2 pl-5 text-slate-700">
+            {quickstartPrompts.map((prompt) => <li>{prompt}</li>)}
+          </ul>
+        </>
+      )}
+    </section>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="typische-fragen-title">
+      <h2 id="typische-fragen-title" class="text-2xl font-semibold tracking-tight">Typische Fragen</h2>
+      <ul class="mt-3 list-disc space-y-2 pl-5 text-slate-700">
+        {gpt.data.typicalQuestions.map((question) => <li>{question}</li>)}
+      </ul>
+    </section>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="grenzen-title">
+      <h2 id="grenzen-title" class="text-2xl font-semibold tracking-tight">Grenzen und Datenschutz</h2>
+      <aside class:list={["mt-3 rounded-xl border p-4", limitsCalloutClass]} aria-label="Hinweis zu Grenzen und Datenschutz">
+        <p class="text-sm font-semibold uppercase tracking-wide">Wichtiger Hinweis</p>
+        <p class="mt-2 text-base">{gpt.data.limits}</p>
+      </aside>
+    </section>
+
+    <section class="space-y-2">
+      <div class="flex flex-wrap gap-3">
+        <a
+          href={gpt.data.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-brand inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
+        >
+          In ChatGPT öffnen
+        </a>
+        <a
+          href="/gpts"
+          class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
+        >
+          Zurück zu GPTs
+        </a>
+      </div>
+      <p class="text-sm text-slate-600">Benötigt einen ChatGPT-Account.</p>
+    </section>
+  </article>
+</BaseLayout>
