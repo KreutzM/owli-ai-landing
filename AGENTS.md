@@ -37,3 +37,11 @@ Baue eine schnelle, barrierefreie Marketing-/Info-Webseite für die Owli‑AI Ap
 - Kleine, reviewbare Änderungen.
 - Erst Plan + betroffene Dateien nennen, dann implementieren.
 - Bestehende Inhalte nicht ohne Grund löschen; lieber migrieren.
+
+## Commit- und Push-Disziplin (Codex)
+- Arbeite in kleinen, thematisch klaren Commits (ein Zweck pro Commit).
+- Committe regelmaessig nach abgeschlossenen Teilzielen (z. B. Content-Modell, UI, Copy, Validierungsfixes).
+- Nutze praezise Commit-Messages im Format `type(scope): kurzbeschreibung`.
+- Vor jedem Commit die relevanten Checks ausfuehren (`pnpm lint`, `pnpm build`, falls vorhanden).
+- Vermeide grosse Sammel- oder WIP-Commits; splitte grosse Aufgaben in reviewbare Schritte.
+- Pushe an geeigneten Zwischenpunkten (z. B. nach einem abgeschlossenen, gruen validierten Commit-Block) und spaetestens zum Abschluss.
