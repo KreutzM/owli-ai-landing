@@ -3,6 +3,14 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getApps } from "../../lib/content";
 import AppCard from "../../components/apps/AppCard.astro";
 import PlatformFilterNav from "../../components/apps/PlatformFilterNav.astro";
+import { type LangPrefix, type SiteLang } from "../../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
 
 const apps = await getApps();
 const appsAndroid = apps.filter((app) => app.data.platform === "Android");
@@ -13,6 +21,8 @@ const appsWindows = apps.filter((app) => app.data.platform === "Windows");
   title="Assistenz-Apps fuer Android und Windows"
   description="Entdecke die Owli-AI Apps fuer Android und Windows: Orientierungshilfe, Bildbeschreibung, Lupe mit OCR, Live-Transkription und Desktop-Lupe fuer Menschen mit Seh- oder Hoerbeeintraechtigung."
   keywords={["Assistenz Apps Android", "Assistenz Apps Windows", "Sehbeeintraechtigung", "Hoerbeeintraechtigung", "Bildbeschreibung App", "Live Transkription", "Desktop Lupe"]}
+  lang={lang}
+  pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
@@ -24,7 +34,7 @@ const appsWindows = apps.filter((app) => app.data.platform === "Windows");
       </p>
     </header>
 
-    <PlatformFilterNav active="all" androidCount={appsAndroid.length} windowsCount={appsWindows.length} />
+    <PlatformFilterNav active="all" androidCount={appsAndroid.length} windowsCount={appsWindows.length} pathPrefix={pathPrefix} />
 
     <p class="text-base text-slate-700">
       Die Suite umfasst Android- und Windows-Apps fuer Menschen mit Seh- oder Hoerbeeintraechtigung und kombiniert mobile sowie Desktop-Assistenz in einem klaren System.
@@ -36,7 +46,7 @@ const appsWindows = apps.filter((app) => app.data.platform === "Windows");
       {
         apps.map((app) => (
           <li>
-            <AppCard app={app} />
+            <AppCard app={app} pathPrefix={pathPrefix} />
           </li>
         ))
       }

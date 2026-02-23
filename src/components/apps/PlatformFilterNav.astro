@@ -1,13 +1,15 @@
 ---
 import type { PlatformFilter } from "../../lib/content";
+import { withPrefix, type LangPrefix } from "../../lib/i18n";
 
 interface Props {
   active: PlatformFilter;
   androidCount?: number;
   windowsCount?: number;
+  pathPrefix?: LangPrefix;
 }
 
-const { active, androidCount, windowsCount } = Astro.props;
+const { active, androidCount, windowsCount, pathPrefix = "" } = Astro.props;
 
 // Hide platform tabs when there are no apps for that platform.
 // Keep the active tab visible to avoid confusing navigation states.
@@ -15,9 +17,9 @@ const showAndroid = androidCount === undefined ? true : androidCount > 0 || acti
 const showWindows = windowsCount === undefined ? true : windowsCount > 0 || active === "windows";
 
 const filters = [
-  { key: "all", label: "Alle", href: "/apps" },
-  ...(showAndroid ? [{ key: "android", label: "Android", href: "/apps/platform/android" } as const] : []),
-  ...(showWindows ? [{ key: "windows", label: "Windows", href: "/apps/platform/windows" } as const] : [])
+  { key: "all", label: "Alle", href: withPrefix("/apps", pathPrefix) },
+  ...(showAndroid ? [{ key: "android", label: "Android", href: withPrefix("/apps/platform/android", pathPrefix) } as const] : []),
+  ...(showWindows ? [{ key: "windows", label: "Windows", href: withPrefix("/apps/platform/windows", pathPrefix) } as const] : [])
 ] as const;
 ---
 

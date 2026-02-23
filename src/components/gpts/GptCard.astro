@@ -1,14 +1,16 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import BrandLogo from "../BrandLogo.astro";
+import { withPrefix, type LangPrefix } from "../../lib/i18n";
 
 interface Props {
   gpt: CollectionEntry<"gpts">;
   compact?: boolean;
+  pathPrefix?: LangPrefix;
 }
 
-const { gpt, compact = false } = Astro.props;
-const detailsHref = `/gpts/${gpt.data.slug}`;
+const { gpt, compact = false, pathPrefix = "" } = Astro.props;
+const detailsHref = withPrefix(`/gpts/${gpt.data.slug}`, pathPrefix);
 const iconSrc = gpt.data.icon?.src;
 const iconAlt = gpt.data.icon?.alt?.trim() || `Icon von ${gpt.data.name}`;
 const iconWidth = gpt.data.icon?.width ?? 64;

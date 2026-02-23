@@ -2,12 +2,20 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { render } from "astro:content";
 import { getSiteBySlug } from "../lib/content";
+import { type LangPrefix, type SiteLang } from "../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
 
 const supportEntry = await getSiteBySlug("support");
 const SupportContent = supportEntry ? (await render(supportEntry)).Content : null;
 ---
 
-<BaseLayout title="Support" description="Support-Informationen zur Owli-AI App-Suite.">
+<BaseLayout title="Support" description="Support-Informationen zur Owli-AI App-Suite." lang={lang} pathPrefix={pathPrefix}>
   <section class="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
     {SupportContent ? (
       <div class="content-markdown">

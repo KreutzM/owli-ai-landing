@@ -2,6 +2,14 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TeamCard from "../../components/team/TeamCard.astro";
 import { getTeam } from "../../lib/content";
+import { type LangPrefix, type SiteLang } from "../../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
 
 const team = await getTeam();
 ---
@@ -10,6 +18,8 @@ const team = await getTeam();
   title="Team"
   description="Das Owli-AI Team im Umfeld der Technischen Hochschule Mittelhessen (THM)."
   keywords={["Owli-AI Team", "THM", "Assistive Systems", "Forschung"]}
+  lang={lang}
+  pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">

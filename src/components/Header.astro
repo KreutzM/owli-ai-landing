@@ -1,5 +1,18 @@
 ---
 import BrandLogo from "./BrandLogo.astro";
+import {
+  resolveLanguagePath,
+  withPrefix,
+  type LangPrefix,
+  type SiteLang
+} from "../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
 
 const navItems = [
   { href: "/", label: "Start" },
@@ -14,6 +27,16 @@ const navItems = [
 ];
 
 const currentPath = Astro.url.pathname;
+const localizedNavItems = navItems.map((item) => ({
+  ...item,
+  href: withPrefix(item.href, pathPrefix)
+}));
+const languageOptions = (["de", "en", "es"] as const).map((code) => ({
+  code,
+  label: code.toUpperCase(),
+  href: resolveLanguagePath(currentPath, code)
+}));
+
 const isActive = (href: string) => {
   if (href === "/") {
     return currentPath === "/";
@@ -25,7 +48,11 @@ const isActive = (href: string) => {
 
 <header class="border-b border-slate-200 bg-white">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
-    <a class="flex items-center gap-2.5 font-semibold tracking-tight" href="/" aria-label="Owli-AI Startseite">
+    <a
+      class="flex items-center gap-2.5 font-semibold tracking-tight"
+      href={withPrefix("/", pathPrefix)}
+      aria-label="Owli-AI Startseite"
+    >
       <BrandLogo
         alt="Owli-AI Logo"
         width={36}
@@ -39,7 +66,7 @@ const isActive = (href: string) => {
     <nav class="hidden md:block" aria-label="Hauptnavigation">
       <ul class="flex items-center gap-3 text-[0.95rem] font-medium">
         {
-          navItems.map((item) => (
+          localizedNavItems.map((item) => (
             <li>
               <a
                 href={item.href}
@@ -57,16 +84,37 @@ const isActive = (href: string) => {
       </ul>
     </nav>
 
+    <nav aria-label="Sprachauswahl" class="hidden md:block">
+      <ul class="flex items-center gap-1 rounded-lg border border-slate-200 p-1 text-xs font-semibold">
+        {
+          languageOptions.map((option) => (
+            <li>
+              <a
+                href={option.href}
+                class:list={[
+                  "rounded px-2.5 py-1 transition",
+                  lang === option.code ? "nav-active" : "hover:bg-slate-100"
+                ]}
+                aria-current={lang === option.code ? "page" : undefined}
+              >
+                {option.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
     <details class="md:hidden">
-      <summary class="cursor-pointer rounded border border-slate-300 px-3 py-1 text-sm">Menü</summary>
+      <summary class="cursor-pointer rounded border border-slate-300 px-3 py-1 text-sm">Menue</summary>
       <nav class="absolute right-4 z-20 mt-2 w-52 rounded border border-slate-200 bg-white p-2 shadow" aria-label="Mobile Navigation">
         <ul class="space-y-1 text-sm">
           {
-            navItems.map((item) => (
+            localizedNavItems.map((item) => (
               <li>
                 <a
-                href={item.href}
-                class:list={[
+                  href={item.href}
+                  class:list={[
                     "block rounded border border-transparent px-2 py-2 transition",
                     isActive(item.href) ? "nav-active" : "hover:bg-slate-100"
                   ]}
@@ -78,6 +126,27 @@ const isActive = (href: string) => {
             ))
           }
         </ul>
+        <div class="mt-2 border-t border-slate-200 pt-2">
+          <p class="px-2 text-xs font-semibold uppercase tracking-wide text-slate-600">Sprache</p>
+          <ul class="mt-1 flex gap-1 px-2">
+            {
+              languageOptions.map((option) => (
+                <li>
+                  <a
+                    href={option.href}
+                    class:list={[
+                      "rounded px-2 py-1 text-xs font-semibold transition",
+                      lang === option.code ? "nav-active" : "hover:bg-slate-100"
+                    ]}
+                    aria-current={lang === option.code ? "page" : undefined}
+                  >
+                    {option.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </nav>
     </details>
   </div>

@@ -3,6 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BrandLogo from "../../components/BrandLogo.astro";
 import { getGpts } from "../../lib/content";
+import { withPrefix, type LangPrefix, type SiteLang } from "../../lib/i18n";
 
 export async function getStaticPaths() {
   const gpts = await getGpts();
@@ -15,16 +16,18 @@ export async function getStaticPaths() {
 
 interface Props {
   gpt: CollectionEntry<"gpts">;
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
 }
 
-const { gpt } = Astro.props;
+const { gpt, lang = "de", pathPrefix = "" } = Astro.props;
 const seoTitle = gpt.data.seo.title ?? `${gpt.data.name} in ChatGPT`;
 const seoDescription = gpt.data.seo.description;
 const seoKeywords = gpt.data.seo.keywords;
 const iconSrc = gpt.data.icon?.src;
 const iconAlt = gpt.data.icon?.alt?.trim() || `Icon von ${gpt.data.name}`;
 const bodyText = gpt.body ?? "";
-const wofuerMatch = bodyText.match(/##\s+Wofür ist das\?\s*([\s\S]*?)(?:\n##\s+|$)/u);
+const wofuerMatch = bodyText.match(/##\s+Wof(?:u|ue)r ist das\?\s*([\s\S]*?)(?:\n##\s+|$)/u);
 const quickstartIntro = (wofuerMatch?.[1] ?? gpt.data.shortDescription).replace(/\s+/g, " ").trim();
 const whenHelpMatch = bodyText.match(/##\s+Wann hilft das\?\s*([\s\S]*?)(?:\n##\s+|$)/u);
 const useCasePrompts = (whenHelpMatch?.[1] ?? "")
@@ -34,7 +37,7 @@ const useCasePrompts = (whenHelpMatch?.[1] ?? "")
   .map((line) => line.replace(/^-+\s*/, "").trim())
   .map((line) => line.replace(/[.!?]\s*$/u, ""))
   .slice(0, 3)
-  .map((useCase) => `Bitte unterstütze mich dabei: ${useCase}.`);
+  .map((useCase) => `Bitte unterstuetze mich dabei: ${useCase}.`);
 const quickstartPrompts =
   gpt.data.examplePrompts.length > 0
     ? gpt.data.examplePrompts.slice(0, 3)
@@ -47,7 +50,7 @@ const limitsCalloutClass =
     : "border-sky-200 bg-sky-50 text-slate-800";
 ---
 
-<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords}>
+<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} lang={lang} pathPrefix={pathPrefix}>
   <article class="space-y-8">
     <header class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Custom GPT</p>
@@ -65,7 +68,7 @@ const limitsCalloutClass =
             />
           ) : (
             <BrandLogo
-              alt={`Owli-AI Symbol für ${gpt.data.name}`}
+              alt={`Owli-AI Symbol fuer ${gpt.data.name}`}
               width={64}
               height={64}
               className="h-16 w-16 rounded-xl object-contain drop-shadow-sm"
@@ -93,7 +96,7 @@ const limitsCalloutClass =
       </p>
       <ol class="mt-4 space-y-3 text-slate-700">
         <li>
-          <span class="font-semibold">Öffnen:</span> Öffne den GPT über den ChatGPT-Link.
+          <span class="font-semibold">Oeffnen:</span> Oeffne den GPT ueber den ChatGPT-Link.
         </li>
         <li>
           <span class="font-semibold">Kontext geben:</span> Beschreibe kurz deine Situation, damit der GPT zielgerichtet antworten kann.
@@ -135,16 +138,16 @@ const limitsCalloutClass =
           rel="noopener noreferrer"
           class="btn-brand inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
         >
-          In ChatGPT öffnen
+          In ChatGPT oeffnen
         </a>
         <a
-          href="/gpts"
+          href={withPrefix("/gpts", pathPrefix)}
           class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
         >
-          Zurück zu GPTs
+          Zurueck zu GPTs
         </a>
       </div>
-      <p class="text-sm text-slate-600">Benötigt einen ChatGPT-Account.</p>
+      <p class="text-sm text-slate-600">Benoetigt einen ChatGPT-Account.</p>
     </section>
   </article>
 </BaseLayout>

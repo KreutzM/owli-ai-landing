@@ -1,5 +1,12 @@
 ---
 import BrandLogo from "./BrandLogo.astro";
+import { withPrefix, type LangPrefix } from "../lib/i18n";
+
+interface Props {
+  pathPrefix?: LangPrefix;
+}
+
+const { pathPrefix = "" } = Astro.props;
 ---
 
 <footer class="border-t border-slate-200 bg-white">
@@ -10,11 +17,11 @@ import BrandLogo from "./BrandLogo.astro";
     </div>
     <nav aria-label="Footer Navigation">
       <ul class="flex flex-wrap gap-4">
-        <li><a class="underline-offset-2 hover:underline" href="/apps">Apps</a></li>
-        <li><a class="underline-offset-2 hover:underline" href="/support">Support</a></li>
-        <li><a class="underline-offset-2 hover:underline" href="/privacy">Datenschutz</a></li>
-        <li><a class="underline-offset-2 hover:underline" href="/imprint">Impressum</a></li>
-        <li><a class="underline-offset-2 hover:underline" href="/accessibility">Barrierefreiheit</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/apps", pathPrefix)}>Apps</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/support", pathPrefix)}>Support</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/privacy", pathPrefix)}>Datenschutz</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/imprint", pathPrefix)}>Impressum</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/accessibility", pathPrefix)}>Barrierefreiheit</a></li>
       </ul>
     </nav>
   </div>

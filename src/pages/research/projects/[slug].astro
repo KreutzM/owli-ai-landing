@@ -2,6 +2,7 @@
 import { render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getProjects, getPublications } from "../../../lib/content";
+import { withPrefix, type LangPrefix, type SiteLang } from "../../../lib/i18n";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -14,9 +15,11 @@ export async function getStaticPaths() {
 
 interface Props {
   project: CollectionEntry<"projects">;
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
 }
 
-const { project } = Astro.props;
+const { project, lang = "de", pathPrefix = "" } = Astro.props;
 const { Content } = await render(project);
 const seoTitle = project.data.seo.title ?? project.data.title;
 const seoDescription = project.data.seo.description;
@@ -27,7 +30,7 @@ const relatedPublication = project.data.relatedPublicationSlug
   : undefined;
 ---
 
-<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article">
+<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article" lang={lang} pathPrefix={pathPrefix}>
   <article class="space-y-8">
     <header class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschungsprojekt</p>
@@ -90,14 +93,14 @@ const relatedPublication = project.data.relatedPublicationSlug
       <div class="mt-4 flex flex-wrap gap-3">
         {relatedPublication && (
           <a
-            href={`/research/publications/${relatedPublication.data.slug}`}
+            href={withPrefix(`/research/publications/${relatedPublication.data.slug}`, pathPrefix)}
             class="btn-brand inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
           >
             Zur Publikation
           </a>
         )}
         <a
-          href="/research/projects"
+          href={withPrefix("/research/projects", pathPrefix)}
           class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
         >
           Zurueck zu Projekten
@@ -106,4 +109,3 @@ const relatedPublication = project.data.relatedPublicationSlug
     </section>
   </article>
 </BaseLayout>
-

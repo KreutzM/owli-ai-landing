@@ -1,6 +1,13 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import {
+  buildAlternates,
+  normalizePathname,
+  type AlternateLink,
+  type LangPrefix,
+  type SiteLang
+} from "../lib/i18n";
 import "../styles/global.css";
 
 interface Props {
@@ -9,6 +16,10 @@ interface Props {
   keywords?: string[] | string;
   ogType?: "website" | "article";
   ogImage?: string;
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+  canonicalPath?: string;
+  alternates?: AlternateLink[];
 }
 
 const {
@@ -16,18 +27,30 @@ const {
   description = "Owli-AI App-Suite: Assistenz-Apps fuer mehr Selbststaendigkeit auf Android und Windows.",
   keywords,
   ogType = "website",
-  ogImage = "/og/owli-default-og.svg"
+  ogImage = "/og/owli-default-og.svg",
+  lang = "de",
+  pathPrefix = "",
+  canonicalPath,
+  alternates
 } = Astro.props;
 
 const siteName = "Owli-AI";
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const canonicalPathname = normalizePathname(canonicalPath ?? Astro.url.pathname);
+const canonicalUrl = new URL(canonicalPathname, Astro.site ?? Astro.url).toString();
 const ogImageUrl = ogImage.startsWith("http") ? ogImage : new URL(ogImage, Astro.site ?? Astro.url).toString();
 const pageKeywords = Array.isArray(keywords) ? keywords.join(", ") : keywords;
+const localeMap: Record<SiteLang, string> = {
+  de: "de_DE",
+  en: "en_US",
+  es: "es_ES"
+};
+const ogLocale = localeMap[lang];
+const alternateLinks = alternates ?? buildAlternates(canonicalPathname);
 ---
 
 <!doctype html>
-<html lang="de">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -49,7 +72,16 @@ const pageKeywords = Array.isArray(keywords) ? keywords.join(", ") : keywords;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={ogImageUrl} />
-    <meta property="og:locale" content="de_DE" />
+    <meta property="og:locale" content={ogLocale} />
+    {
+      alternateLinks.map((alternate) => (
+        <link
+          rel="alternate"
+          hreflang={alternate.lang}
+          href={new URL(alternate.href, Astro.site ?? Astro.url).toString()}
+        />
+      ))
+    }
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
@@ -60,10 +92,10 @@ const pageKeywords = Array.isArray(keywords) ? keywords.join(", ") : keywords;
   </head>
   <body>
     <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
-    <Header />
+    <Header lang={lang} pathPrefix={pathPrefix} />
     <main id="main-content" class="mx-auto min-h-[65vh] w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
       <slot />
     </main>
-    <Footer />
+    <Footer pathPrefix={pathPrefix} />
   </body>
 </html>

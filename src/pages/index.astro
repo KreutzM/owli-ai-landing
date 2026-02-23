@@ -4,6 +4,15 @@ import BrandLogo from "../components/BrandLogo.astro";
 import GptCard from "../components/gpts/GptCard.astro";
 import { render } from "astro:content";
 import { getApps, getGpts, getSiteBySlug } from "../lib/content";
+import { withPrefix, type LangPrefix, type SiteLang } from "../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
+const href = (path: string) => withPrefix(path, pathPrefix);
 
 const apps = await getApps();
 const gpts = (await getGpts()).slice(0, 3);
@@ -15,6 +24,8 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
   title="Assistenz-Apps fuer Seh- und Hoerbeeintraechtigung"
   description="Owli-AI bietet Assistenz-Apps fuer Menschen mit Seh- und Hoerbeeintraechtigung: Orientierungshilfe, KI-Bildbeschreibung, Lupe mit OCR, Live-Transkription und Desktop-Vergroesserung."
   keywords={["Assistenz Apps", "Sehbeeintraechtigung", "Hoerbeeintraechtigung", "Bildbeschreibung App", "Lupe App Android", "Live Transkription", "Desktop Vergroesserung"]}
+  lang={lang}
+  pathPrefix={pathPrefix}
 >
   <section class="space-y-10">
     <section class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="brand-hero-title">
@@ -38,13 +49,13 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
           </div>
           <div class="flex flex-wrap gap-3">
             <a
-              href="/apps"
+              href={href("/apps")}
               class="btn-brand inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
             >
               Apps entdecken
             </a>
             <a
-              href="/apps/way-buddy"
+              href={href("/apps/way-buddy")}
               class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
             >
               Way-Buddy entdecken
@@ -78,7 +89,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
     <section aria-labelledby="gpts-teaser-title" class="space-y-4">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <h2 id="gpts-teaser-title" class="text-3xl font-semibold tracking-tight">Auch als Custom GPTs verfuegbar</h2>
-        <a class="text-sm font-semibold underline underline-offset-2" href="/gpts">
+        <a class="text-sm font-semibold underline underline-offset-2" href={href("/gpts")}>
           Alle GPTs ansehen
         </a>
       </div>
@@ -89,7 +100,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
         {
           gpts.map((gpt) => (
             <li>
-              <GptCard gpt={gpt} compact={true} />
+              <GptCard gpt={gpt} compact={true} pathPrefix={pathPrefix} />
             </li>
           ))
         }
@@ -99,7 +110,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
     <section aria-labelledby="apps-overview-title" class="space-y-4">
       <div class="flex flex-wrap items-end justify-between gap-3">
         <h2 id="apps-overview-title" class="text-3xl font-semibold tracking-tight">Apps im Ueberblick</h2>
-        <a class="text-sm font-semibold underline underline-offset-2" href="/apps">
+        <a class="text-sm font-semibold underline underline-offset-2" href={href("/apps")}>
           Zur vollstaendigen Uebersicht
         </a>
       </div>
@@ -134,7 +145,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
                 </div>
 
                 <h3 class="text-xl font-semibold leading-tight tracking-tight">
-                  <a class="underline-offset-2 hover:underline" href={`/apps/${app.data.slug}`}>
+                  <a class="underline-offset-2 hover:underline" href={href(`/apps/${app.data.slug}`)}>
                     {app.data.name}
                   </a>
                 </h3>
@@ -142,7 +153,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
 
                 <div class="mt-4">
                   <a
-                    href={`/apps/${app.data.slug}`}
+                    href={href(`/apps/${app.data.slug}`)}
                     class="btn-brand inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition"
                   >
                     Details ansehen

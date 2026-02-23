@@ -2,6 +2,7 @@
 import { render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getProjects, getPublications } from "../../../lib/content";
+import { withPrefix, type LangPrefix, type SiteLang } from "../../../lib/i18n";
 
 export async function getStaticPaths() {
   const publications = await getPublications();
@@ -14,9 +15,11 @@ export async function getStaticPaths() {
 
 interface Props {
   publication: CollectionEntry<"publications">;
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
 }
 
-const { publication } = Astro.props;
+const { publication, lang = "de", pathPrefix = "" } = Astro.props;
 const { Content } = await render(publication);
 const seoTitle = publication.data.seo.title ?? `${publication.data.title} (${publication.data.venue})`;
 const seoDescription = publication.data.seo.description;
@@ -28,7 +31,7 @@ const relatedProject = publication.data.relatedProjectSlug
   : undefined;
 ---
 
-<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article">
+<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article" lang={lang} pathPrefix={pathPrefix}>
   <article class="space-y-8">
     <header class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschung</p>
@@ -91,14 +94,14 @@ const relatedProject = publication.data.relatedProjectSlug
           PDF herunterladen
         </a>
         <a
-          href="/research/publications"
+          href={withPrefix("/research/publications", pathPrefix)}
           class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
         >
           Zurueck zur Liste
         </a>
         {relatedProject && (
           <a
-            href={`/research/projects/${relatedProject.data.slug}`}
+            href={withPrefix(`/research/projects/${relatedProject.data.slug}`, pathPrefix)}
             class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
           >
             Zum Projekt

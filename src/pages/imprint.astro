@@ -1,8 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { type LangPrefix, type SiteLang } from "../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
 ---
 
-<BaseLayout title="Impressum" description="Impressum und rechtliche Hinweise fuer owli-ai.com gemaess Paragraf 5 DDG.">
+<BaseLayout
+  title="Impressum"
+  description="Impressum und rechtliche Hinweise fuer owli-ai.com gemaess Paragraf 5 DDG."
+  lang={lang}
+  pathPrefix={pathPrefix}
+>
   <section class="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
     <h1 class="text-3xl font-semibold">Impressum</h1>
     <p class="text-slate-700">Angaben gemaess &sect; 5 DDG</p>

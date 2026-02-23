@@ -3,12 +3,21 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import AppCard from "../../../components/apps/AppCard.astro";
 import PlatformFilterNav from "../../../components/apps/PlatformFilterNav.astro";
 import { filterAppsByPlatform, getApps, type PlatformFilter } from "../../../lib/content";
+import { type LangPrefix, type SiteLang } from "../../../lib/i18n";
+
+interface Props {
+  platform?: string;
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
 
 export async function getStaticPaths() {
   return [{ params: { platform: "android" } }, { params: { platform: "windows" } }];
 }
 
-const platformParam = Astro.params.platform;
+const platformParam = Astro.params.platform ?? Astro.props.platform;
 const platform: Exclude<PlatformFilter, "all"> = platformParam === "windows" ? "windows" : "android";
 
 const allApps = await getApps();
@@ -18,7 +27,7 @@ const windowsCount = allApps.filter((app) => app.data.platform === "Windows").le
 const platformTitle = platform === "android" ? "Android" : "Windows";
 ---
 
-<BaseLayout title={`Apps - ${platformTitle}`} description={`Owli-AI Apps fuer ${platformTitle}.`}>
+<BaseLayout title={`Apps - ${platformTitle}`} description={`Owli-AI Apps fuer ${platformTitle}.`} lang={lang} pathPrefix={pathPrefix}>
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Plattformfilter</p>
@@ -26,7 +35,7 @@ const platformTitle = platform === "android" ? "Android" : "Windows";
       <p class="text-lg text-slate-700">Filteransicht ohne JavaScript. Jede Karte fuehrt direkt zur Detailseite.</p>
     </header>
 
-    <PlatformFilterNav active={platform} androidCount={androidCount} windowsCount={windowsCount} />
+    <PlatformFilterNav active={platform} androidCount={androidCount} windowsCount={windowsCount} pathPrefix={pathPrefix} />
 
     {apps.length === 0 ? (
       <p class="rounded-2xl border border-slate-200 bg-white p-5 text-slate-700 shadow-sm">Keine Apps fuer diese Plattform gefunden.</p>
@@ -35,7 +44,7 @@ const platformTitle = platform === "android" ? "Android" : "Windows";
         {
           apps.map((app) => (
             <li>
-              <AppCard app={app} />
+              <AppCard app={app} pathPrefix={pathPrefix} />
             </li>
           ))
         }

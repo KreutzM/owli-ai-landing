@@ -1,11 +1,13 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { localizeHref, withPrefix, type LangPrefix } from "../../lib/i18n";
 
 interface Props {
   app: CollectionEntry<"apps">;
+  pathPrefix?: LangPrefix;
 }
 
-const { app } = Astro.props;
+const { app, pathPrefix = "" } = Astro.props;
 
 const platformBadgeClass = "badge-platform";
 
@@ -17,7 +19,10 @@ const statusBadgeClass =
       : "badge-status-accent";
 
 const valueLine = app.data.valueProp || app.data.tagline;
-const primaryCta = app.data.links.primary ?? { label: "Details ansehen", href: `/apps/${app.data.slug}` };
+const detailsHref = withPrefix(`/apps/${app.data.slug}`, pathPrefix);
+const primaryCta = app.data.links.primary
+  ? { ...app.data.links.primary, href: localizeHref(app.data.links.primary.href, pathPrefix) }
+  : { label: "Details ansehen", href: detailsHref };
 const iconSrc = app.data.icon?.src ?? `/apps/${app.data.slug}/icon-placeholder.svg`;
 const iconAlt = app.data.icon?.alt?.trim() || `Icon von ${app.data.name}`;
 const iconWidth = app.data.icon?.width ?? 64;
@@ -44,12 +49,12 @@ const iconHeight = app.data.icon?.height ?? 64;
 
   <div class="mt-4">
     <a
-      href={`/apps/${app.data.slug}`}
+      href={detailsHref}
       class="btn-brand inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition"
     >
       Details ansehen
     </a>
-    {primaryCta.href !== `/apps/${app.data.slug}` && (
+    {primaryCta.href !== detailsHref && (
       <a
         href={primaryCta.href}
         class="btn-outline-neutral ml-2 inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition"

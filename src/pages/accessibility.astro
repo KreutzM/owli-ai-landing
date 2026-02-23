@@ -1,8 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { type LangPrefix, type SiteLang } from "../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
 ---
 
-<BaseLayout title="Barrierefreiheit" description="Erklärung zur Barrierefreiheit von owli-ai.com.">
+<BaseLayout title="Barrierefreiheit" description="Erklaerung zur Barrierefreiheit von owli-ai.com." lang={lang} pathPrefix={pathPrefix}>
   <section class="space-y-4 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
     <h1 class="text-3xl font-semibold">Barrierefreiheit</h1>
     <p class="text-slate-700">
@@ -11,7 +19,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
     <h2 class="text-xl font-semibold">Aktueller Stand</h2>
     <ul class="list-disc space-y-2 pl-5 text-slate-700">
       <li>Skip-to-content Link vorhanden.</li>
-      <li>Fokus-Stile für Tastatur-Navigation sichtbar.</li>
+      <li>Fokus-Stile fuer Tastatur-Navigation sichtbar.</li>
       <li>Semantische Headings und Landmarken (`header`, `main`, `footer`) umgesetzt.</li>
       <li>Responsive Navigation ohne verpflichtendes JavaScript.</li>
     </ul>

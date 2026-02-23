@@ -8,6 +8,7 @@ import PrivacyCard from "../../components/apps/PrivacyCard.astro";
 import RequirementsList from "../../components/apps/RequirementsList.astro";
 import MediaGallery from "../../components/apps/MediaGallery.astro";
 import CtaBar from "../../components/apps/CtaBar.astro";
+import { localizeHref, withPrefix, type LangPrefix, type SiteLang } from "../../lib/i18n";
 
 export async function getStaticPaths() {
   const apps = await getApps();
@@ -20,9 +21,11 @@ export async function getStaticPaths() {
 
 interface Props {
   app: CollectionEntry<"apps">;
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
 }
 
-const { app } = Astro.props;
+const { app, lang = "de", pathPrefix = "" } = Astro.props;
 const { Content } = await render(app);
 
 const features = app.data.features;
@@ -33,7 +36,8 @@ const seoTitle = app.data.seo.title ?? `${app.data.name} (${app.data.platform})`
 const seoDescription = app.data.seo.description;
 const seoKeywords = app.data.seo.keywords;
 const seoOgImage = app.data.seo.ogImage ?? app.data.featureGraphic?.src ?? "/og/owli-default-og.svg";
-const appUrl = new URL(`/apps/${app.data.slug}/`, Astro.site ?? Astro.url).toString();
+const appPath = withPrefix(`/apps/${app.data.slug}`, pathPrefix);
+const appUrl = new URL(`${appPath}/`, Astro.site ?? Astro.url).toString();
 const softwareApplicationJsonLd = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -44,11 +48,23 @@ const softwareApplicationJsonLd = {
   url: appUrl
 };
 
-const primaryCta = app.data.links.primary ?? { label: `${app.data.name} testen`, href: "/support" };
-const secondaryCta = app.data.links.secondary ?? { label: "Zur App-Uebersicht", href: "/apps" };
+const primaryCta = app.data.links.primary
+  ? { ...app.data.links.primary, href: localizeHref(app.data.links.primary.href, pathPrefix) }
+  : { label: `${app.data.name} testen`, href: withPrefix("/support", pathPrefix) };
+const secondaryCta = app.data.links.secondary
+  ? { ...app.data.links.secondary, href: localizeHref(app.data.links.secondary.href, pathPrefix) }
+  : { label: "Zur App-Uebersicht", href: withPrefix("/apps", pathPrefix) };
 ---
 
-<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article" ogImage={seoOgImage}>
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  keywords={seoKeywords}
+  ogType="article"
+  ogImage={seoOgImage}
+  lang={lang}
+  pathPrefix={pathPrefix}
+>
   <Fragment slot="head">
     <script is:inline type="application/ld+json" set:html={JSON.stringify(softwareApplicationJsonLd)} />
   </Fragment>

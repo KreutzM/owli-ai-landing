@@ -1,6 +1,15 @@
 ---
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getPublications } from "../../../lib/content";
+import { withPrefix, type LangPrefix, type SiteLang } from "../../../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
+const href = (path: string) => withPrefix(path, pathPrefix);
 
 const publications = await getPublications();
 ---
@@ -9,6 +18,8 @@ const publications = await getPublications();
   title="Publikationen"
   description="Publikationen aus dem Forschungsbereich von Owli-AI."
   keywords={["Owli-AI", "Forschung", "Publikationen", "AHRUS", "HCII"]}
+  lang={lang}
+  pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
@@ -25,7 +36,7 @@ const publications = await getPublications();
         publications.map((publication) => (
           <li class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <h2 class="text-2xl font-semibold tracking-tight">
-              <a class="underline-offset-2 hover:underline" href={`/research/publications/${publication.data.slug}`}>
+              <a class="underline-offset-2 hover:underline" href={href(`/research/publications/${publication.data.slug}`)}>
                 {publication.data.title}
               </a>
             </h2>
@@ -44,7 +55,7 @@ const publications = await getPublications();
             {publication.data.relatedProjectSlug && (
               <p class="mt-4 text-sm text-slate-700">
                 Zugehoeriges Projekt:{" "}
-                <a class="font-semibold underline underline-offset-2" href={`/research/projects/${publication.data.relatedProjectSlug}`}>
+                <a class="font-semibold underline underline-offset-2" href={href(`/research/projects/${publication.data.relatedProjectSlug}`)}>
                   /research/projects/{publication.data.relatedProjectSlug}
                 </a>
               </p>
