@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 const platformParam = Astro.params.platform ?? Astro.props.platform;
 const platform: Exclude<PlatformFilter, "all"> = platformParam === "windows" ? "windows" : "android";
 
-const allApps = await getApps();
+const allApps = await getApps(lang);
 const apps = filterAppsByPlatform(allApps, platform);
 const androidCount = allApps.filter((app) => app.data.platform === "Android").length;
 const windowsCount = allApps.filter((app) => app.data.platform === "Windows").length;

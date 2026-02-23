@@ -10,7 +10,7 @@ interface Props {
 }
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
-const gpts = await getGpts();
+const gpts = await getGpts(lang);
 ---
 
 <BaseLayout

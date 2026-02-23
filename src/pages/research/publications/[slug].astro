@@ -25,7 +25,7 @@ const seoTitle = publication.data.seo.title ?? `${publication.data.title} (${pub
 const seoDescription = publication.data.seo.description;
 const seoKeywords = publication.data.seo.keywords;
 const hasBodyContent = (publication.body ?? "").trim().length > 0;
-const projects = await getProjects();
+const projects = await getProjects(lang);
 const relatedProject = publication.data.relatedProjectSlug
   ? projects.find((project) => project.data.slug === publication.data.relatedProjectSlug)
   : undefined;

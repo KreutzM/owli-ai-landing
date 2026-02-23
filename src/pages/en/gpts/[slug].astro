@@ -4,7 +4,7 @@ import GptDetailPage from "../../gpts/[slug].astro";
 import { getGpts } from "../../../lib/content";
 
 export async function getStaticPaths() {
-  const gpts = await getGpts();
+  const gpts = await getGpts("en");
 
   return gpts.map((gpt) => ({
     params: { slug: gpt.data.slug },

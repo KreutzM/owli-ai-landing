@@ -12,7 +12,7 @@ interface Props {
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
 
-const apps = await getApps();
+const apps = await getApps(lang);
 const appsAndroid = apps.filter((app) => app.data.platform === "Android");
 const appsWindows = apps.filter((app) => app.data.platform === "Windows");
 ---

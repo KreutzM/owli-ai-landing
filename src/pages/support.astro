@@ -11,7 +11,7 @@ interface Props {
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
 
-const supportEntry = await getSiteBySlug("support");
+const supportEntry = await getSiteBySlug("support", lang);
 const SupportContent = supportEntry ? (await render(supportEntry)).Content : null;
 ---
 

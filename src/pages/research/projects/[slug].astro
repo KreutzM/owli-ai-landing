@@ -24,7 +24,7 @@ const { Content } = await render(project);
 const seoTitle = project.data.seo.title ?? project.data.title;
 const seoDescription = project.data.seo.description;
 const seoKeywords = project.data.seo.keywords;
-const publications = await getPublications();
+const publications = await getPublications(lang);
 const relatedPublication = project.data.relatedPublicationSlug
   ? publications.find((publication) => publication.data.slug === project.data.relatedPublicationSlug)
   : undefined;

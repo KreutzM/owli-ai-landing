@@ -11,7 +11,7 @@ interface Props {
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
 
-const team = await getTeam();
+const team = await getTeam(lang);
 ---
 
 <BaseLayout

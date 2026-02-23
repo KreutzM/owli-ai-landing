@@ -4,7 +4,7 @@ import ResearchProjectDetailPage from "../../../research/projects/[slug].astro";
 import { getProjects } from "../../../../lib/content";
 
 export async function getStaticPaths() {
-  const projects = await getProjects();
+  const projects = await getProjects("es");
 
   return projects.map((project) => ({
     params: { slug: project.data.slug },

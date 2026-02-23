@@ -11,8 +11,8 @@ interface Props {
 const { lang = "de", pathPrefix = "" } = Astro.props;
 const href = (path: string) => withPrefix(path, pathPrefix);
 
-const projects = await getProjects();
-const publications = await getPublications();
+const projects = await getProjects(lang);
+const publications = await getPublications(lang);
 ---
 
 <BaseLayout

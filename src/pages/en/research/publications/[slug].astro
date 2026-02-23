@@ -4,7 +4,7 @@ import ResearchPublicationDetailPage from "../../../research/publications/[slug]
 import { getPublications } from "../../../../lib/content";
 
 export async function getStaticPaths() {
-  const publications = await getPublications();
+  const publications = await getPublications("en");
 
   return publications.map((publication) => ({
     params: { slug: publication.data.slug },
