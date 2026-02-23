@@ -1,38 +1,22 @@
 ---
-slug: ahrus-hcii
-title: Ultrasonic Waves to Support Human Echolocation
-authors:
-  - Florian von Zabiensky
-  - Michael Kreutzer
-  - Diethelm Bienhaus
-affiliation: Technische Hochschule Mittelhessen, University of Applied Sciences, Giessen, Germany
-type: Paper
-venue: HCII
-year: 2018
+slug: ahrus
+order: 1
+title: "AHRUS  Audible High Resolution Ultrasonic Sonar"
+status: Prototype
+shortDescription: >
+  AHRUS ist ein elektronisches Guide-Dog-Konzept, das Echolokation durch
+  hoerbaren Ultraschall unterstuetzt. Das System soll Hindernisse und
+  Strukturen fruehzeitiger wahrnehmbar machen, ohne die natuerliche
+  Raumwahrnehmung durch Kopfhoerer zu ersetzen.
+summary: Elektronisches Guide-Dog-Konzept fuer Echoortung mit hoerbarem Ultraschall.
 keywords:
-  - Human Echo Localization
-  - Audible Ultrasound Sonar
-  - Blind People
-  - Spatial Hearing
-  - Obstacle Detection
-abstract: >
-  Das Paper stellt AHRUS vor, ein System, das parametischen Ultraschall nutzt,
-  um Umgebungsinformationen fuer Menschen mit Sehbeeintraechtigung oder
-  Blindheit hoerbar zu machen. Durch Selbst-Demodulation bleiben die
-  richtungsbezogenen Eigenschaften des Ultraschalls erhalten, sodass Signale mit
-  den eigenen Ohren wahrgenommen werden koennen. Der Beitrag beschreibt den
-  technischen Aufbau eines Prototyps sowie erste Nutzungsansaetze. In einer
-  ersten Evaluation mit vier Teilnehmenden wurde das System praktisch getestet.
-  Im Vergleich zur klassischen Flash-Sonar-Echoortung zeigt der Ansatz Vorteile
-  bei kleinen Strukturen und bei der Stealth-Problematik glatter Oberflaechen.
-pdf: /papers/AHRUS_HCII_final.pdf
-relatedProjectSlug: ahrus
-heroImage:
-  src: /research/ahrus/fig-05-prototype-overview.png
-  webp: /research/ahrus/fig-05-prototype-overview.webp
-  alt: Foto des AHRUS-Prototyps mit Ultraschall-Transducer-Array.
-  caption: AHRUS-Prototyp aus dem HCII-Paper.
-figures:
+  - echolocation
+  - ultrasound
+  - assistive technology
+  - spatial hearing
+  - obstacle detection
+relatedPublicationSlug: ahrus-hcii
+visuals:
   - src: /research/ahrus/fig-01-overview.png
     webp: /research/ahrus/fig-01-overview.webp
     alt: Schematische Darstellung einer Schallquelle bei Bewegung in Azimut und Elevation.
@@ -85,20 +69,32 @@ figures:
     webp: /research/ahrus/fig-13-ahrus-directivity-detail.webp
     alt: Detailansicht der fokussierten Schallausbreitung beim AHRUS-System.
     caption: Fig. 8 Detail rechts (AHRUS).
-bibtex: |
-  @inproceedings{vonzabiensky2018ahrus,
-    title = {Ultrasonic Waves to Support Human Echolocation},
-    author = {von Zabiensky, Florian and Kreutzer, Michael and Bienhaus, Diethelm},
-    booktitle = {HCII},
-    year = {2018}
-  }
 seo:
-  title: Ultrasonic Waves to Support Human Echolocation (HCII)
-  description: AHRUS-Paper zu menschlicher Echoortung mit parametischem Ultraschall und erster Evaluation mit vier Teilnehmenden.
+  title: AHRUS Projekt
+  description: AHRUS erforscht hoerbaren Ultraschall zur Unterstuetzung der menschlichen Echolokation.
   keywords:
     - AHRUS
-    - HCII
-    - Human Echolocation
+    - Echolokation
+    - Assistive Technology
 ---
 
-Weiterfuehrend: [Zum Projekt AHRUS](/research/projects/ahrus)
+## Ziel
+
+Das Projekt AHRUS untersucht, wie Ultraschall als zusaetzlicher Orientierungskanal fuer blinde und sehbeeintraechtigte Menschen nutzbar wird. Ziel ist eine praxisnahe Unterstuetzung im Alltag, besonders bei kleinen Strukturen und schwer wahrnehmbaren Oberflaechen.
+
+## Wie es funktioniert (kurz)
+
+Ein fokussierter Ultraschallstrahl wird moduliert ausgesendet und durch nichtlineare Akustik in der Luft teilweise in hoerbare Signale ueberfuehrt. Reflektionen von Objekten koennen dadurch mit den eigenen Ohren wahrgenommen und raeumlich eingeordnet werden.
+
+## Was ist neu im Vergleich zu klassischer Echolokation?
+
+Klassische aktive Echolokation mit Zungenklick arbeitet mit laengeren Wellenlaengen und ist dadurch weniger selektiv bei feinen Strukturen. AHRUS nutzt kurze Ultraschallwellen und ermoeglicht eine deutlich gerichtete Abtastung, wodurch Strukturgrenzen und kleine Hindernisse in bestimmten Szenarien besser differenzierbar werden.
+
+## Aktueller Stand (Prototyp & erste Tests)
+
+Es liegt ein funktionaler Prototyp vor. In einer ersten Evaluation mit vier Teilnehmenden wurden Distanz, Richtung, Breitenabschaetzung und Grenzwahrnehmung untersucht und mit klassischem Flash Sonar verglichen.
+
+## Outputs
+
+- Publikation: [Ultrasonic Waves to Support Human Echolocation](/research/publications/ahrus-hcii)
+

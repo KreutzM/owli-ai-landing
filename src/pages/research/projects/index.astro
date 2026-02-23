@@ -1,0 +1,48 @@
+---
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getProjects } from "../../../lib/content";
+
+const projects = await getProjects();
+---
+
+<BaseLayout
+  title="Forschungsprojekte"
+  description="Uebersicht laufender und abgeschlossener Forschungsprojekte von Owli-AI."
+  keywords={["Owli-AI", "Forschung", "Projekte", "AHRUS"]}
+>
+  <section class="space-y-8">
+    <header class="max-w-4xl space-y-3">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschung</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Projekte</h1>
+      <p class="text-lg text-slate-700">Uebersicht der Forschungsprojekte mit Fokus auf anwendbare Assistenztechnologie.</p>
+      <p class="text-sm text-slate-600">
+        Gesamt: {projects.length} Projekt{projects.length === 1 ? "" : "e"}.
+      </p>
+    </header>
+
+    <ol class="grid gap-4">
+      {
+        projects.map((project) => (
+          <li class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <h2 class="text-2xl font-semibold tracking-tight">
+              <a class="underline-offset-2 hover:underline" href={`/research/projects/${project.data.slug}`}>
+                {project.data.title}
+              </a>
+            </h2>
+            <p class="mt-2 text-sm text-slate-700">{project.data.shortDescription}</p>
+            <div class="mt-3 flex flex-wrap items-center gap-2">
+              <span class="badge-status-accent rounded-full px-3 py-1 text-xs font-semibold">{project.data.status}</span>
+              {project.data.timeframe && <span class="text-xs font-medium text-slate-600">{project.data.timeframe}</span>}
+            </div>
+            {project.data.keywords.length > 0 && (
+              <ul class="mt-3 flex flex-wrap gap-2" aria-label="Projekt-Keywords">
+                {project.data.keywords.map((keyword) => <li><span class="badge-platform rounded-full px-3 py-1 text-xs font-semibold">{keyword}</span></li>)}
+              </ul>
+            )}
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>
+

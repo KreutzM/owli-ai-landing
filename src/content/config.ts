@@ -13,6 +13,13 @@ const appImage = z.object({
   height: z.number().int().positive().optional()
 });
 
+const researchVisual = z.object({
+  src: z.string(),
+  webp: z.string().optional(),
+  alt: z.string(),
+  caption: z.string().optional()
+});
+
 const apps = defineCollection({
   loader: glob({ pattern: "*.md", base: "./content/apps" }),
   schema: z.object({
@@ -113,7 +120,12 @@ const projects = defineCollection({
     order: z.number().int().positive().default(1),
     title: z.string(),
     status: z.string().default("In Vorbereitung"),
+    timeframe: z.string().optional(),
+    shortDescription: z.string().default("Projektbeschreibung folgt."),
     summary: z.string().default("Projektbeschreibung folgt."),
+    keywords: z.array(z.string()).default([]),
+    relatedPublicationSlug: z.string().optional(),
+    visuals: z.array(researchVisual).default([]),
     links: z
       .object({
         primary: appLink.optional(),
@@ -146,6 +158,9 @@ const publications = defineCollection({
     keywords: z.array(z.string()).default([]),
     abstract: z.string(),
     pdf: z.string(),
+    relatedProjectSlug: z.string().optional(),
+    heroImage: researchVisual.optional(),
+    figures: z.array(researchVisual).default([]),
     bibtex: z.string().optional(),
     seo: z
       .object({

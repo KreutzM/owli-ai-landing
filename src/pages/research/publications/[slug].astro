@@ -1,7 +1,7 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
-import { getPublications } from "../../../lib/content";
+import { getProjects, getPublications } from "../../../lib/content";
 
 export async function getStaticPaths() {
   const publications = await getPublications();
@@ -22,6 +22,10 @@ const seoTitle = publication.data.seo.title ?? `${publication.data.title} (${pub
 const seoDescription = publication.data.seo.description;
 const seoKeywords = publication.data.seo.keywords;
 const hasBodyContent = (publication.body ?? "").trim().length > 0;
+const projects = await getProjects();
+const relatedProject = publication.data.relatedProjectSlug
+  ? projects.find((project) => project.data.slug === publication.data.relatedProjectSlug)
+  : undefined;
 ---
 
 <BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article">
@@ -35,6 +39,27 @@ const hasBodyContent = (publication.body ?? "").trim().length > 0;
       <p class="mt-1 text-sm text-slate-700">{publication.data.authors.join("; ")}</p>
       {publication.data.affiliation && <p class="mt-1 text-sm text-slate-700">{publication.data.affiliation}</p>}
     </header>
+
+    {publication.data.heroImage && (
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="hero-image-title">
+        <h2 id="hero-image-title" class="text-2xl font-semibold tracking-tight">Visual</h2>
+        <figure class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+          <picture>
+            {publication.data.heroImage.webp && <source srcset={publication.data.heroImage.webp} type="image/webp" />}
+            <img
+              src={publication.data.heroImage.src}
+              alt={publication.data.heroImage.alt}
+              class="h-full w-full object-contain"
+              loading="eager"
+              decoding="async"
+            />
+          </picture>
+          {publication.data.heroImage.caption && (
+            <figcaption class="border-t border-slate-200 px-3 py-2 text-sm text-slate-700">{publication.data.heroImage.caption}</figcaption>
+          )}
+        </figure>
+      </section>
+    )}
 
     <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="abstract-title">
       <h2 id="abstract-title" class="text-2xl font-semibold tracking-tight">Abstract</h2>
@@ -71,8 +96,38 @@ const hasBodyContent = (publication.body ?? "").trim().length > 0;
         >
           Zurueck zur Liste
         </a>
+        {relatedProject && (
+          <a
+            href={`/research/projects/${relatedProject.data.slug}`}
+            class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
+          >
+            Zum Projekt
+          </a>
+        )}
       </div>
     </section>
+
+    {publication.data.figures.length > 0 && (
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="figures-title">
+        <h2 id="figures-title" class="text-2xl font-semibold tracking-tight">Abbildungen</h2>
+        <p class="mt-2 text-sm text-slate-600">{publication.data.figures.length} Visuals aus dem Paper.</p>
+        <ol class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {
+            publication.data.figures.map((figure) => (
+              <li>
+                <figure class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                  <picture>
+                    {figure.webp && <source srcset={figure.webp} type="image/webp" />}
+                    <img src={figure.src} alt={figure.alt} class="h-full w-full object-contain" loading="lazy" decoding="async" />
+                  </picture>
+                  {figure.caption && <figcaption class="border-t border-slate-200 px-3 py-2 text-xs text-slate-700">{figure.caption}</figcaption>}
+                </figure>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+    )}
 
     {publication.data.bibtex && (
       <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="bibtex-title">

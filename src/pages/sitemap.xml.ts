@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { getApps, getGpts, getPublications } from "../lib/content";
+import { getApps, getGpts, getProjects, getPublications } from "../lib/content";
 
 const BASE_URL = "https://owli-ai.com";
 
@@ -8,6 +8,7 @@ const staticPaths = [
   "/apps",
   "/gpts",
   "/research",
+  "/research/projects",
   "/research/publications",
   "/apps/platform/android",
   "/apps/platform/windows",
@@ -20,11 +21,13 @@ const staticPaths = [
 export const GET: APIRoute = async () => {
   const apps = await getApps();
   const gpts = await getGpts();
+  const projects = await getProjects();
   const publications = await getPublications();
   const appPaths = apps.map((app) => `/apps/${app.data.slug}`);
   const gptPaths = gpts.map((gpt) => `/gpts/${gpt.data.slug}`);
+  const projectPaths = projects.map((project) => `/research/projects/${project.data.slug}`);
   const publicationPaths = publications.map((publication) => `/research/publications/${publication.data.slug}`);
-  const uniquePaths = Array.from(new Set([...staticPaths, ...appPaths, ...gptPaths, ...publicationPaths]));
+  const uniquePaths = Array.from(new Set([...staticPaths, ...appPaths, ...gptPaths, ...projectPaths, ...publicationPaths]));
   const lastmod = new Date().toISOString();
 
   const urls = uniquePaths

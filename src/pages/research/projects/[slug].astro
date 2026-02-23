@@ -1,0 +1,109 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getProjects, getPublications } from "../../../lib/content";
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+
+  return projects.map((project) => ({
+    params: { slug: project.data.slug },
+    props: { project }
+  }));
+}
+
+interface Props {
+  project: CollectionEntry<"projects">;
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const seoTitle = project.data.seo.title ?? project.data.title;
+const seoDescription = project.data.seo.description;
+const seoKeywords = project.data.seo.keywords;
+const publications = await getPublications();
+const relatedPublication = project.data.relatedPublicationSlug
+  ? publications.find((publication) => publication.data.slug === project.data.relatedPublicationSlug)
+  : undefined;
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article">
+  <article class="space-y-8">
+    <header class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschungsprojekt</p>
+      <h1 class="mt-3 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{project.data.title}</h1>
+      <p class="mt-4 text-slate-700">{project.data.shortDescription}</p>
+      <div class="mt-4 flex flex-wrap items-center gap-2">
+        <span class="badge-status-accent rounded-full px-3 py-1 text-xs font-semibold">{project.data.status}</span>
+        {project.data.timeframe && <span class="text-xs font-medium text-slate-600">{project.data.timeframe}</span>}
+      </div>
+      {project.data.keywords.length > 0 && (
+        <ul class="mt-4 flex flex-wrap gap-2" aria-label="Projekt-Keywords">
+          {
+            project.data.keywords.map((keyword) => (
+              <li>
+                <span class="badge-platform rounded-full px-3 py-1 text-xs font-semibold">{keyword}</span>
+              </li>
+            ))
+          }
+        </ul>
+      )}
+    </header>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="project-content-title">
+      <h2 id="project-content-title" class="text-2xl font-semibold tracking-tight">Projektbeschreibung</h2>
+      <div class="content-markdown mt-4">
+        <Content />
+      </div>
+    </section>
+
+    {project.data.visuals.length > 0 && (
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="gallery-title">
+        <h2 id="gallery-title" class="text-2xl font-semibold tracking-tight">Abbildungen</h2>
+        <p class="mt-2 text-sm text-slate-600">{project.data.visuals.length} Visuals aus dem AHRUS-Paper.</p>
+        <ol class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {
+            project.data.visuals.map((visual) => (
+              <li>
+                <figure class="overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
+                  <picture>
+                    {visual.webp && <source srcset={visual.webp} type="image/webp" />}
+                    <img
+                      src={visual.src}
+                      alt={visual.alt}
+                      class="h-full w-full object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </picture>
+                  {visual.caption && <figcaption class="border-t border-slate-200 px-3 py-2 text-xs text-slate-700">{visual.caption}</figcaption>}
+                </figure>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+    )}
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="project-links-title">
+      <h2 id="project-links-title" class="text-2xl font-semibold tracking-tight">Weiterfuehrende Links</h2>
+      <div class="mt-4 flex flex-wrap gap-3">
+        {relatedPublication && (
+          <a
+            href={`/research/publications/${relatedPublication.data.slug}`}
+            class="btn-brand inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
+          >
+            Zur Publikation
+          </a>
+        )}
+        <a
+          href="/research/projects"
+          class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
+        >
+          Zurueck zu Projekten
+        </a>
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+

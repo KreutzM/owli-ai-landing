@@ -41,10 +41,17 @@ const publications = await getPublications();
                 ))
               }
             </div>
+            {publication.data.relatedProjectSlug && (
+              <p class="mt-4 text-sm text-slate-700">
+                Zugehoeriges Projekt:{" "}
+                <a class="font-semibold underline underline-offset-2" href={`/research/projects/${publication.data.relatedProjectSlug}`}>
+                  /research/projects/{publication.data.relatedProjectSlug}
+                </a>
+              </p>
+            )}
           </li>
         ))
       }
     </ol>
   </section>
 </BaseLayout>
-
