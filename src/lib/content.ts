@@ -41,6 +41,30 @@ export async function getGpts(): Promise<CollectionEntry<"gpts">[]> {
   });
 }
 
+export async function getProjects(): Promise<CollectionEntry<"projects">[]> {
+  const projects = await getCollection("projects");
+
+  return projects.sort((a, b) => {
+    if (a.data.order !== b.data.order) {
+      return a.data.order - b.data.order;
+    }
+
+    return a.data.title.localeCompare(b.data.title, "de");
+  });
+}
+
+export async function getPublications(): Promise<CollectionEntry<"publications">[]> {
+  const publications = await getCollection("publications");
+
+  return publications.sort((a, b) => {
+    if (a.data.year !== b.data.year) {
+      return b.data.year - a.data.year;
+    }
+
+    return a.data.title.localeCompare(b.data.title, "de");
+  });
+}
+
 export function isPlatformFilter(value: string): value is PlatformFilter {
   return PLATFORM_FILTERS.includes(value as PlatformFilter);
 }

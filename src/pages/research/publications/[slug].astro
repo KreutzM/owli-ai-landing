@@ -1,0 +1,93 @@
+---
+import { render, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import { getPublications } from "../../../lib/content";
+
+export async function getStaticPaths() {
+  const publications = await getPublications();
+
+  return publications.map((publication) => ({
+    params: { slug: publication.data.slug },
+    props: { publication }
+  }));
+}
+
+interface Props {
+  publication: CollectionEntry<"publications">;
+}
+
+const { publication } = Astro.props;
+const { Content } = await render(publication);
+const seoTitle = publication.data.seo.title ?? `${publication.data.title} (${publication.data.venue})`;
+const seoDescription = publication.data.seo.description;
+const seoKeywords = publication.data.seo.keywords;
+const hasBodyContent = (publication.body ?? "").trim().length > 0;
+---
+
+<BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article">
+  <article class="space-y-8">
+    <header class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschung</p>
+      <h1 class="mt-3 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{publication.data.title}</h1>
+      <p class="mt-4 text-sm text-slate-700">
+        {publication.data.venue} ({publication.data.year}) - {publication.data.type}
+      </p>
+      <p class="mt-1 text-sm text-slate-700">{publication.data.authors.join("; ")}</p>
+      {publication.data.affiliation && <p class="mt-1 text-sm text-slate-700">{publication.data.affiliation}</p>}
+    </header>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="abstract-title">
+      <h2 id="abstract-title" class="text-2xl font-semibold tracking-tight">Abstract</h2>
+      <p class="mt-3 text-slate-700">{publication.data.abstract}</p>
+    </section>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="keywords-title">
+      <h2 id="keywords-title" class="text-2xl font-semibold tracking-tight">Keywords</h2>
+      <ul class="mt-3 flex flex-wrap gap-2">
+        {
+          publication.data.keywords.map((keyword) => (
+            <li>
+              <span class="badge-platform rounded-full px-3 py-1 text-xs font-semibold">{keyword}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="download-title">
+      <h2 id="download-title" class="text-2xl font-semibold tracking-tight">Download</h2>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a
+          href={publication.data.pdf}
+          class="btn-brand inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          PDF herunterladen
+        </a>
+        <a
+          href="/research/publications"
+          class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
+        >
+          Zurueck zur Liste
+        </a>
+      </div>
+    </section>
+
+    {publication.data.bibtex && (
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="bibtex-title">
+        <h2 id="bibtex-title" class="text-2xl font-semibold tracking-tight">BibTeX</h2>
+        <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100">{publication.data.bibtex}</pre>
+      </section>
+    )}
+
+    {hasBodyContent && (
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="notes-title">
+        <h2 id="notes-title" class="text-2xl font-semibold tracking-tight">Weitere Hinweise</h2>
+        <div class="content-markdown mt-4">
+          <Content />
+        </div>
+      </section>
+    )}
+  </article>
+</BaseLayout>

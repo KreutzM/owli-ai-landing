@@ -106,6 +106,60 @@ const gpts = defineCollection({
   })
 });
 
+const projects = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/projects" }),
+  schema: z.object({
+    slug: z.string(),
+    order: z.number().int().positive().default(1),
+    title: z.string(),
+    status: z.string().default("In Vorbereitung"),
+    summary: z.string().default("Projektbeschreibung folgt."),
+    links: z
+      .object({
+        primary: appLink.optional(),
+        secondary: appLink.optional()
+      })
+      .default({}),
+    seo: z
+      .object({
+        title: z.string().optional(),
+        description: z.string(),
+        keywords: z.union([z.array(z.string()), z.string()]).optional(),
+        ogImage: z.string().optional()
+      })
+      .default({
+        description: "Projektinformationen folgen."
+      })
+  })
+});
+
+const publications = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/publications" }),
+  schema: z.object({
+    slug: z.string(),
+    title: z.string(),
+    type: z.string().default("Paper"),
+    authors: z.array(z.string()).min(1),
+    affiliation: z.string().optional(),
+    venue: z.string(),
+    year: z.number().int().positive(),
+    keywords: z.array(z.string()).default([]),
+    abstract: z.string(),
+    pdf: z.string(),
+    bibtex: z.string().optional(),
+    seo: z
+      .object({
+        title: z.string().optional(),
+        description: z.string(),
+        keywords: z.union([z.array(z.string()), z.string()]).optional(),
+        ogImage: z.string().optional()
+      })
+      .default({
+        description: "Publikationsdetails folgen."
+      })
+  })
+});
+
 const site = defineCollection({
   loader: glob({ pattern: "*.md", base: "./content/site" }),
   schema: z.object({})
@@ -114,5 +168,7 @@ const site = defineCollection({
 export const collections = {
   apps,
   gpts,
+  projects,
+  publications,
   site
 };
