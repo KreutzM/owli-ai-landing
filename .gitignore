@@ -17,3 +17,8 @@ out/
 # OS / IDE
 .DS_Store
 .vscode/settings.json
+
+# Temp
+/tmp/
+.devserver.err.log
+.devserver.out.log
