@@ -11,6 +11,7 @@ tags:
   - Elektronik
   - Assistenzsysteme
 shortBio: Dr.-Ing. Michael Kreutzer arbeitet an eingebetteten Systemen, Computer Vision und Assistenzsystemen. Im Owli-AI Kontext liegt der Fokus auf assistiven Technologien und der Verbindung von Forschung und praxisnahen Prototypen.
+image: /team/michael-kreutzer-portrait.webp
 links:
   thm: https://www.thm.de/mni/michael-kreutzer
 ---
