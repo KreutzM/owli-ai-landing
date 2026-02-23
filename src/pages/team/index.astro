@@ -1,0 +1,36 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TeamCard from "../../components/team/TeamCard.astro";
+import { getTeam } from "../../lib/content";
+
+const team = await getTeam();
+---
+
+<BaseLayout
+  title="Team"
+  description="Das Owli-AI Team im Umfeld der Technischen Hochschule Mittelhessen (THM)."
+  keywords={["Owli-AI Team", "THM", "Assistive Systems", "Forschung"]}
+>
+  <section class="space-y-8">
+    <header class="max-w-4xl space-y-3">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Team</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Team</h1>
+      <p class="text-lg text-slate-700">
+        Owli-AI entsteht im Umfeld der Technischen Hochschule Mittelhessen (THM). Hier stellen wir das Team hinter den
+        Apps, Custom GPTs und Forschungsprojekten vor.
+      </p>
+    </header>
+
+    <p class="text-sm text-slate-600">Aktuell gelistet: {team.length} Teammitglied(er).</p>
+
+    <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        team.map((member) => (
+          <li>
+            <TeamCard member={member} />
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+</BaseLayout>

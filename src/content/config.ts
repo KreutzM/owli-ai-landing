@@ -175,6 +175,29 @@ const publications = defineCollection({
   })
 });
 
+const team = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/team" }),
+  schema: z.object({
+    slug: z.string(),
+    order: z.number().int().positive(),
+    name: z.string(),
+    role: z.string(),
+    organization: z.string().optional(),
+    tags: z.array(z.string()).default([]),
+    shortBio: z.string(),
+    links: z
+      .object({
+        thm: z.string().url().optional(),
+        github: z.string().url().optional(),
+        scholar: z.string().url().optional(),
+        orcid: z.string().url().optional(),
+        website: z.string().url().optional()
+      })
+      .default({}),
+    image: z.string().optional()
+  })
+});
+
 const site = defineCollection({
   loader: glob({ pattern: "*.md", base: "./content/site" }),
   schema: z.object({})
@@ -185,5 +208,6 @@ export const collections = {
   gpts,
   projects,
   publications,
+  team,
   site
 };

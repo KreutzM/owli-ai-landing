@@ -65,6 +65,18 @@ export async function getPublications(): Promise<CollectionEntry<"publications">
   });
 }
 
+export async function getTeam(): Promise<CollectionEntry<"team">[]> {
+  const team = await getCollection("team");
+
+  return team.sort((a, b) => {
+    if (a.data.order !== b.data.order) {
+      return a.data.order - b.data.order;
+    }
+
+    return a.data.name.localeCompare(b.data.name, "de");
+  });
+}
+
 export function isPlatformFilter(value: string): value is PlatformFilter {
   return PLATFORM_FILTERS.includes(value as PlatformFilter);
 }
