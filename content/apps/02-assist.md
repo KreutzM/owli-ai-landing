@@ -47,7 +47,7 @@ links:
     href: /support
   secondary:
     label: Datenschutzfragen stellen
-    href: /privacy
+    href: /privacy#assist
 media:
   - src: /apps/assist/icon-placeholder.svg
     alt: App-Icon von Owli-AI Assist
@@ -120,5 +120,4 @@ Ein optionaler lokaler Detektionsmodus kann in einer spaeteren Ausbaustufe ausge
 Im Cloud-Mode wird das aufgenommene Bild zur Analyse an einen externen KI-Dienst uebermittelt. Es werden nur die fuer die Analyse notwendigen Daten uebertragen.
 
 Der optionale On-Device-Modus (falls verfuegbar) verarbeitet Bilddaten ausschliesslich lokal auf dem Geraet.
-
 

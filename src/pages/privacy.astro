@@ -2,33 +2,305 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Datenschutz" description="TODO: Vollstaendige Datenschutzerklaerung fuer owli-ai.com und die Owli-AI Apps ergaenzen.">
-  <section class="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-    <h1 class="text-3xl font-semibold">Datenschutz</h1>
-    <p class="text-slate-700">
-      Diese Seite ist absichtlich als TODO-Struktur vorbereitet. Finaltext erst veroeffentlichen, wenn Datenfluss und App-Verhalten final bestaetigt sind.
-    </p>
+<BaseLayout
+  title="Datenschutz"
+  description="Datenschutzhinweise fuer owli-ai.com sowie die Owli-AI Apps Way-Buddy, Assist, Magnify, Hear-Clean und Zoom."
+>
+  <article class="space-y-8 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+    <header class="space-y-3">
+      <h1 class="text-3xl font-semibold">Datenschutz</h1>
+      <p class="text-slate-700">
+        Diese Datenschutzerklaerung gilt fuer die Website <strong>owli-ai.com</strong> (Cloudflare Pages) sowie fuer
+        die Owli-AI Apps <strong>Way-Buddy</strong>, <strong>Assist</strong>, <strong>Magnify</strong>,
+        <strong>Hear-Clean</strong> und <strong>Zoom</strong>.
+      </p>
+      <p class="text-sm text-slate-600">Stand: 23. Februar 2026</p>
+    </header>
 
-    <section class="space-y-2">
-      <h2 class="text-xl font-semibold">TODO 1: Verantwortliche Stelle</h2>
-      <p class="text-slate-700">Firmenname, Anschrift, Kontakt-E-Mail, Datenschutzkontakt eintragen.</p>
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold">1. Verantwortliche Stelle</h2>
+      <ul class="list-disc space-y-1 pl-5 text-slate-700">
+        <li>Name: [Vorname Nachname]</li>
+        <li>Anschrift: [Strasse Hausnr], [PLZ Ort], Deutschland</li>
+        <li>
+          E-Mail: <a class="underline underline-offset-2" href="mailto:contact@owli-ai.com">contact@owli-ai.com</a>
+        </li>
+        <li>Datenschutzkontakt (optional): contact@owli-ai.com</li>
+      </ul>
     </section>
 
-    <section class="space-y-2">
-      <h2 class="text-xl font-semibold">TODO 2: Datenkategorien pro App</h2>
-      <p class="text-slate-700">Way-Buddy, Assist, Magnify, Hear-Clean, Zoom jeweils mit konkreten Datenarten und Zweck beschreiben.</p>
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold">2. Ueberblick: Welche Daten verarbeiten wir?</h2>
+      <ul class="list-disc space-y-1 pl-5 text-slate-700">
+        <li>Technische Verbindungsdaten bei Aufruf der Website (Hosting/Logdaten).</li>
+        <li>Kontaktdaten und Inhalte, wenn du uns per E-Mail kontaktierst.</li>
+        <li>App-bezogene Daten je nach Funktion (z. B. Kamera, Mikrofon, Texteingaben, lokale Einstellungen).</li>
+        <li>Bei aktivierten Cloud-Funktionen: fuer die Funktion notwendige Anfrageinhalte.</li>
+      </ul>
+
+      <section class="space-y-2">
+        <h3 class="text-xl font-semibold">2.1 Website (owli-ai.com)</h3>
+        <p class="text-slate-700">
+          Bei der Nutzung der Website fallen primaer technische Zugriffsdaten an. Inhalte werden statisch ausgeliefert;
+          serverseitige Nutzerkonten oder Formularprozesse sind aktuell nicht Teil der Seite.
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h3 class="text-xl font-semibold">2.2 Apps (Android/Windows)</h3>
+        <p class="text-slate-700">
+          Die Apps verarbeiten je nach Anwendungsfall Sensor- und Nutzungsdaten (z. B. Kamera, Mikrofon, lokale
+          Profile). Viele Funktionen arbeiten lokal auf dem Geraet, einzelne Features koennen optional Cloud-Dienste
+          nutzen.
+        </p>
+      </section>
     </section>
 
-    <section class="space-y-2">
-      <h2 class="text-xl font-semibold">TODO 3: Cloud-Provider und Rechtsgrundlagen</h2>
-      <p class="text-slate-700">Nur reale Provider, Transferlaender, Auftragsverarbeitung und Rechtsgrundlagen dokumentieren.</p>
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold">3. Website: Hosting, Logs und technische Daten</h2>
+      <p class="text-slate-700">
+        Die Website wird ueber <strong>Cloudflare Pages</strong> bereitgestellt (CDN/Edge-Auslieferung). Dabei koennen
+        aus technischen Gruenden typische Server-/Zugriffslogs verarbeitet werden, insbesondere:
+      </p>
+      <ul class="list-disc space-y-1 pl-5 text-slate-700">
+        <li>IP-Adresse</li>
+        <li>Datum und Uhrzeit der Anfrage</li>
+        <li>angeforderte URL/Datei</li>
+        <li>Referrer-Information (falls uebermittelt)</li>
+        <li>Browser-/User-Agent-Informationen</li>
+      </ul>
+      <p class="text-slate-700">
+        Diese Daten werden zur sicheren Bereitstellung, Fehleranalyse und technischen Stabilitaet verarbeitet.
+      </p>
+
+      <section class="space-y-2">
+        <h3 class="text-xl font-semibold">Cookies und Tracking</h3>
+        <p class="text-slate-700">
+          Nach aktuellem Stand dieser Repository-Version werden auf der Website keine eigenen Tracking- oder
+          Marketing-Skripte eingesetzt. Es werden keine Analyse-Cookies fuer Marketingzwecke gesetzt.
+          <span class="font-medium"> [Bitte pruefen vor Release, falls spaeter Analytics integriert wird.]</span>
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h3 class="text-xl font-semibold">Kontaktaufnahme</h3>
+        <p class="text-slate-700">
+          Wenn du uns per E-Mail kontaktierst, verarbeiten wir deine Nachricht und die darin enthaltenen Daten zur
+          Bearbeitung deines Anliegens. Die Verarbeitung erfolgt ueber den jeweils genutzten E-Mail-Dienst.
+        </p>
+      </section>
     </section>
 
-    <section class="space-y-2">
-      <h2 class="text-xl font-semibold">TODO 4: Speicherfristen und Betroffenenrechte</h2>
-      <p class="text-slate-700">Aufbewahrung, Loeschung, Auskunft, Berichtigung, Widerspruch, Beschwerdeweg ergaenzen.</p>
+    <section class="space-y-8">
+      <h2 class="text-2xl font-semibold">4. Apps: Datenschutz je Anwendung (mit Ankern)</h2>
+
+      <section class="space-y-2 scroll-mt-24">
+        <h2 id="way-buddy" class="text-xl font-semibold">Owli-AI Way-Buddy</h2>
+        <h3 class="font-semibold">a) Verarbeitete Daten</h3>
+        <p class="text-slate-700">
+          Kamerabilder zur Segmentierung begehbarer Bereiche; optional lokal gespeicherte Bild-/Masken-Paare im
+          Trainingsmodus; lokale App-Einstellungen.
+        </p>
+        <h3 class="font-semibold">b) Zweck der Verarbeitung</h3>
+        <p class="text-slate-700">
+          Orientierungshilfe, Richtungsabschaetzung und Audio-Feedback; optional Erstellung lokaler Trainingsdaten zur
+          Modellverbesserung.
+        </p>
+        <h3 class="font-semibold">c) On-Device vs. Cloud</h3>
+        <p class="text-slate-700">Die Kernverarbeitung erfolgt lokal auf dem Geraet. Standardmaessig keine Cloud-Uebertragung.</p>
+        <h3 class="font-semibold">d) Empfaenger / Drittanbieter</h3>
+        <p class="text-slate-700">Keine Empfaenger fuer Kameradaten im lokalen Standardbetrieb.</p>
+        <h3 class="font-semibold">e) Speicherdauer</h3>
+        <p class="text-slate-700">
+          Optional gespeicherte Trainingsdaten verbleiben lokal, bis du sie selbst loeschst oder die App entfernst.
+        </p>
+        <h3 class="font-semibold">f) Deine Optionen (z. B. Cloud aus, Loeschen)</h3>
+        <p class="text-slate-700">
+          Kamerafreigabe in Android entziehen; Trainingsmodus nicht nutzen; lokal gespeicherte Trainingsdaten und
+          App-Daten in den App-Einstellungen loeschen.
+        </p>
+      </section>
+
+      <section class="space-y-2 scroll-mt-24">
+        <h2 id="assist" class="text-xl font-semibold">Owli-AI Assist</h2>
+        <h3 class="font-semibold">a) Verarbeitete Daten</h3>
+        <p class="text-slate-700">
+          Kameraaufnahmen/Snapshots, optional zusaetzliche Bildanhaenge, Texteingaben, optionale Spracheingaben sowie
+          lokale Einstellungen und Profile.
+        </p>
+        <h3 class="font-semibold">b) Zweck der Verarbeitung</h3>
+        <p class="text-slate-700">
+          Szenenbeschreibung, Antwort auf Rueckfragen, kontextbezogene Assistenz und Sprachausgabe.
+        </p>
+        <h3 class="font-semibold">c) On-Device vs. Cloud</h3>
+        <p class="text-slate-700">
+          Im Cloud-Modus werden Bild- und Prompt-Daten an den in der App konfigurierten KI-Provider gesendet, damit
+          die Analyse erfolgen kann. Ohne Nutzung von Cloud-Funktionen werden diese Uebertragungen nicht ausgeloest.
+        </p>
+        <h3 class="font-semibold">d) Empfaenger / Drittanbieter</h3>
+        <p class="text-slate-700">
+          Empfaenger ist der jeweils konfigurierte KI-Provider.
+          <span class="font-medium">
+            {" "}
+            [Bitte pruefen: konkreten Providernamen aus der App-Konfiguration ergaenzen, falls verbindlich festgelegt.]
+          </span>
+        </p>
+        <h3 class="font-semibold">e) Speicherdauer</h3>
+        <p class="text-slate-700">
+          Lokale Einstellungen bleiben auf dem Geraet bestehen, bis du sie loeschst. Fuer cloudseitige
+          Aufbewahrungsfristen gelten die Bedingungen des jeweils konfigurierten Providers.
+        </p>
+        <h3 class="font-semibold">f) Deine Optionen (z. B. Cloud aus, Loeschen)</h3>
+        <p class="text-slate-700">
+          Cloud-Modus deaktivieren oder nicht nutzen; gespeicherte App-Daten lokal loeschen; Berechtigungen (Kamera,
+          Mikrofon) in Android entziehen.
+        </p>
+      </section>
+
+      <section class="space-y-2 scroll-mt-24">
+        <h2 id="magnify" class="text-xl font-semibold">Owli-AI Magnify</h2>
+        <h3 class="font-semibold">a) Verarbeitete Daten</h3>
+        <p class="text-slate-700">
+          Live-Kamerastream zur Vergroesserung; optional eingefrorene/gespeicherte Bilder; OCR-Ergebnisse; lokale
+          Profile und Einstellungen.
+        </p>
+        <h3 class="font-semibold">b) Zweck der Verarbeitung</h3>
+        <p class="text-slate-700">
+          Visuelle Vergroesserung, Kontrastoptimierung, Texterkennung und Vorlesen zur besseren Lesbarkeit im Alltag.
+        </p>
+        <h3 class="font-semibold">c) On-Device vs. Cloud</h3>
+        <p class="text-slate-700">
+          Die App ist auf lokale Verarbeitung ausgelegt.
+          <span class="font-medium">
+            {" "}
+            [Bitte final im App-Code pruefen, ob OCR in allen Zielkonfigurationen vollstaendig on-device laeuft.]
+          </span>
+        </p>
+        <h3 class="font-semibold">d) Empfaenger / Drittanbieter</h3>
+        <p class="text-slate-700">Im aktuellen lokalen Betriebsmodell keine vorgesehenen Empfaenger fuer Bilddaten.</p>
+        <h3 class="font-semibold">e) Speicherdauer</h3>
+        <p class="text-slate-700">
+          Nur vom Nutzer gespeicherte Bilder/Einstellungen werden lokal gehalten und koennen jederzeit geloescht werden.
+        </p>
+        <h3 class="font-semibold">f) Deine Optionen (z. B. Cloud aus, Loeschen)</h3>
+        <p class="text-slate-700">
+          Keine Cloud-Aktivierung erforderlich; gespeicherte Bilder und Profile in der App bzw. ueber Android
+          App-Datenverwaltung loeschen.
+        </p>
+      </section>
+
+      <section class="space-y-2 scroll-mt-24">
+        <h2 id="hear-clean" class="text-xl font-semibold">Owli-AI Hear-Clean</h2>
+        <h3 class="font-semibold">a) Verarbeitete Daten</h3>
+        <p class="text-slate-700">
+          Mikrofon-Audio, Live-Transkriptionstexte, optional vereinfachte Textfassungen, TTS-Ausgaben sowie lokale
+          Einstellungen/Sprachprofile.
+        </p>
+        <h3 class="font-semibold">b) Zweck der Verarbeitung</h3>
+        <p class="text-slate-700">
+          Verbesserung der Sprachverstaendlichkeit durch Live-Transkription, strukturierte Ausgabe und optionale
+          Vereinfachung.
+        </p>
+        <h3 class="font-semibold">c) On-Device vs. Cloud</h3>
+        <p class="text-slate-700">
+          Je nach aktivierter Funktion werden Daten lokal verarbeitet oder fuer die sprachliche Umwandlung an einen
+          externen Dienst uebermittelt.
+        </p>
+        <h3 class="font-semibold">d) Empfaenger / Drittanbieter</h3>
+        <p class="text-slate-700">
+          Bei Cloud-Funktionen: konfigurierte KI-/Sprachdienste.
+          <span class="font-medium">
+            {" "}
+            [Bitte pruefen: konkrete Providerbezeichnung aus der App-Konfiguration ergaenzen.]
+          </span>
+        </p>
+        <p class="text-slate-700">
+          Spracherkennung/Sprachausgabe erfolgen ueber die Android-Systemdienste. Je nach Geraetekonfiguration kann
+          dabei ein Dienst des Geraeteherstellers/Google genutzt werden.
+        </p>
+        <h3 class="font-semibold">e) Speicherdauer</h3>
+        <p class="text-slate-700">
+          Laufende Transkripte dienen primaer der aktuellen Sitzung. Lokal gespeicherte Einstellungen bleiben bestehen,
+          bis du sie loeschst.
+        </p>
+        <h3 class="font-semibold">f) Deine Optionen (z. B. Cloud aus, Loeschen)</h3>
+        <p class="text-slate-700">
+          Cloud-bezogene Funktionen deaktivieren; Mikrofonberechtigung entziehen; lokale Verlaufs-/Einstellungsdaten
+          in der App oder ueber Android entfernen.
+        </p>
+      </section>
+
+      <section class="space-y-2 scroll-mt-24">
+        <h2 id="zoom" class="text-xl font-semibold">Owli-AI Zoom</h2>
+        <h3 class="font-semibold">a) Verarbeitete Daten</h3>
+        <p class="text-slate-700">
+          Lokale Bildschirmdarstellung fuer Vergroesserung/Farbfilter, ggf. lokal verarbeitete Textinformationen fuer
+          Vorlesefunktionen und lokale App-Einstellungen.
+        </p>
+        <h3 class="font-semibold">b) Zweck der Verarbeitung</h3>
+        <p class="text-slate-700">
+          Verbesserung der visuellen Lesbarkeit am Desktop sowie optionale akustische Unterstuetzung.
+        </p>
+        <h3 class="font-semibold">c) On-Device vs. Cloud</h3>
+        <p class="text-slate-700">Die aktuelle Version arbeitet lokal auf dem Windows-System ohne Cloud-Uebertragung.</p>
+        <h3 class="font-semibold">d) Empfaenger / Drittanbieter</h3>
+        <p class="text-slate-700">Keine vorgesehenen Empfaenger fuer Bildschirmdaten im aktuellen Prototyp.</p>
+        <h3 class="font-semibold">e) Speicherdauer</h3>
+        <p class="text-slate-700">Lokale Einstellungen bleiben bis zur Loeschung durch den Nutzer erhalten.</p>
+        <h3 class="font-semibold">f) Deine Optionen (z. B. Cloud aus, Loeschen)</h3>
+        <p class="text-slate-700">
+          App-Einstellungen lokal zuruecksetzen/loeschen. Geplante, aber noch nicht aktive Funktionen sind nicht
+          Bestandteil dieser aktuellen Verarbeitung.
+        </p>
+      </section>
     </section>
 
-    <p class="text-sm text-slate-600">Kontakt fuer Rueckfragen: <a class="underline" href="mailto:contact@owli-ai.com">contact@owli-ai.com</a></p>
-  </section>
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold">5. Rechtsgrundlagen (DSGVO)</h2>
+      <ul class="list-disc space-y-1 pl-5 text-slate-700">
+        <li>
+          Website-Logdaten: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse an sicherem, stabilem Betrieb der
+          Website).
+        </li>
+        <li>Kontaktanfragen per E-Mail: Art. 6 Abs. 1 lit. f DSGVO (Bearbeitung deines Anliegens).</li>
+        <li>
+          Aktivierte Cloud-Funktionen in Apps: Art. 6 Abs. 1 lit. a DSGVO (Einwilligung durch aktive Nutzung der
+          Funktion; Widerruf durch Deaktivierung moeglich).
+        </li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold">6. Betroffenenrechte</h2>
+      <p class="text-slate-700">Du hast nach DSGVO insbesondere folgende Rechte:</p>
+      <ul class="list-disc space-y-1 pl-5 text-slate-700">
+        <li>Auskunft (Art. 15 DSGVO)</li>
+        <li>Berichtigung (Art. 16 DSGVO)</li>
+        <li>Loeschung (Art. 17 DSGVO)</li>
+        <li>Einschraenkung der Verarbeitung (Art. 18 DSGVO)</li>
+        <li>Datenuebertragbarkeit (Art. 20 DSGVO)</li>
+        <li>Widerspruch gegen Verarbeitungen auf Basis berechtigter Interessen (Art. 21 DSGVO)</li>
+      </ul>
+      <p class="text-slate-700">
+        Ausserdem hast du das Recht, dich bei einer Datenschutz-Aufsichtsbehoerde zu beschweren.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold">7. Speicherdauer</h2>
+      <p class="text-slate-700">
+        Wir speichern personenbezogene Daten nur so lange, wie es fuer die jeweiligen Zwecke erforderlich ist oder wie
+        es gesetzliche Pflichten vorsehen. App-spezifische Hinweise zur Speicherdauer findest du oben in den jeweiligen
+        App-Abschnitten.
+      </p>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-2xl font-semibold">8. Aenderungen dieser Datenschutzerklaerung</h2>
+      <p class="text-slate-700">
+        Wir passen diese Datenschutzerklaerung an, wenn sich Funktionen, Datenfluesse oder rechtliche Anforderungen
+        aendern. Es gilt jeweils die auf dieser Seite veroeffentlichte Fassung.
+      </p>
+    </section>
+  </article>
 </BaseLayout>
