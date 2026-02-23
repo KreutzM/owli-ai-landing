@@ -1,6 +1,6 @@
 # owli-ai.com - Landing Site
 
-Dieses Repo enthält die statische Marketing-/Info-Webseite für die **Owli-AI App-Suite**.
+Dieses Repo enthÃ¤lt die statische Marketing-/Info-Webseite fÃ¼r die **Owli-AI App-Suite**.
 
 ## Stack
 
