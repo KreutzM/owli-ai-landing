@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from "astro:content";
+import ResearchPublicationDetailPage from "../../../research/publications/[slug].astro";
+import { getPublications } from "../../../../lib/content";
+
+export async function getStaticPaths() {
+  const publications = await getPublications();
+
+  return publications.map((publication) => ({
+    params: { slug: publication.data.slug },
+    props: { publication }
+  }));
+}
+
+interface Props {
+  publication: CollectionEntry<"publications">;
+}
+
+const { publication } = Astro.props;
+---
+
+<ResearchPublicationDetailPage publication={publication} lang="en" pathPrefix="/en" />

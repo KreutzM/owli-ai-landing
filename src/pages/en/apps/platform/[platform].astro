@@ -1,0 +1,11 @@
+---
+import AppsPlatformPage from "../../../apps/platform/[platform].astro";
+
+export async function getStaticPaths() {
+  return [{ params: { platform: "android" } }, { params: { platform: "windows" } }];
+}
+
+const { platform } = Astro.params;
+---
+
+<AppsPlatformPage platform={platform} lang="en" pathPrefix="/en" />

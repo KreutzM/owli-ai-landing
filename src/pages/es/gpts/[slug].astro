@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from "astro:content";
+import GptDetailPage from "../../gpts/[slug].astro";
+import { getGpts } from "../../../lib/content";
+
+export async function getStaticPaths() {
+  const gpts = await getGpts();
+
+  return gpts.map((gpt) => ({
+    params: { slug: gpt.data.slug },
+    props: { gpt }
+  }));
+}
+
+interface Props {
+  gpt: CollectionEntry<"gpts">;
+}
+
+const { gpt } = Astro.props;
+---
+
+<GptDetailPage gpt={gpt} lang="es" pathPrefix="/es" />
