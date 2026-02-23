@@ -2,31 +2,57 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<BaseLayout title="Impressum" description="TODO: Rechtliche Pflichtangaben fuer owli-ai.com final eintragen.">
+<BaseLayout title="Impressum" description="Impressum und rechtliche Hinweise fuer owli-ai.com gemaess Paragraf 5 DDG.">
   <section class="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
     <h1 class="text-3xl font-semibold">Impressum</h1>
-    <p class="text-slate-700">Diese Seite ist als TODO-Struktur vorbereitet und wartet auf finale juristische Inhalte.</p>
+    <p class="text-slate-700">Angaben gemaess &sect; 5 DDG</p>
 
     <section class="space-y-2">
-      <h2 class="text-xl font-semibold">TODO 1: Anbieterkennzeichnung</h2>
-      <p class="text-slate-700">Vollstaendiger Name, Rechtsform, ladungsfaehige Anschrift, vertretungsberechtigte Person eintragen.</p>
+      <h2 class="text-xl font-semibold">Anbieter / Verantwortlich</h2>
+      <p class="text-slate-700">
+        Michael Kreutzer
+        <br />
+        Schnepfenhain 29, 36304 Alsfeld, Deutschland
+      </p>
     </section>
 
     <section class="space-y-2">
-      <h2 class="text-xl font-semibold">TODO 2: Kontakt und Registerdaten</h2>
-      <p class="text-slate-700">E-Mail, optional Telefon, Handelsregister, Registernummer und USt-IdNr. ergaenzen.</p>
+      <h2 class="text-xl font-semibold">Kontakt</h2>
+      <p class="text-slate-700">
+        <a class="underline" href="mailto:Michael.Kreutzer.77@gmail.com">Michael.Kreutzer.77@gmail.com</a>
+      </p>
+    </section>
+
+    <section class="space-y-4" aria-labelledby="haftungshinweise-title">
+      <h2 id="haftungshinweise-title" class="text-2xl font-semibold">Haftungshinweise (kurz und pragmatisch)</h2>
+
+      <section class="space-y-2">
+        <h3 class="text-xl font-semibold">Haftung fuer Inhalte</h3>
+        <p class="text-slate-700">
+          Die Inhalte dieser Website wurden mit groesstmoeglicher Sorgfalt erstellt. Fuer Richtigkeit, Vollstaendigkeit und Aktualitaet kann ich jedoch keine Gewaehr uebernehmen.
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h3 class="text-xl font-semibold">Haftung fuer Links</h3>
+        <p class="text-slate-700">
+          Diese Website enthaelt Links zu externen Websites Dritter. Auf deren Inhalte habe ich keinen Einfluss. Fuer die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.
+        </p>
+      </section>
+
+      <section class="space-y-2">
+        <h3 class="text-xl font-semibold">Urheberrecht</h3>
+        <p class="text-slate-700">
+          Die durch den Betreiber dieser Seite erstellten Inhalte und Werke unterliegen dem Urheberrecht. Downloads und Kopien sind nur fuer den privaten, nicht kommerziellen Gebrauch gestattet, sofern nicht anders gekennzeichnet.
+        </p>
+      </section>
     </section>
 
     <section class="space-y-2">
-      <h2 class="text-xl font-semibold">TODO 3: Verantwortlich fuer Inhalte</h2>
-      <p class="text-slate-700">Person nach geltendem Recht inkl. Anschrift und Kontakt benennen.</p>
+      <h2 class="text-xl font-semibold">Hinweis zur Forschungs- und Projektnatur</h2>
+      <p class="text-slate-700">
+        Owli-AI.com ist ein nicht kommerzielles Projekt. Es erfolgt kein Verkauf ueber diese Website.
+      </p>
     </section>
-
-    <section class="space-y-2">
-      <h2 class="text-xl font-semibold">TODO 4: Haftungs- und Urheberhinweise</h2>
-      <p class="text-slate-700">Rechtlich gepruefte Formulierungen fuer Inhalte, Links und Urheberrecht einsetzen.</p>
-    </section>
-
-    <p class="text-sm text-slate-600">Kontakt: <a class="underline" href="mailto:contact@owli-ai.com">contact@owli-ai.com</a></p>
   </section>
 </BaseLayout>
