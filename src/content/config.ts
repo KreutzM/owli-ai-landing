@@ -89,6 +89,7 @@ const gpts = defineCollection({
     link: z.string().url(),
     shortDescription: z.string(),
     audienceBadges: z.array(z.string()).default([]),
+    examplePrompts: z.array(z.string()).default([]),
     typicalQuestions: z.array(z.string()).default([]),
     limits: z.string(),
     icon: appImage.optional(),

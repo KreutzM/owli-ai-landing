@@ -36,9 +36,11 @@ const useCasePrompts = (whenHelpMatch?.[1] ?? "")
   .slice(0, 3)
   .map((useCase) => `Bitte unterstütze mich dabei: ${useCase}.`);
 const quickstartPrompts =
-  useCasePrompts.length > 0
-    ? useCasePrompts
-    : gpt.data.typicalQuestions.slice(0, 3).map((question) => `Bitte starte mit dieser Frage: ${question}`);
+  gpt.data.examplePrompts.length > 0
+    ? gpt.data.examplePrompts.slice(0, 3)
+    : useCasePrompts.length > 0
+      ? useCasePrompts
+      : gpt.data.typicalQuestions.slice(0, 3).map((question) => `Bitte starte mit dieser Frage: ${question}`);
 const limitsCalloutClass =
   gpt.data.slug === "sozialberater-hessen"
     ? "border-amber-300 bg-amber-50 text-amber-950"
