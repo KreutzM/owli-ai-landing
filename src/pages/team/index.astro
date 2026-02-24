@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import TeamCard from "../../components/team/TeamCard.astro";
 import { getTeam } from "../../lib/content";
 import { type LangPrefix, type SiteLang } from "../../lib/i18n";
+import { formatUiString, getUiStrings } from "../../i18n/strings";
 
 interface Props {
   lang?: SiteLang;
@@ -10,28 +11,28 @@ interface Props {
 }
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 
 const team = await getTeam(lang);
 ---
 
 <BaseLayout
-  title="Team"
-  description="Das Owli-AI Team im Umfeld der Technischen Hochschule Mittelhessen (THM)."
+  title={ui.pages.team.seoTitle}
+  description={ui.pages.team.seoDescription}
   keywords={["Owli-AI Team", "THM", "Assistive Systems", "Forschung"]}
   lang={lang}
   pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Team</p>
-      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Team</h1>
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{ui.pages.team.headerEyebrow}</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{ui.pages.team.headerTitle}</h1>
       <p class="text-lg text-slate-700">
-        Owli-AI entsteht im Umfeld der Technischen Hochschule Mittelhessen (THM). Hier stellen wir das Team hinter den
-        Apps, Custom GPTs und Forschungsprojekten vor.
+        {ui.pages.team.headerBody}
       </p>
     </header>
 
-    <p class="text-sm text-slate-600">Aktuell gelistet: {team.length} Teammitglied(er).</p>
+    <p class="text-sm text-slate-600">{formatUiString(ui.pages.team.countLine, { count: team.length })}</p>
 
     <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {

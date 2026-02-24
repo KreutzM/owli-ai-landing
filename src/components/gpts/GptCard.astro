@@ -1,15 +1,18 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import BrandLogo from "../BrandLogo.astro";
-import { withPrefix, type LangPrefix } from "../../lib/i18n";
+import { withPrefix, type LangPrefix, type SiteLang } from "../../lib/i18n";
+import { getUiStrings } from "../../i18n/strings";
 
 interface Props {
   gpt: CollectionEntry<"gpts">;
   compact?: boolean;
+  lang?: SiteLang;
   pathPrefix?: LangPrefix;
 }
 
-const { gpt, compact = false, pathPrefix = "" } = Astro.props;
+const { gpt, compact = false, lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 const detailsHref = withPrefix(`/gpts/${gpt.data.slug}`, pathPrefix);
 const iconSrc = gpt.data.icon?.src;
 const iconAlt = gpt.data.icon?.alt?.trim() || `Icon von ${gpt.data.name}`;
@@ -32,7 +35,7 @@ const iconHeight = gpt.data.icon?.height ?? 64;
         />
       ) : (
         <BrandLogo
-          alt={`Owli-AI Symbol für ${gpt.data.name}`}
+          alt={`Owli-AI Symbol fuer ${gpt.data.name}`}
           width={64}
           height={64}
           className="h-16 w-16 rounded-xl object-contain drop-shadow-sm sm:h-20 sm:w-20"
@@ -64,13 +67,13 @@ const iconHeight = gpt.data.icon?.height ?? 64;
       rel="noopener noreferrer"
       class="btn-brand inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition"
     >
-      In ChatGPT öffnen
+      {ui.cta.openInChatGpt}
     </a>
     <a
       href={detailsHref}
       class="btn-outline-neutral inline-flex items-center rounded-full border px-4 py-2 text-sm font-semibold transition"
     >
-      Details ansehen
+      {ui.cta.viewDetails}
     </a>
   </div>
 </article>

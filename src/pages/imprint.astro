@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { type LangPrefix, type SiteLang } from "../lib/i18n";
+import { getUiStrings } from "../i18n/strings";
 
 interface Props {
   lang?: SiteLang;
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 ---
 
 <BaseLayout
@@ -18,6 +20,14 @@ const { lang = "de", pathPrefix = "" } = Astro.props;
 >
   <section class="space-y-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
     <h1 class="text-3xl font-semibold">Impressum</h1>
+    {lang !== "de" && (
+      <aside class="rounded-xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900" aria-label="Hinweis zur Uebersetzung">
+        <p class="font-semibold">{ui.notices.legalTranslationOnly}</p>
+        <p class="mt-2">
+          <a class="underline underline-offset-2" href="/imprint">{ui.notices.legalGermanSourceLink}</a>
+        </p>
+      </aside>
+    )}
     <p class="text-slate-700">Angaben gemaess &sect; 5 DDG</p>
 
     <section class="space-y-2">

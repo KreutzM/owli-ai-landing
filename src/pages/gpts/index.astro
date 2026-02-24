@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import GptCard from "../../components/gpts/GptCard.astro";
 import { getGpts } from "../../lib/content";
 import { type LangPrefix, type SiteLang } from "../../lib/i18n";
+import { formatUiString, getUiStrings } from "../../i18n/strings";
 
 interface Props {
   lang?: SiteLang;
@@ -11,39 +12,40 @@ interface Props {
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
 const gpts = await getGpts(lang);
+const ui = getUiStrings(lang);
 ---
 
 <BaseLayout
-  title="Owli-AI GPTs in ChatGPT"
-  description="Uebersicht der Owli-AI Custom GPTs in ChatGPT: Sozialberater Hessen, SeeForMe und TI-1 Tutor fuer Blinde."
+  title={ui.pages.gpts.seoTitle}
+  description={ui.pages.gpts.seoDescription}
   keywords={["Custom GPT", "ChatGPT", "Sozialberater Hessen", "SeeForMe", "Technische Informatik Tutor"]}
   lang={lang}
   pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Custom GPTs</p>
-      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Owli-AI GPTs</h1>
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{ui.pages.gpts.headerEyebrow}</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{ui.pages.gpts.headerTitle}</h1>
       <p class="text-lg text-slate-700">
-        Hier findest du ausgewaehlte Custom GPTs, die du direkt in ChatGPT nutzen kannst - mit klarem Fokus, schnellem Einstieg und transparenten Grenzen.
+        {ui.pages.gpts.headerBodyPrimary}
       </p>
       <p class="text-base text-slate-700">
-        Du bekommst typische Fragen als Startpunkt und Hinweise zu Datenschutz und Einschraenkungen, damit du die Tools sicher einsetzen kannst.
+        {ui.pages.gpts.headerBodySecondary}
       </p>
     </header>
 
     <p class="text-sm text-slate-600">
-      Aktuell verfuegbar: {gpts.length} GPTs. Weitere koennen jederzeit ergaenzt werden.
+      {formatUiString(ui.pages.gpts.countLine, { count: gpts.length })}
     </p>
     <p class="text-sm text-slate-600">
-      Hinweis: Fuer die Nutzung brauchst du einen kostenlosen ChatGPT-Account.
+      {ui.notices.requiresChatGptAccount}
     </p>
 
     <ol class="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {
         gpts.map((gpt) => (
           <li>
-            <GptCard gpt={gpt} pathPrefix={pathPrefix} />
+            <GptCard gpt={gpt} lang={lang} pathPrefix={pathPrefix} />
           </li>
         ))
       }

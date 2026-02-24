@@ -1,13 +1,16 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { localizeHref, withPrefix, type LangPrefix } from "../../lib/i18n";
+import { localizeHref, withPrefix, type LangPrefix, type SiteLang } from "../../lib/i18n";
+import { getUiStrings } from "../../i18n/strings";
 
 interface Props {
   app: CollectionEntry<"apps">;
+  lang?: SiteLang;
   pathPrefix?: LangPrefix;
 }
 
-const { app, pathPrefix = "" } = Astro.props;
+const { app, lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 
 const platformBadgeClass = "badge-platform";
 
@@ -20,9 +23,10 @@ const statusBadgeClass =
 
 const valueLine = app.data.valueProp || app.data.tagline;
 const detailsHref = withPrefix(`/apps/${app.data.slug}`, pathPrefix);
+const detailsLabel = ui.cta.viewDetails;
 const primaryCta = app.data.links.primary
   ? { ...app.data.links.primary, href: localizeHref(app.data.links.primary.href, pathPrefix) }
-  : { label: "Details ansehen", href: detailsHref };
+  : { label: detailsLabel, href: detailsHref };
 const iconSrc = app.data.icon?.src ?? `/apps/${app.data.slug}/icon-placeholder.svg`;
 const iconAlt = app.data.icon?.alt?.trim() || `Icon von ${app.data.name}`;
 const iconWidth = app.data.icon?.width ?? 64;
@@ -52,7 +56,7 @@ const iconHeight = app.data.icon?.height ?? 64;
       href={detailsHref}
       class="btn-brand inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-semibold transition"
     >
-      Details ansehen
+      {detailsLabel}
     </a>
     {primaryCta.href !== detailsHref && (
       <a

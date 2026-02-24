@@ -6,6 +6,7 @@ import {
   type LangPrefix,
   type SiteLang
 } from "../lib/i18n";
+import { getUiStrings } from "../i18n/strings";
 
 interface Props {
   lang?: SiteLang;
@@ -13,17 +14,18 @@ interface Props {
 }
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 
 const navItems = [
-  { href: "/", label: "Start" },
-  { href: "/apps", label: "Apps" },
-  { href: "/gpts", label: "GPTs" },
-  { href: "/research", label: "Forschung" },
-  { href: "/team", label: "Team" },
-  { href: "/support", label: "Support" },
-  { href: "/privacy", label: "Datenschutz" },
-  { href: "/imprint", label: "Impressum" },
-  { href: "/accessibility", label: "Barrierefreiheit" }
+  { href: "/", label: ui.nav.start },
+  { href: "/apps", label: ui.nav.apps },
+  { href: "/gpts", label: ui.nav.gpts },
+  { href: "/research", label: ui.nav.research },
+  { href: "/team", label: ui.nav.team },
+  { href: "/support", label: ui.nav.support },
+  { href: "/privacy", label: ui.nav.privacy },
+  { href: "/imprint", label: ui.nav.imprint },
+  { href: "/accessibility", label: ui.nav.accessibility }
 ];
 
 const currentPath = Astro.url.pathname;
@@ -51,7 +53,7 @@ const isActive = (href: string) => {
     <a
       class="flex items-center gap-2.5 font-semibold tracking-tight"
       href={withPrefix("/", pathPrefix)}
-      aria-label="Owli-AI Startseite"
+      aria-label={ui.aria.homePage}
     >
       <BrandLogo
         alt="Owli-AI Logo"
@@ -63,7 +65,7 @@ const isActive = (href: string) => {
       <span class="text-lg">Owli-AI</span>
     </a>
 
-    <nav class="hidden md:block" aria-label="Hauptnavigation">
+    <nav class="hidden md:block" aria-label={ui.aria.mainNavigation}>
       <ul class="flex items-center gap-3 text-[0.95rem] font-medium">
         {
           localizedNavItems.map((item) => (
@@ -84,7 +86,7 @@ const isActive = (href: string) => {
       </ul>
     </nav>
 
-    <nav aria-label="Sprachauswahl" class="hidden md:block">
+    <nav aria-label={ui.aria.languageSelection} class="hidden md:block">
       <ul class="flex items-center gap-1 rounded-lg border border-slate-200 p-1 text-xs font-semibold">
         {
           languageOptions.map((option) => (
@@ -106,8 +108,8 @@ const isActive = (href: string) => {
     </nav>
 
     <details class="md:hidden">
-      <summary class="cursor-pointer rounded border border-slate-300 px-3 py-1 text-sm">Menue</summary>
-      <nav class="absolute right-4 z-20 mt-2 w-52 rounded border border-slate-200 bg-white p-2 shadow" aria-label="Mobile Navigation">
+      <summary class="cursor-pointer rounded border border-slate-300 px-3 py-1 text-sm">{ui.aria.menu}</summary>
+      <nav class="absolute right-4 z-20 mt-2 w-52 rounded border border-slate-200 bg-white p-2 shadow" aria-label={ui.aria.mobileNavigation}>
         <ul class="space-y-1 text-sm">
           {
             localizedNavItems.map((item) => (
@@ -127,7 +129,7 @@ const isActive = (href: string) => {
           }
         </ul>
         <div class="mt-2 border-t border-slate-200 pt-2">
-          <p class="px-2 text-xs font-semibold uppercase tracking-wide text-slate-600">Sprache</p>
+          <p class="px-2 text-xs font-semibold uppercase tracking-wide text-slate-600">{ui.aria.language}</p>
           <ul class="mt-1 flex gap-1 px-2">
             {
               languageOptions.map((option) => (

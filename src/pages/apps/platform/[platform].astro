@@ -4,6 +4,7 @@ import AppCard from "../../../components/apps/AppCard.astro";
 import PlatformFilterNav from "../../../components/apps/PlatformFilterNav.astro";
 import { filterAppsByPlatform, getApps, type PlatformFilter } from "../../../lib/content";
 import { type LangPrefix, type SiteLang } from "../../../lib/i18n";
+import { formatUiString, getUiStrings } from "../../../i18n/strings";
 
 interface Props {
   platform?: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 
 export async function getStaticPaths() {
   return [{ params: { platform: "android" } }, { params: { platform: "windows" } }];
@@ -24,27 +26,32 @@ const allApps = await getApps(lang);
 const apps = filterAppsByPlatform(allApps, platform);
 const androidCount = allApps.filter((app) => app.data.platform === "Android").length;
 const windowsCount = allApps.filter((app) => app.data.platform === "Windows").length;
-const platformTitle = platform === "android" ? "Android" : "Windows";
+const platformTitle = platform === "android" ? ui.filter.android : ui.filter.windows;
 ---
 
-<BaseLayout title={`Apps - ${platformTitle}`} description={`Owli-AI Apps fuer ${platformTitle}.`} lang={lang} pathPrefix={pathPrefix}>
+<BaseLayout
+  title={formatUiString(ui.pages.appsPlatform.pageTitle, { platform: platformTitle })}
+  description={formatUiString(ui.pages.appsPlatform.pageDescription, { platform: platformTitle })}
+  lang={lang}
+  pathPrefix={pathPrefix}
+>
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Plattformfilter</p>
-      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Apps fuer {platformTitle}</h1>
-      <p class="text-lg text-slate-700">Filteransicht ohne JavaScript. Jede Karte fuehrt direkt zur Detailseite.</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{ui.pages.appsPlatform.headerEyebrow}</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{formatUiString(ui.pages.appsPlatform.headerTitle, { platform: platformTitle })}</h1>
+      <p class="text-lg text-slate-700">{ui.pages.appsPlatform.headerBody}</p>
     </header>
 
-    <PlatformFilterNav active={platform} androidCount={androidCount} windowsCount={windowsCount} pathPrefix={pathPrefix} />
+    <PlatformFilterNav active={platform} androidCount={androidCount} windowsCount={windowsCount} lang={lang} pathPrefix={pathPrefix} />
 
     {apps.length === 0 ? (
-      <p class="rounded-2xl border border-slate-200 bg-white p-5 text-slate-700 shadow-sm">Keine Apps fuer diese Plattform gefunden.</p>
+      <p class="rounded-2xl border border-slate-200 bg-white p-5 text-slate-700 shadow-sm">{ui.pages.appsPlatform.emptyState}</p>
     ) : (
       <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {
           apps.map((app) => (
             <li>
-              <AppCard app={app} pathPrefix={pathPrefix} />
+              <AppCard app={app} lang={lang} pathPrefix={pathPrefix} />
             </li>
           ))
         }

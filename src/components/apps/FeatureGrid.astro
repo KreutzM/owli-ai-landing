@@ -1,4 +1,7 @@
 ---
+import type { SiteLang } from "../../lib/i18n";
+import { getUiStrings } from "../../i18n/strings";
+
 interface Feature {
   title: string;
   description: string;
@@ -6,17 +9,19 @@ interface Feature {
 
 interface Props {
   features: Feature[];
+  lang?: SiteLang;
 }
 
-const { features } = Astro.props;
+const { features, lang = "de" } = Astro.props;
+const ui = getUiStrings(lang);
 const safeFeatures =
   features.length > 0
     ? features
-    : [{ title: "Features folgen", description: "Die Featureliste wird aktuell ausgearbeitet." }];
+    : [{ title: ui.components.featureGrid.fallbackTitle, description: ui.components.featureGrid.fallbackDescription }];
 ---
 
 <section aria-labelledby="features-heading" class="space-y-4">
-  <h2 id="features-heading" class="text-2xl font-semibold tracking-tight">Kernfunktionen</h2>
+  <h2 id="features-heading" class="text-2xl font-semibold tracking-tight">{ui.components.featureGrid.heading}</h2>
   <ul class="grid gap-3 sm:grid-cols-2">
     {
       safeFeatures.map((feature) => (

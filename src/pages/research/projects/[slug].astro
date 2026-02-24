@@ -1,8 +1,10 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import TranslationStatusBadge from "../../../components/TranslationStatusBadge.astro";
 import { getProjects, getPublications } from "../../../lib/content";
 import { withPrefix, type LangPrefix, type SiteLang } from "../../../lib/i18n";
+import { formatUiString, getUiStrings } from "../../../i18n/strings";
 
 export async function getStaticPaths() {
   const projects = await getProjects();
@@ -20,6 +22,7 @@ interface Props {
 }
 
 const { project, lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 const { Content } = await render(project);
 const seoTitle = project.data.seo.title ?? project.data.title;
 const seoDescription = project.data.seo.description;
@@ -28,20 +31,52 @@ const publications = await getPublications(lang);
 const relatedPublication = project.data.relatedPublicationSlug
   ? publications.find((publication) => publication.data.slug === project.data.relatedPublicationSlug)
   : undefined;
+const copy = {
+  de: {
+    eyebrow: "Owli-AI Forschungsprojekt",
+    keywordsAria: "Projekt-Keywords",
+    descriptionTitle: "Projektbeschreibung",
+    figuresTitle: "Abbildungen",
+    figuresSummary: "{count} Visuals aus dem AHRUS-Paper.",
+    linksTitle: "Weiterfuehrende Links",
+    publicationCta: "Zur Publikation"
+  },
+  en: {
+    eyebrow: "Owli-AI Research Project",
+    keywordsAria: "Project keywords",
+    descriptionTitle: "Project description",
+    figuresTitle: "Figures",
+    figuresSummary: "{count} visuals from the AHRUS paper.",
+    linksTitle: "Further links",
+    publicationCta: "View publication"
+  },
+  es: {
+    eyebrow: "Proyecto de investigacion Owli-AI",
+    keywordsAria: "Palabras clave del proyecto",
+    descriptionTitle: "Descripcion del proyecto",
+    figuresTitle: "Figuras",
+    figuresSummary: "{count} visuales del paper AHRUS.",
+    linksTitle: "Enlaces adicionales",
+    publicationCta: "Ver publicacion"
+  }
+}[lang];
 ---
 
 <BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article" lang={lang} pathPrefix={pathPrefix}>
   <article class="space-y-8">
     <header class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschungsprojekt</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{copy.eyebrow}</p>
       <h1 class="mt-3 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{project.data.title}</h1>
       <p class="mt-4 text-slate-700">{project.data.shortDescription}</p>
       <div class="mt-4 flex flex-wrap items-center gap-2">
         <span class="badge-status-accent rounded-full px-3 py-1 text-xs font-semibold">{project.data.status}</span>
         {project.data.timeframe && <span class="text-xs font-medium text-slate-600">{project.data.timeframe}</span>}
       </div>
+      <div class="mt-4">
+        <TranslationStatusBadge lang={lang} translationStatus={project.data.translationStatus} />
+      </div>
       {project.data.keywords.length > 0 && (
-        <ul class="mt-4 flex flex-wrap gap-2" aria-label="Projekt-Keywords">
+        <ul class="mt-4 flex flex-wrap gap-2" aria-label={copy.keywordsAria}>
           {
             project.data.keywords.map((keyword) => (
               <li>
@@ -54,7 +89,7 @@ const relatedPublication = project.data.relatedPublicationSlug
     </header>
 
     <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="project-content-title">
-      <h2 id="project-content-title" class="text-2xl font-semibold tracking-tight">Projektbeschreibung</h2>
+      <h2 id="project-content-title" class="text-2xl font-semibold tracking-tight">{copy.descriptionTitle}</h2>
       <div class="content-markdown mt-4">
         <Content />
       </div>
@@ -62,8 +97,8 @@ const relatedPublication = project.data.relatedPublicationSlug
 
     {project.data.visuals.length > 0 && (
       <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="gallery-title">
-        <h2 id="gallery-title" class="text-2xl font-semibold tracking-tight">Abbildungen</h2>
-        <p class="mt-2 text-sm text-slate-600">{project.data.visuals.length} Visuals aus dem AHRUS-Paper.</p>
+        <h2 id="gallery-title" class="text-2xl font-semibold tracking-tight">{copy.figuresTitle}</h2>
+        <p class="mt-2 text-sm text-slate-600">{formatUiString(copy.figuresSummary, { count: project.data.visuals.length })}</p>
         <ol class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {
             project.data.visuals.map((visual) => (
@@ -89,21 +124,21 @@ const relatedPublication = project.data.relatedPublicationSlug
     )}
 
     <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="project-links-title">
-      <h2 id="project-links-title" class="text-2xl font-semibold tracking-tight">Weiterfuehrende Links</h2>
+      <h2 id="project-links-title" class="text-2xl font-semibold tracking-tight">{copy.linksTitle}</h2>
       <div class="mt-4 flex flex-wrap gap-3">
         {relatedPublication && (
           <a
             href={withPrefix(`/research/publications/${relatedPublication.data.slug}`, pathPrefix)}
             class="btn-brand inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
           >
-            Zur Publikation
+            {copy.publicationCta}
           </a>
         )}
         <a
           href={withPrefix("/research/projects", pathPrefix)}
           class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
         >
-          Zurueck zu Projekten
+          {ui.cta.back}
         </a>
       </div>
     </section>

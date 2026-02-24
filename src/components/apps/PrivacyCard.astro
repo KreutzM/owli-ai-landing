@@ -1,4 +1,7 @@
 ---
+import { withPrefix, type LangPrefix, type SiteLang } from "../../lib/i18n";
+import { getUiStrings } from "../../i18n/strings";
+
 interface PrivacyInfo {
   mode: "local" | "cloud" | "hybrid";
   summary: string;
@@ -8,29 +11,32 @@ interface PrivacyInfo {
 interface Props {
   privacy: PrivacyInfo;
   appSlug: string;
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
 }
 
-const { privacy, appSlug } = Astro.props;
+const { privacy, appSlug, lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 
 const modeLabel = {
-  local: "Lokal",
-  cloud: "Cloud",
-  hybrid: "Hybrid"
+  local: ui.components.privacyCard.modeLocal,
+  cloud: ui.components.privacyCard.modeCloud,
+  hybrid: ui.components.privacyCard.modeHybrid
 }[privacy.mode];
 ---
 
 <section aria-labelledby="privacy-heading" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-  <h2 id="privacy-heading" class="text-2xl font-semibold tracking-tight">Datenschutz</h2>
+  <h2 id="privacy-heading" class="text-2xl font-semibold tracking-tight">{ui.components.privacyCard.heading}</h2>
   <p class="mt-3">
     <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-slate-700">
-      Betriebsmodus: {modeLabel}
+      {ui.components.privacyCard.modePrefix}: {modeLabel}
     </span>
   </p>
-  <p class="mt-3 text-sm text-slate-700">{privacy.summary || "Datenschutzdetails folgen."}</p>
+  <p class="mt-3 text-sm text-slate-700">{privacy.summary || ui.components.privacyCard.summaryFallback}</p>
   {privacy.note && <p class="mt-2 text-sm text-slate-600">{privacy.note}</p>}
   <p class="mt-4 text-sm">
-    <a class="underline underline-offset-2" href={`/privacy#${appSlug}`}>
-      Zur Datenschutzseite
+    <a class="underline underline-offset-2" href={withPrefix(`/privacy#${appSlug}`, pathPrefix)}>
+      {ui.components.privacyCard.linkLabel}
     </a>
   </p>
 </section>

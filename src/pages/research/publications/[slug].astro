@@ -1,8 +1,10 @@
 ---
 import { render, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../../layouts/BaseLayout.astro";
+import TranslationStatusBadge from "../../../components/TranslationStatusBadge.astro";
 import { getProjects, getPublications } from "../../../lib/content";
 import { withPrefix, type LangPrefix, type SiteLang } from "../../../lib/i18n";
+import { formatUiString, getUiStrings } from "../../../i18n/strings";
 
 export async function getStaticPaths() {
   const publications = await getPublications();
@@ -20,6 +22,7 @@ interface Props {
 }
 
 const { publication, lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 const { Content } = await render(publication);
 const seoTitle = publication.data.seo.title ?? `${publication.data.title} (${publication.data.venue})`;
 const seoDescription = publication.data.seo.description;
@@ -29,23 +32,64 @@ const projects = await getProjects(lang);
 const relatedProject = publication.data.relatedProjectSlug
   ? projects.find((project) => project.data.slug === publication.data.relatedProjectSlug)
   : undefined;
+const copy = {
+  de: {
+    eyebrow: "Owli-AI Forschung",
+    visualTitle: "Visual",
+    abstractTitle: "Abstract",
+    keywordsTitle: "Keywords",
+    downloadTitle: "Download",
+    relatedProjectCta: "Zum Projekt",
+    figuresTitle: "Abbildungen",
+    figuresSummary: "{count} Visuals aus dem Paper.",
+    bibtexTitle: "BibTeX",
+    notesTitle: "Weitere Hinweise"
+  },
+  en: {
+    eyebrow: "Owli-AI Research",
+    visualTitle: "Visual",
+    abstractTitle: "Abstract",
+    keywordsTitle: "Keywords",
+    downloadTitle: "Download",
+    relatedProjectCta: "View project",
+    figuresTitle: "Figures",
+    figuresSummary: "{count} visuals from the paper.",
+    bibtexTitle: "BibTeX",
+    notesTitle: "Additional notes"
+  },
+  es: {
+    eyebrow: "Investigacion Owli-AI",
+    visualTitle: "Visual",
+    abstractTitle: "Resumen",
+    keywordsTitle: "Palabras clave",
+    downloadTitle: "Descarga",
+    relatedProjectCta: "Ver proyecto",
+    figuresTitle: "Figuras",
+    figuresSummary: "{count} visuales del paper.",
+    bibtexTitle: "BibTeX",
+    notesTitle: "Notas adicionales"
+  }
+}[lang];
 ---
 
 <BaseLayout title={seoTitle} description={seoDescription} keywords={seoKeywords} ogType="article" lang={lang} pathPrefix={pathPrefix}>
   <article class="space-y-8">
     <header class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschung</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{copy.eyebrow}</p>
       <h1 class="mt-3 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">{publication.data.title}</h1>
       <p class="mt-4 text-sm text-slate-700">
         {publication.data.venue} ({publication.data.year}) - {publication.data.type}
       </p>
       <p class="mt-1 text-sm text-slate-700">{publication.data.authors.join("; ")}</p>
       {publication.data.affiliation && <p class="mt-1 text-sm text-slate-700">{publication.data.affiliation}</p>}
+      <div class="mt-4">
+        <TranslationStatusBadge lang={lang} translationStatus={publication.data.translationStatus} />
+      </div>
     </header>
 
     {publication.data.heroImage && (
       <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="hero-image-title">
-        <h2 id="hero-image-title" class="text-2xl font-semibold tracking-tight">Visual</h2>
+        <h2 id="hero-image-title" class="text-2xl font-semibold tracking-tight">{copy.visualTitle}</h2>
         <figure class="mt-4 overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
           <picture>
             {publication.data.heroImage.webp && <source srcset={publication.data.heroImage.webp} type="image/webp" />}
@@ -65,12 +109,12 @@ const relatedProject = publication.data.relatedProjectSlug
     )}
 
     <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="abstract-title">
-      <h2 id="abstract-title" class="text-2xl font-semibold tracking-tight">Abstract</h2>
+      <h2 id="abstract-title" class="text-2xl font-semibold tracking-tight">{copy.abstractTitle}</h2>
       <p class="mt-3 text-slate-700">{publication.data.abstract}</p>
     </section>
 
     <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="keywords-title">
-      <h2 id="keywords-title" class="text-2xl font-semibold tracking-tight">Keywords</h2>
+      <h2 id="keywords-title" class="text-2xl font-semibold tracking-tight">{copy.keywordsTitle}</h2>
       <ul class="mt-3 flex flex-wrap gap-2">
         {
           publication.data.keywords.map((keyword) => (
@@ -83,7 +127,7 @@ const relatedProject = publication.data.relatedProjectSlug
     </section>
 
     <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="download-title">
-      <h2 id="download-title" class="text-2xl font-semibold tracking-tight">Download</h2>
+      <h2 id="download-title" class="text-2xl font-semibold tracking-tight">{copy.downloadTitle}</h2>
       <div class="mt-4 flex flex-wrap gap-3">
         <a
           href={publication.data.pdf}
@@ -91,20 +135,20 @@ const relatedProject = publication.data.relatedProjectSlug
           target="_blank"
           rel="noopener noreferrer"
         >
-          PDF herunterladen
+          {ui.cta.downloadPdf}
         </a>
         <a
           href={withPrefix("/research/publications", pathPrefix)}
           class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
         >
-          Zurueck zur Liste
+          {ui.cta.back}
         </a>
         {relatedProject && (
           <a
             href={withPrefix(`/research/projects/${relatedProject.data.slug}`, pathPrefix)}
             class="btn-outline-neutral inline-flex items-center rounded-full border px-5 py-2.5 text-sm font-semibold transition"
           >
-            Zum Projekt
+            {copy.relatedProjectCta}
           </a>
         )}
       </div>
@@ -112,8 +156,8 @@ const relatedProject = publication.data.relatedProjectSlug
 
     {publication.data.figures.length > 0 && (
       <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="figures-title">
-        <h2 id="figures-title" class="text-2xl font-semibold tracking-tight">Abbildungen</h2>
-        <p class="mt-2 text-sm text-slate-600">{publication.data.figures.length} Visuals aus dem Paper.</p>
+        <h2 id="figures-title" class="text-2xl font-semibold tracking-tight">{copy.figuresTitle}</h2>
+        <p class="mt-2 text-sm text-slate-600">{formatUiString(copy.figuresSummary, { count: publication.data.figures.length })}</p>
         <ol class="mt-4 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
           {
             publication.data.figures.map((figure) => (
@@ -134,14 +178,14 @@ const relatedProject = publication.data.relatedProjectSlug
 
     {publication.data.bibtex && (
       <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="bibtex-title">
-        <h2 id="bibtex-title" class="text-2xl font-semibold tracking-tight">BibTeX</h2>
+        <h2 id="bibtex-title" class="text-2xl font-semibold tracking-tight">{copy.bibtexTitle}</h2>
         <pre class="mt-3 overflow-x-auto rounded-xl bg-slate-900 p-4 text-sm text-slate-100">{publication.data.bibtex}</pre>
       </section>
     )}
 
     {hasBodyContent && (
       <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="notes-title">
-        <h2 id="notes-title" class="text-2xl font-semibold tracking-tight">Weitere Hinweise</h2>
+        <h2 id="notes-title" class="text-2xl font-semibold tracking-tight">{copy.notesTitle}</h2>
         <div class="content-markdown mt-4">
           <Content />
         </div>

@@ -8,6 +8,7 @@ import {
   type LangPrefix,
   type SiteLang
 } from "../lib/i18n";
+import { getUiStrings } from "../i18n/strings";
 import "../styles/global.css";
 
 interface Props {
@@ -47,6 +48,7 @@ const localeMap: Record<SiteLang, string> = {
 };
 const ogLocale = localeMap[lang];
 const alternateLinks = alternates ?? buildAlternates(canonicalPathname);
+const ui = getUiStrings(lang);
 ---
 
 <!doctype html>
@@ -91,11 +93,11 @@ const alternateLinks = alternates ?? buildAlternates(canonicalPathname);
     <slot name="head" />
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+    <a class="skip-link" href="#main-content">{ui.aria.skipToContent}</a>
     <Header lang={lang} pathPrefix={pathPrefix} />
     <main id="main-content" class="mx-auto min-h-[65vh] w-full max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
       <slot />
     </main>
-    <Footer pathPrefix={pathPrefix} />
+    <Footer lang={lang} pathPrefix={pathPrefix} />
   </body>
 </html>

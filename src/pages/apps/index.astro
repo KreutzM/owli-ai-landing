@@ -4,6 +4,7 @@ import { getApps } from "../../lib/content";
 import AppCard from "../../components/apps/AppCard.astro";
 import PlatformFilterNav from "../../components/apps/PlatformFilterNav.astro";
 import { type LangPrefix, type SiteLang } from "../../lib/i18n";
+import { formatUiString, getUiStrings } from "../../i18n/strings";
 
 interface Props {
   lang?: SiteLang;
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 
 const apps = await getApps(lang);
 const appsAndroid = apps.filter((app) => app.data.platform === "Android");
@@ -18,35 +20,34 @@ const appsWindows = apps.filter((app) => app.data.platform === "Windows");
 ---
 
 <BaseLayout
-  title="Assistenz-Apps fuer Android und Windows"
-  description="Entdecke die Owli-AI Apps fuer Android und Windows: Orientierungshilfe, Bildbeschreibung, Lupe mit OCR, Live-Transkription und Desktop-Lupe fuer Menschen mit Seh- oder Hoerbeeintraechtigung."
+  title={ui.pages.apps.seoTitle}
+  description={ui.pages.apps.seoDescription}
   keywords={["Assistenz Apps Android", "Assistenz Apps Windows", "Sehbeeintraechtigung", "Hoerbeeintraechtigung", "Bildbeschreibung App", "Live Transkription", "Desktop Lupe"]}
   lang={lang}
   pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI App-Suite</p>
-      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Fuenf Assistenz-Apps fuer mehr Selbststaendigkeit</h1>
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{ui.pages.apps.headerEyebrow}</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{ui.pages.apps.headerTitle}</h1>
       <p class="text-lg text-slate-700">
-        Waehle die passende App fuer deine Situation: Orientierung unterwegs, sehende Assistenz, Vergroesserung und Lesen, besseres
-        Sprachverstaendnis sowie Desktop-Unterstuetzung. Nutze den Filter, um Android- oder Windows-Apps zu sehen.
+        {ui.pages.apps.headerBody}
       </p>
     </header>
 
-    <PlatformFilterNav active="all" androidCount={appsAndroid.length} windowsCount={appsWindows.length} pathPrefix={pathPrefix} />
+    <PlatformFilterNav active="all" androidCount={appsAndroid.length} windowsCount={appsWindows.length} lang={lang} pathPrefix={pathPrefix} />
 
     <p class="text-base text-slate-700">
-      Die Suite umfasst Android- und Windows-Apps fuer Menschen mit Seh- oder Hoerbeeintraechtigung und kombiniert mobile sowie Desktop-Assistenz in einem klaren System.
+      {ui.pages.apps.suiteBody}
     </p>
 
-    <p class="text-sm text-slate-600">Aktuell umfasst die Suite {apps.length} Apps. Empfohlene Reihenfolge: Way-Buddy - Assist - Magnify - Hear-Clean - Zoom.</p>
+    <p class="text-sm text-slate-600">{formatUiString(ui.pages.apps.suiteCount, { count: apps.length })}</p>
 
     <ol class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {
         apps.map((app) => (
           <li>
-            <AppCard app={app} pathPrefix={pathPrefix} />
+            <AppCard app={app} lang={lang} pathPrefix={pathPrefix} />
           </li>
         ))
       }

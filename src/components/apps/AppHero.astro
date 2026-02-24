@@ -1,4 +1,7 @@
 ---
+import type { SiteLang } from "../../lib/i18n";
+import { getUiStrings } from "../../i18n/strings";
+
 interface AppImage {
   src: string;
   alt: string;
@@ -13,11 +16,13 @@ interface Props {
   audience: string;
   platform: string;
   status: string;
+  lang?: SiteLang;
   icon?: AppImage;
   logo?: AppImage;
 }
 
-const { name, tagline, valueProp, audience, platform, status, icon, logo } = Astro.props;
+const { name, tagline, valueProp, audience, platform, status, lang = "de", icon, logo } = Astro.props;
+const ui = getUiStrings(lang);
 const platformBadgeClass = "badge-platform";
 const statusBadgeClass =
   status.toLowerCase() === "prototype"
@@ -49,7 +54,7 @@ const statusBadgeClass =
         <div class="flex flex-wrap gap-2 text-xs font-semibold uppercase tracking-wider text-slate-700">
           <span class:list={["rounded-full px-3 py-1", platformBadgeClass]}>{platform}</span>
           <span class:list={["rounded-full px-3 py-1", statusBadgeClass]}>{status}</span>
-          <span class="rounded-full border border-slate-200 bg-slate-100 px-3 py-1">Zielgruppe: {audience}</span>
+          <span class="rounded-full border border-slate-200 bg-slate-100 px-3 py-1">{ui.components.appHero.audienceLabel}: {audience}</span>
         </div>
       </div>
 

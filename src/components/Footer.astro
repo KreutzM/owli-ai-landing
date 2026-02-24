@@ -1,12 +1,15 @@
 ---
 import BrandLogo from "./BrandLogo.astro";
-import { withPrefix, type LangPrefix } from "../lib/i18n";
+import { withPrefix, type LangPrefix, type SiteLang } from "../lib/i18n";
+import { getUiStrings } from "../i18n/strings";
 
 interface Props {
+  lang?: SiteLang;
   pathPrefix?: LangPrefix;
 }
 
-const { pathPrefix = "" } = Astro.props;
+const { lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 ---
 
 <footer class="border-t border-slate-200 bg-white">
@@ -15,13 +18,13 @@ const { pathPrefix = "" } = Astro.props;
       <BrandLogo alt="Owli-AI Logo" width={32} height={32} className="h-8 w-8 rounded object-contain" />
       <p>Owli-AI entwickelt Assistenz-Apps fuer Android und Windows.</p>
     </div>
-    <nav aria-label="Footer Navigation">
+    <nav aria-label={ui.aria.footerNavigation}>
       <ul class="flex flex-wrap gap-4">
-        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/apps", pathPrefix)}>Apps</a></li>
-        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/support", pathPrefix)}>Support</a></li>
-        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/privacy", pathPrefix)}>Datenschutz</a></li>
-        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/imprint", pathPrefix)}>Impressum</a></li>
-        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/accessibility", pathPrefix)}>Barrierefreiheit</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/apps", pathPrefix)}>{ui.nav.apps}</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/support", pathPrefix)}>{ui.nav.support}</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/privacy", pathPrefix)}>{ui.nav.privacy}</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/imprint", pathPrefix)}>{ui.nav.imprint}</a></li>
+        <li><a class="underline-offset-2 hover:underline" href={withPrefix("/accessibility", pathPrefix)}>{ui.nav.accessibility}</a></li>
       </ul>
     </nav>
   </div>

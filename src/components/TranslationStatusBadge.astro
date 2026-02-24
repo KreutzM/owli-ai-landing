@@ -1,0 +1,26 @@
+---
+import { getUiStrings } from "../i18n/strings";
+import type { SiteLang } from "../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  translationStatus?: "machine" | "reviewed";
+}
+
+const { lang = "de", translationStatus } = Astro.props;
+const ui = getUiStrings(lang);
+const show = lang !== "de" && translationStatus === "machine";
+---
+
+{
+  show && (
+    <p
+      class="inline-flex items-center rounded-full border border-amber-300 bg-amber-50 px-3 py-1 text-xs font-semibold text-amber-900"
+      role="status"
+      aria-live="polite"
+    >
+      <span aria-hidden="true">{ui.notices.machineTranslatedReviewPending}</span>
+      <span class="sr-only">{ui.notices.machineTranslatedReviewPendingSrOnly}</span>
+    </p>
+  )
+}

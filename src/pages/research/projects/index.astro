@@ -2,6 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getProjects } from "../../../lib/content";
 import { withPrefix, type LangPrefix, type SiteLang } from "../../../lib/i18n";
+import { formatUiString, getUiStrings } from "../../../i18n/strings";
 
 interface Props {
   lang?: SiteLang;
@@ -10,24 +11,25 @@ interface Props {
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
 const href = (path: string) => withPrefix(path, pathPrefix);
+const ui = getUiStrings(lang);
 
 const projects = await getProjects(lang);
 ---
 
 <BaseLayout
-  title="Forschungsprojekte"
-  description="Uebersicht laufender und abgeschlossener Forschungsprojekte von Owli-AI."
+  title={ui.pages.researchProjects.seoTitle}
+  description={ui.pages.researchProjects.seoDescription}
   keywords={["Owli-AI", "Forschung", "Projekte", "AHRUS"]}
   lang={lang}
   pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschung</p>
-      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Projekte</h1>
-      <p class="text-lg text-slate-700">Uebersicht der Forschungsprojekte mit Fokus auf anwendbare Assistenztechnologie.</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{ui.pages.researchProjects.headerEyebrow}</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{ui.pages.researchProjects.headerTitle}</h1>
+      <p class="text-lg text-slate-700">{ui.pages.researchProjects.headerBody}</p>
       <p class="text-sm text-slate-600">
-        Gesamt: {projects.length} Projekt{projects.length === 1 ? "" : "e"}.
+        {formatUiString(ui.pages.researchProjects.countLine, { count: projects.length })}
       </p>
     </header>
 

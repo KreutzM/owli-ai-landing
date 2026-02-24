@@ -1,4 +1,7 @@
 ---
+import type { SiteLang } from "../../lib/i18n";
+import { getUiStrings } from "../../i18n/strings";
+
 interface LinkDef {
   label: string;
   href: string;
@@ -7,16 +10,18 @@ interface LinkDef {
 interface Props {
   primary: LinkDef;
   secondary?: LinkDef;
+  lang?: SiteLang;
 }
 
-const { primary, secondary } = Astro.props;
+const { primary, secondary, lang = "de" } = Astro.props;
+const ui = getUiStrings(lang);
 ---
 
 <section class="rounded-2xl border border-slate-200 bg-slate-900 p-5 text-white shadow-sm">
   <div class="flex flex-wrap items-center justify-between gap-3">
     <div>
-      <h2 class="text-xl font-semibold tracking-tight">Naechster Schritt</h2>
-      <p class="text-sm text-slate-200">Testzugang, Fragen oder Partnerschaft: wir antworten strukturiert und zeitnah.</p>
+      <h2 class="text-xl font-semibold tracking-tight">{ui.components.ctaBar.heading}</h2>
+      <p class="text-sm text-slate-200">{ui.components.ctaBar.description}</p>
     </div>
     <div class="flex flex-wrap gap-2">
       <a

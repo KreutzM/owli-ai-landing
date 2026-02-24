@@ -1,17 +1,22 @@
 ---
+import type { SiteLang } from "../../lib/i18n";
+import { getUiStrings } from "../../i18n/strings";
+
 interface Props {
   requirements: string[];
+  lang?: SiteLang;
 }
 
-const { requirements } = Astro.props;
+const { requirements, lang = "de" } = Astro.props;
+const ui = getUiStrings(lang);
 const items =
   requirements.length > 0
     ? requirements
-    : ["Technische Anforderungen werden noch finalisiert."];
+    : [ui.components.requirements.fallbackItem];
 ---
 
 <section aria-labelledby="requirements-heading" class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-  <h2 id="requirements-heading" class="text-2xl font-semibold tracking-tight">Systemanforderungen</h2>
+  <h2 id="requirements-heading" class="text-2xl font-semibold tracking-tight">{ui.components.requirements.heading}</h2>
   <ul class="mt-4 list-disc space-y-2 pl-5 text-slate-700">
     {items.map((item) => <li>{item}</li>)}
   </ul>

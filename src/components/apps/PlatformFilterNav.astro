@@ -1,15 +1,18 @@
 ---
 import type { PlatformFilter } from "../../lib/content";
-import { withPrefix, type LangPrefix } from "../../lib/i18n";
+import { withPrefix, type LangPrefix, type SiteLang } from "../../lib/i18n";
+import { getUiStrings } from "../../i18n/strings";
 
 interface Props {
   active: PlatformFilter;
   androidCount?: number;
   windowsCount?: number;
+  lang?: SiteLang;
   pathPrefix?: LangPrefix;
 }
 
-const { active, androidCount, windowsCount, pathPrefix = "" } = Astro.props;
+const { active, androidCount, windowsCount, lang = "de", pathPrefix = "" } = Astro.props;
+const ui = getUiStrings(lang);
 
 // Hide platform tabs when there are no apps for that platform.
 // Keep the active tab visible to avoid confusing navigation states.
@@ -17,13 +20,13 @@ const showAndroid = androidCount === undefined ? true : androidCount > 0 || acti
 const showWindows = windowsCount === undefined ? true : windowsCount > 0 || active === "windows";
 
 const filters = [
-  { key: "all", label: "Alle", href: withPrefix("/apps", pathPrefix) },
-  ...(showAndroid ? [{ key: "android", label: "Android", href: withPrefix("/apps/platform/android", pathPrefix) } as const] : []),
-  ...(showWindows ? [{ key: "windows", label: "Windows", href: withPrefix("/apps/platform/windows", pathPrefix) } as const] : [])
+  { key: "all", label: ui.filter.all, href: withPrefix("/apps", pathPrefix) },
+  ...(showAndroid ? [{ key: "android", label: ui.filter.android, href: withPrefix("/apps/platform/android", pathPrefix) } as const] : []),
+  ...(showWindows ? [{ key: "windows", label: ui.filter.windows, href: withPrefix("/apps/platform/windows", pathPrefix) } as const] : [])
 ] as const;
 ---
 
-<nav aria-label="App-Filter nach Plattform" class="rounded-2xl border border-slate-200 bg-white/90 p-2 shadow-sm backdrop-blur">
+<nav aria-label={ui.aria.appFilterByPlatform} class="rounded-2xl border border-slate-200 bg-white/90 p-2 shadow-sm backdrop-blur">
   <ul class="flex flex-wrap gap-2">
     {
       filters.map((filter) => (

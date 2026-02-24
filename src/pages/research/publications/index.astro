@@ -2,6 +2,7 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { getPublications } from "../../../lib/content";
 import { withPrefix, type LangPrefix, type SiteLang } from "../../../lib/i18n";
+import { formatUiString, getUiStrings } from "../../../i18n/strings";
 
 interface Props {
   lang?: SiteLang;
@@ -10,24 +11,25 @@ interface Props {
 
 const { lang = "de", pathPrefix = "" } = Astro.props;
 const href = (path: string) => withPrefix(path, pathPrefix);
+const ui = getUiStrings(lang);
 
 const publications = await getPublications(lang);
 ---
 
 <BaseLayout
-  title="Publikationen"
-  description="Publikationen aus dem Forschungsbereich von Owli-AI."
+  title={ui.pages.researchPublications.seoTitle}
+  description={ui.pages.researchPublications.seoDescription}
   keywords={["Owli-AI", "Forschung", "Publikationen", "AHRUS", "HCII"]}
   lang={lang}
   pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">Owli-AI Forschung</p>
-      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Publikationen</h1>
-      <p class="text-lg text-slate-700">Uebersicht aller veroeffentlichten Beitraege.</p>
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">{ui.pages.researchPublications.headerEyebrow}</p>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{ui.pages.researchPublications.headerTitle}</h1>
+      <p class="text-lg text-slate-700">{ui.pages.researchPublications.headerBody}</p>
       <p class="text-sm text-slate-600">
-        Gesamt: {publications.length} Publikation{publications.length === 1 ? "" : "en"}.
+        {formatUiString(ui.pages.researchPublications.countLine, { count: publications.length })}
       </p>
     </header>
 
@@ -54,7 +56,7 @@ const publications = await getPublications(lang);
             </div>
             {publication.data.relatedProjectSlug && (
               <p class="mt-4 text-sm text-slate-700">
-                Zugehoeriges Projekt:{" "}
+                {ui.pages.researchPublications.relatedProjectLabel}:{" "}
                 <a class="font-semibold underline underline-offset-2" href={href(`/research/projects/${publication.data.relatedProjectSlug}`)}>
                   /research/projects/{publication.data.relatedProjectSlug}
                 </a>
