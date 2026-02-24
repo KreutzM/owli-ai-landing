@@ -292,7 +292,7 @@ const STRINGS: Record<SiteLang, UiStrings> = {
           "Waehle die passende App fuer deine Situation: Orientierung unterwegs, sehende Assistenz, Vergroesserung und Lesen, besseres Sprachverstaendnis sowie Desktop-Unterstuetzung. Nutze den Filter, um Android- oder Windows-Apps zu sehen.",
         suiteBody:
           "Die Suite umfasst Android- und Windows-Apps fuer Menschen mit Seh- oder Hoerbeeintraechtigung und kombiniert mobile sowie Desktop-Assistenz in einem klaren System.",
-        suiteCount: "Aktuell umfasst die Suite {count} Apps. Empfohlene Reihenfolge: Way-Buddy - Assist - Magnify - Hear-Clean - Zoom."
+        suiteCount: "Aktuell umfasst die Suite 5 Apps."
       },
       appsPlatform: {
         pageTitle: "Apps - {platform}",
