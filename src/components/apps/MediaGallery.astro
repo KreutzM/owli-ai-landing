@@ -1,4 +1,6 @@
 ---
+import type { SiteLang } from "../../lib/i18n";
+
 interface MediaItem {
   src: string;
   avif?: string;
@@ -12,27 +14,51 @@ interface MediaItem {
 interface Props {
   media: MediaItem[];
   appName: string;
+  lang?: SiteLang;
 }
 
-const { media, appName } = Astro.props;
+const { media, appName, lang = "de" } = Astro.props;
+const copy = {
+  de: {
+    heading: "Einblicke",
+    placeholderAltPrefix: "Platzhaltergrafik fuer",
+    placeholderCaption: "Medien folgen",
+    screenshotFallback: (name: string, index: number) => `${name} Screenshot ${index}`,
+    viewFallback: (index: number) => `Ansicht ${index}`
+  },
+  en: {
+    heading: "Media gallery",
+    placeholderAltPrefix: "Placeholder graphic for",
+    placeholderCaption: "Media coming soon",
+    screenshotFallback: (name: string, index: number) => `${name} screenshot ${index}`,
+    viewFallback: (index: number) => `View ${index}`
+  },
+  es: {
+    heading: "Galeria de medios",
+    placeholderAltPrefix: "Grafico de marcador para",
+    placeholderCaption: "Multimedia en preparacion",
+    screenshotFallback: (name: string, index: number) => `${name} captura ${index}`,
+    viewFallback: (index: number) => `Vista ${index}`
+  }
+}[lang];
 const items =
   media.length > 0
     ? media
     : [
         {
           src: "/brand/owli-ai-logo-placeholder.svg",
-          alt: `Platzhaltergrafik fuer ${appName}`,
-          caption: "Medien folgen"
+          alt: `${copy.placeholderAltPrefix} ${appName}`,
+          caption: copy.placeholderCaption
         }
       ];
 
-const ensureAlt = (item: MediaItem, index: number) => item.alt?.trim() || `${appName} Screenshot ${index + 1}`;
-const ensureCaption = (item: MediaItem, index: number) => item.caption?.trim() || `Ansicht ${index + 1}`;
+const ensureAlt = (item: MediaItem, index: number) => item.alt?.trim() || copy.screenshotFallback(appName, index + 1);
+const ensureCaption = (item: MediaItem, index: number) => item.caption?.trim() || copy.viewFallback(index + 1);
 const isPortrait = (item: MediaItem) => (item.height ?? 0) > (item.width ?? 0);
 ---
 
 <section aria-labelledby="media-heading" class="space-y-4">
-  <h2 id="media-heading" class="text-2xl font-semibold tracking-tight">Einblicke</h2>
+  <h2 id="media-heading" class="text-2xl font-semibold tracking-tight">{copy.heading}</h2>
   <ul class="grid gap-4 sm:grid-cols-2">
     {
       items.map((item, index) => (

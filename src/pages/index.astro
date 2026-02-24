@@ -15,6 +15,20 @@ interface Props {
 const { lang = "de", pathPrefix = "" } = Astro.props;
 const href = (path: string) => withPrefix(path, pathPrefix);
 const ui = getUiStrings(lang);
+const copy = {
+  de: {
+    brandLogoAlt: "Owli-AI Markenlogo",
+    appIconFallbackPrefix: "App-Icon von"
+  },
+  en: {
+    brandLogoAlt: "Owli-AI brand logo",
+    appIconFallbackPrefix: "App icon of"
+  },
+  es: {
+    brandLogoAlt: "Logotipo de marca de Owli-AI",
+    appIconFallbackPrefix: "Icono de la app"
+  }
+}[lang];
 
 const apps = await getApps(lang);
 const gpts = (await getGpts(lang)).slice(0, 3);
@@ -67,7 +81,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
         <aside class="rounded-2xl border border-slate-200 bg-slate-50/80 p-6">
           <div class="flex flex-col items-center gap-4 text-center">
             <BrandLogo
-              alt="Owli-AI Markenlogo"
+              alt={copy.brandLogoAlt}
               width={512}
               height={512}
               className="h-[220px] w-[220px] rounded-3xl object-contain drop-shadow-sm sm:h-[240px] sm:w-[240px]"
@@ -119,7 +133,7 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
         {
           apps.map((app) => {
             const iconSrc = app.data.icon?.src ?? `/apps/${app.data.slug}/icon-placeholder.svg`;
-            const iconAlt = app.data.icon?.alt?.trim() || `Icon von ${app.data.name}`;
+            const iconAlt = app.data.icon?.alt?.trim() || `${copy.appIconFallbackPrefix} ${app.data.name}`;
             const statusBadgeClass =
               app.data.status.toLowerCase() === "prototype"
                 ? "badge-status-accent"

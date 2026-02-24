@@ -23,6 +23,20 @@ interface Props {
 
 const { name, tagline, valueProp, audience, platform, status, lang = "de", icon, logo } = Astro.props;
 const ui = getUiStrings(lang);
+const copy = {
+  de: {
+    appIconFallbackPrefix: "App-Icon von",
+    appLogoFallbackPrefix: "Logo von"
+  },
+  en: {
+    appIconFallbackPrefix: "App icon of",
+    appLogoFallbackPrefix: "Logo of"
+  },
+  es: {
+    appIconFallbackPrefix: "Icono de la app",
+    appLogoFallbackPrefix: "Logo de"
+  }
+}[lang];
 const platformBadgeClass = "badge-platform";
 const statusBadgeClass =
   status.toLowerCase() === "prototype"
@@ -42,7 +56,7 @@ const statusBadgeClass =
           icon && (
             <img
               src={icon.src}
-              alt={icon.alt || `Icon von ${name}`}
+              alt={icon.alt || `${copy.appIconFallbackPrefix} ${name}`}
               width={icon.width ?? 512}
               height={icon.height ?? 512}
               class="h-20 w-20 rounded-2xl object-contain drop-shadow-sm sm:h-24 sm:w-24"
@@ -62,7 +76,7 @@ const statusBadgeClass =
         logo && (
           <img
             src={logo.src}
-            alt={logo.alt || `${name} Logo`}
+            alt={logo.alt || `${copy.appLogoFallbackPrefix} ${name}`}
             width={logo.width ?? 1024}
             height={logo.height ?? 1024}
             class="hidden h-32 w-32 rounded object-contain lg:block xl:h-40 xl:w-40"

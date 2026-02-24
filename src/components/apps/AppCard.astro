@@ -11,6 +11,17 @@ interface Props {
 
 const { app, lang = "de", pathPrefix = "" } = Astro.props;
 const ui = getUiStrings(lang);
+const copy = {
+  de: {
+    appIconFallbackPrefix: "App-Icon von"
+  },
+  en: {
+    appIconFallbackPrefix: "App icon of"
+  },
+  es: {
+    appIconFallbackPrefix: "Icono de la app"
+  }
+}[lang];
 
 const platformBadgeClass = "badge-platform";
 
@@ -28,7 +39,7 @@ const primaryCta = app.data.links.primary
   ? { ...app.data.links.primary, href: localizeHref(app.data.links.primary.href, pathPrefix) }
   : { label: detailsLabel, href: detailsHref };
 const iconSrc = app.data.icon?.src ?? `/apps/${app.data.slug}/icon-placeholder.svg`;
-const iconAlt = app.data.icon?.alt?.trim() || `Icon von ${app.data.name}`;
+const iconAlt = app.data.icon?.alt?.trim() || `${copy.appIconFallbackPrefix} ${app.data.name}`;
 const iconWidth = app.data.icon?.width ?? 64;
 const iconHeight = app.data.icon?.height ?? 64;
 ---

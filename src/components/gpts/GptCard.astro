@@ -13,9 +13,23 @@ interface Props {
 
 const { gpt, compact = false, lang = "de", pathPrefix = "" } = Astro.props;
 const ui = getUiStrings(lang);
+const copy = {
+  de: {
+    gptIconFallbackPrefix: "Icon von",
+    gptSymbolFallbackPrefix: "Owli-AI Symbol fuer"
+  },
+  en: {
+    gptIconFallbackPrefix: "Icon of",
+    gptSymbolFallbackPrefix: "Owli-AI symbol for"
+  },
+  es: {
+    gptIconFallbackPrefix: "Icono de",
+    gptSymbolFallbackPrefix: "Simbolo de Owli-AI para"
+  }
+}[lang];
 const detailsHref = withPrefix(`/gpts/${gpt.data.slug}`, pathPrefix);
 const iconSrc = gpt.data.icon?.src;
-const iconAlt = gpt.data.icon?.alt?.trim() || `Icon von ${gpt.data.name}`;
+const iconAlt = gpt.data.icon?.alt?.trim() || `${copy.gptIconFallbackPrefix} ${gpt.data.name}`;
 const iconWidth = gpt.data.icon?.width ?? 64;
 const iconHeight = gpt.data.icon?.height ?? 64;
 ---
@@ -35,7 +49,7 @@ const iconHeight = gpt.data.icon?.height ?? 64;
         />
       ) : (
         <BrandLogo
-          alt={`Owli-AI Symbol fuer ${gpt.data.name}`}
+          alt={`${copy.gptSymbolFallbackPrefix} ${gpt.data.name}`}
           width={64}
           height={64}
           className="h-16 w-16 rounded-xl object-contain drop-shadow-sm sm:h-20 sm:w-20"

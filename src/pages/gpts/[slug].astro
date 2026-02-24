@@ -28,7 +28,21 @@ const seoTitle = gpt.data.seo.title ?? `${gpt.data.name} in ChatGPT`;
 const seoDescription = gpt.data.seo.description;
 const seoKeywords = gpt.data.seo.keywords;
 const iconSrc = gpt.data.icon?.src;
-const iconAlt = gpt.data.icon?.alt?.trim() || `Icon von ${gpt.data.name}`;
+const altCopy = {
+  de: {
+    gptIconFallbackPrefix: "Icon von",
+    gptSymbolFallbackPrefix: "Owli-AI Symbol fuer"
+  },
+  en: {
+    gptIconFallbackPrefix: "Icon of",
+    gptSymbolFallbackPrefix: "Owli-AI symbol for"
+  },
+  es: {
+    gptIconFallbackPrefix: "Icono de",
+    gptSymbolFallbackPrefix: "Simbolo de Owli-AI para"
+  }
+}[lang];
+const iconAlt = gpt.data.icon?.alt?.trim() || `${altCopy.gptIconFallbackPrefix} ${gpt.data.name}`;
 const bodyText = gpt.body ?? "";
 const wofuerMatch = bodyText.match(/##\s+Wof(?:u|ue)r ist das\?\s*([\s\S]*?)(?:\n##\s+|$)/u);
 const quickstartIntro = (wofuerMatch?.[1] ?? gpt.data.shortDescription).replace(/\s+/g, " ").trim();
@@ -53,7 +67,8 @@ const copy = {
     limitsAria: "Hinweis zu Grenzen und Datenschutz",
     noticeLabel: "Wichtiger Hinweis",
     useCasePromptPrefix: "Bitte unterstuetze mich dabei",
-    questionPromptPrefix: "Bitte starte mit dieser Frage"
+    questionPromptPrefix: "Bitte starte mit dieser Frage",
+    tagsAria: "Tags"
   },
   en: {
     eyebrow: "Owli-AI Custom GPT",
@@ -70,7 +85,8 @@ const copy = {
     limitsAria: "Notice about limits and privacy",
     noticeLabel: "Important notice",
     useCasePromptPrefix: "Please help me with this",
-    questionPromptPrefix: "Please start with this question"
+    questionPromptPrefix: "Please start with this question",
+    tagsAria: "Tags"
   },
   es: {
     eyebrow: "Owli-AI GPT personalizado",
@@ -87,7 +103,8 @@ const copy = {
     limitsAria: "Aviso sobre limites y privacidad",
     noticeLabel: "Aviso importante",
     useCasePromptPrefix: "Por favor ayudame con esto",
-    questionPromptPrefix: "Por favor empieza con esta pregunta"
+    questionPromptPrefix: "Por favor empieza con esta pregunta",
+    tagsAria: "Etiquetas"
   }
 }[lang];
 const useCasePrompts = (whenHelpMatch?.[1] ?? "")
@@ -124,7 +141,7 @@ const quickstartPrompts =
             />
           ) : (
             <BrandLogo
-              alt={`Owli-AI Symbol fuer ${gpt.data.name}`}
+              alt={`${altCopy.gptSymbolFallbackPrefix} ${gpt.data.name}`}
               width={64}
               height={64}
               className="h-16 w-16 rounded-xl object-contain drop-shadow-sm"
@@ -137,7 +154,7 @@ const quickstartPrompts =
       <div class="mt-4">
         <TranslationStatusBadge lang={lang} translationStatus={gpt.data.translationStatus} />
       </div>
-      <ul class="mt-4 flex flex-wrap gap-2" aria-label="Tags">
+      <ul class="mt-4 flex flex-wrap gap-2" aria-label={copy.tagsAria}>
         {
           gpt.data.audienceBadges.map((badge) => (
             <li>

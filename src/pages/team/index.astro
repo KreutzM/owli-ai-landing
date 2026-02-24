@@ -38,7 +38,7 @@ const team = await getTeam(lang);
       {
         team.map((member) => (
           <li>
-            <TeamCard member={member} />
+            <TeamCard member={member} lang={lang} />
           </li>
         ))
       }

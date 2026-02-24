@@ -1,11 +1,24 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import type { SiteLang } from "../../lib/i18n";
 
 interface Props {
   member: CollectionEntry<"team">;
+  lang?: SiteLang;
 }
 
-const { member } = Astro.props;
+const { member, lang = "de" } = Astro.props;
+const copy = {
+  de: {
+    portraitPrefix: "Portrait von"
+  },
+  en: {
+    portraitPrefix: "Portrait of"
+  },
+  es: {
+    portraitPrefix: "Retrato de"
+  }
+}[lang];
 
 const initials = member.data.name
   .split(" ")
@@ -21,7 +34,7 @@ const initials = member.data.name
       member.data.image ? (
         <img
           src={member.data.image}
-          alt={`Portrait von ${member.data.name}`}
+          alt={`${copy.portraitPrefix} ${member.data.name}`}
           width="128"
           height="128"
           class="h-20 w-20 shrink-0 rounded-full border border-slate-300 object-cover"

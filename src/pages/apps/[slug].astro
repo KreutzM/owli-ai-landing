@@ -30,6 +30,17 @@ interface Props {
 const { app, lang = "de", pathPrefix = "" } = Astro.props;
 const ui = getUiStrings(lang);
 const { Content } = await render(app);
+const copy = {
+  de: {
+    featureGraphicFallbackPrefix: "Feature-Grafik von"
+  },
+  en: {
+    featureGraphicFallbackPrefix: "Feature graphic of"
+  },
+  es: {
+    featureGraphicFallbackPrefix: "Grafico destacado de"
+  }
+}[lang];
 
 const features = app.data.features;
 const requirements = app.data.requirements;
@@ -123,7 +134,7 @@ const assistSpotlight = {
       <figure class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
         <img
           src={app.data.featureGraphic.src}
-          alt={app.data.featureGraphic.alt || `Feature-Grafik von ${app.data.name}`}
+          alt={app.data.featureGraphic.alt || `${copy.featureGraphicFallbackPrefix} ${app.data.name}`}
           width={app.data.featureGraphic.width ?? 1024}
           height={app.data.featureGraphic.height ?? 500}
           class="mx-auto h-auto w-full rounded-lg bg-slate-50 object-contain"
@@ -157,7 +168,7 @@ const assistSpotlight = {
       </section>
     </div>
 
-    <MediaGallery media={media} appName={app.data.name} />
+    <MediaGallery media={media} appName={app.data.name} lang={lang} />
 
     <CtaBar primary={primaryCta} secondary={secondaryCta} lang={lang} />
   </article>
