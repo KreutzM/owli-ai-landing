@@ -103,4 +103,4 @@ translationStatus: machine
 sourceLang: de
 ---
 
-Further reading: [Go to the AHRUS project](/research/projects/ahrus)
+Further reading: [Go to the AHRUS project](/en/research/projects/ahrus)

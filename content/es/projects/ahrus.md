@@ -98,4 +98,4 @@ Existe un prototipo funcional. En una primera evaluacion con cuatro participante
 
 ## Resultados
 
-- Publicacion: [Ultrasonic Waves to Support Human Echolocation](/research/publications/ahrus-hcii)
+- Publicacion: [Ultrasonic Waves to Support Human Echolocation](/es/research/publications/ahrus-hcii)
