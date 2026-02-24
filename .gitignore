@@ -21,4 +21,5 @@ out/
 # Temp
 /tmp/
 .devserver.err.log
+.devserver.log
 .devserver.out.log
