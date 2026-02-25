@@ -12,7 +12,7 @@ tags:
 shortBio: Prof. Diethelm Bienhaus works in the field of intelligent environments and assistive systems. In the Owli-AI context, he supports research-oriented development and integration into inclusive teaching and application scenarios.
 image: /team/diethelm-bienhaus-portrait.webp
 links:
-  thm: https://www.thm.de/mni/diethelm-bienhaus/forschungsaktivitaet
+  thm: https://www.thm.de/mni/diethelm-bienhaus/
 translationStatus: machine
 sourceLang: de
 ---

@@ -12,5 +12,5 @@ tags:
 shortBio: Prof. Diethelm Bienhaus arbeitet im Bereich intelligenter Umgebungen und Assistenzsysteme. Im Owli-AI Kontext unterstuetzt er die forschungsnahe Entwicklung und die Einbettung in inklusive Lehr- und Anwendungsszenarien.
 image: /team/diethelm-bienhaus-portrait.webp
 links:
-  thm: https://www.thm.de/mni/diethelm-bienhaus/forschungsaktivitaet
+  thm: https://www.thm.de/mni/diethelm-bienhaus/
 ---
