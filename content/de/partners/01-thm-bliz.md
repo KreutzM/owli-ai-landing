@@ -9,4 +9,5 @@ bullets:
   - "Feedback aus der Praxis (Studium & Alltag)"
   - "Beratung zu Barrierefreiheit und assistiven Workflows"
   - "Begleitung von Tests/Validierung in realen Nutzungsszenarien"
+logo: /partners/bliz-logo.svg
 ---

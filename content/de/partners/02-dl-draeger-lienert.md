@@ -9,4 +9,5 @@ bullets:
   - "Praxisanforderungen aus Arbeitswelt & Assistive-Tech-Setup"
   - "Feedback zu Integration, Usability und Real-World-Constraints"
   - "Unterstützung bei Erprobung in relevanten Umgebungen"
+logo: /partners/dl-logo.svg
 ---
