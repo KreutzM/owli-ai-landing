@@ -194,6 +194,18 @@ const teamSchema = z.object({
   ...translationMetaFields
 });
 
+const partnerSchema = z.object({
+  slug: z.string(),
+  order: z.number().int().positive(),
+  name: z.string(),
+  category: z.enum(["Hochschulpartner", "Wirtschaftspartner"]),
+  website: z.string().url(),
+  shortDescription: z.string(),
+  bullets: z.array(z.string()),
+  logo: z.string().optional(),
+  ...translationMetaFields
+});
+
 const siteSchema = z.object({
   ...translationMetaFields
 });
@@ -263,6 +275,11 @@ const team_es = defineCollection({
   schema: teamSchema
 });
 
+const partners = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/de/partners" }),
+  schema: partnerSchema
+});
+
 const site = defineCollection({
   loader: glob({ pattern: "*.md", base: "./content/de/site" }),
   schema: siteSchema
@@ -292,6 +309,7 @@ export const collections = {
   team,
   team_en,
   team_es,
+  partners,
   site,
   site_en,
   site_es

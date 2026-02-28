@@ -64,7 +64,7 @@ const softwareApplicationJsonLd = {
 
 const primaryCta = app.data.links.primary
   ? { ...app.data.links.primary, href: localizeHref(app.data.links.primary.href, pathPrefix) }
-  : { label: ui.nav.support, href: withPrefix("/support", pathPrefix) };
+  : { label: ui.pages.support.fallbackTitle, href: withPrefix("/support", pathPrefix) };
 const secondaryCta = app.data.links.secondary
   ? { ...app.data.links.secondary, href: localizeHref(app.data.links.secondary.href, pathPrefix) }
   : { label: `${ui.cta.back} ${ui.nav.apps}`, href: withPrefix("/apps", pathPrefix) };

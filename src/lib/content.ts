@@ -11,7 +11,7 @@ export const APP_SLUG_ORDER = [
   "zoom"
 ] as const;
 
-type BaseCollectionName = "apps" | "gpts" | "projects" | "publications" | "team" | "site";
+type BaseCollectionName = "apps" | "gpts" | "projects" | "publications" | "team" | "partners" | "site";
 type LocalizedCollectionName =
   | "apps"
   | "apps_en"
@@ -28,6 +28,7 @@ type LocalizedCollectionName =
   | "team"
   | "team_en"
   | "team_es"
+  | "partners"
   | "site"
   | "site_en"
   | "site_es";
@@ -40,6 +41,7 @@ const localizedCollectionMap: Record<BaseCollectionName, Record<SiteLang, Locali
   projects: { de: "projects", en: "projects_en", es: "projects_es" },
   publications: { de: "publications", en: "publications_en", es: "publications_es" },
   team: { de: "team", en: "team_en", es: "team_es" },
+  partners: { de: "partners", en: "partners", es: "partners" },
   site: { de: "site", en: "site_en", es: "site_es" }
 };
 
@@ -49,6 +51,7 @@ const contentDirectoryMap: Record<BaseCollectionName, Record<SiteLang, string>> 
   projects: { de: "content/de/projects", en: "content/en/projects", es: "content/es/projects" },
   publications: { de: "content/de/publications", en: "content/en/publications", es: "content/es/publications" },
   team: { de: "content/de/team", en: "content/en/team", es: "content/es/team" },
+  partners: { de: "content/de/partners", en: "content/de/partners", es: "content/de/partners" },
   site: { de: "content/de/site", en: "content/en/site", es: "content/es/site" }
 };
 
@@ -181,6 +184,18 @@ export async function getTeam(lang: SiteLang = "de"): Promise<CollectionEntry<"t
   const team = (await getCollectionByLang(lang, "team")) as CollectionEntry<"team">[];
 
   return team.sort((a, b) => {
+    if (a.data.order !== b.data.order) {
+      return a.data.order - b.data.order;
+    }
+
+    return a.data.name.localeCompare(b.data.name, "de");
+  });
+}
+
+export async function getPartners(lang: SiteLang = "de"): Promise<CollectionEntry<"partners">[]> {
+  const partners = (await getCollectionByLang(lang, "partners")) as CollectionEntry<"partners">[];
+
+  return partners.sort((a, b) => {
     if (a.data.order !== b.data.order) {
       return a.data.order - b.data.order;
     }

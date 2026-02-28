@@ -1,0 +1,68 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PartnerCard from "../../components/partners/PartnerCard.astro";
+import { getPartners } from "../../lib/content";
+import { type LangPrefix, type SiteLang } from "../../lib/i18n";
+
+interface Props {
+  lang?: SiteLang;
+  pathPrefix?: LangPrefix;
+}
+
+const { lang = "de", pathPrefix = "" } = Astro.props;
+const partners = await getPartners(lang);
+const universityPartners = partners.filter((partner) => partner.data.category === "Hochschulpartner");
+const businessPartners = partners.filter((partner) => partner.data.category === "Wirtschaftspartner");
+---
+
+<BaseLayout
+  title="Partner"
+  description="Owli-AI arbeitet mit Partnern aus Hochschule und Wirtschaft zusammen, um Forschung, Praxis und Barrierefreiheit zu verbinden."
+  keywords={["Owli-AI Partner", "Hochschulpartner", "Wirtschaftspartner", "Barrierefreiheit"]}
+  lang={lang}
+  pathPrefix={pathPrefix}
+>
+  <section class="space-y-8">
+    <header class="max-w-4xl space-y-3">
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Partner</h1>
+      <p class="text-lg text-slate-700">
+        Owli-AI ist ein Non-Profit-Projekt. Wir arbeiten eng mit Partnern aus Hochschule und Wirtschaft zusammen, um
+        Forschung, Praxis und Barrierefreiheit sinnvoll zu verbinden.
+      </p>
+    </header>
+
+    <section class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="hochschulpartner-title">
+      <h2 id="hochschulpartner-title" class="text-2xl font-semibold tracking-tight">Hochschulpartner</h2>
+      {universityPartners.length === 0 ? (
+        <p class="text-slate-700">Noch keine Hochschulpartner eingetragen.</p>
+      ) : (
+        <ol class="grid gap-4 sm:grid-cols-2">
+          {
+            universityPartners.map((partner) => (
+              <li>
+                <PartnerCard partner={partner} />
+              </li>
+            ))
+          }
+        </ol>
+      )}
+    </section>
+
+    <section class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="wirtschaftspartner-title">
+      <h2 id="wirtschaftspartner-title" class="text-2xl font-semibold tracking-tight">Wirtschaftspartner</h2>
+      {businessPartners.length === 0 ? (
+        <p class="text-slate-700">Noch keine Wirtschaftspartner eingetragen.</p>
+      ) : (
+        <ol class="grid gap-4 sm:grid-cols-2">
+          {
+            businessPartners.map((partner) => (
+              <li>
+                <PartnerCard partner={partner} />
+              </li>
+            ))
+          }
+        </ol>
+      )}
+    </section>
+  </section>
+</BaseLayout>

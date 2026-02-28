@@ -26,6 +26,7 @@ const TRANSLATABLE_PATH_PATTERNS: readonly RegExp[] = [
   /^\/research\/publications$/,
   /^\/research\/publications\/[^/]+$/,
   /^\/team$/,
+  /^\/partners$/,
   /^\/support$/,
   /^\/privacy$/,
   /^\/imprint$/,

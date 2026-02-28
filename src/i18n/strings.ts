@@ -6,7 +6,7 @@ interface NavStrings {
   gpts: string;
   research: string;
   team: string;
-  support: string;
+  partner: string;
   privacy: string;
   imprint: string;
   accessibility: string;
@@ -224,7 +224,7 @@ const STRINGS: Record<SiteLang, UiStrings> = {
       gpts: "GPTs",
       research: "Forschung",
       team: "Team",
-      support: "Support",
+      partner: "Partner",
       privacy: "Datenschutz",
       imprint: "Impressum",
       accessibility: "Barrierefreiheit"
@@ -406,7 +406,7 @@ const STRINGS: Record<SiteLang, UiStrings> = {
       gpts: "GPTs",
       research: "Research",
       team: "Team",
-      support: "Support",
+      partner: "Partners",
       privacy: "Privacy",
       imprint: "Imprint",
       accessibility: "Accessibility"
@@ -588,7 +588,7 @@ const STRINGS: Record<SiteLang, UiStrings> = {
       gpts: "GPTs",
       research: "Investigacion",
       team: "Equipo",
-      support: "Soporte",
+      partner: "Socios",
       privacy: "Privacidad",
       imprint: "Aviso legal",
       accessibility: "Accesibilidad"

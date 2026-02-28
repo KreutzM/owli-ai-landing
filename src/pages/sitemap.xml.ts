@@ -14,6 +14,7 @@ const staticBasePaths = [
   "/apps/platform/android",
   "/apps/platform/windows",
   "/team",
+  "/partners",
   "/support",
   "/privacy",
   "/imprint",
