@@ -15,7 +15,6 @@ Rules:
 - Preserve markdown structure (headings/lists/sections).
 - Keep disclaimers and legal limits strict.
 - EN/ES tone: clear and natural, not overly formal.
-- Current exception: `content/de/partners/*` remains DE-only and is reused by EN/ES page wrappers. Do not generate `content/en/partners/*` or `content/es/partners/*` unless explicitly asked.
 
 Metadata:
 - Add in translated files:
@@ -26,7 +25,6 @@ Metadata:
 Execution steps:
 1. List all files in `content/de`.
 2. For each DE file, ensure equivalent file exists in `content/en` and `content/es` (same relative path).
-   - Skip this step for `content/de/partners/*` while DE-only fallback is active.
 3. Translate content conservatively.
 4. Keep all internal links and identifiers unchanged.
 5. Validate:

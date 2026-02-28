@@ -29,6 +29,8 @@ type LocalizedCollectionName =
   | "team_en"
   | "team_es"
   | "partners"
+  | "partners_en"
+  | "partners_es"
   | "site"
   | "site_en"
   | "site_es";
@@ -41,7 +43,7 @@ const localizedCollectionMap: Record<BaseCollectionName, Record<SiteLang, Locali
   projects: { de: "projects", en: "projects_en", es: "projects_es" },
   publications: { de: "publications", en: "publications_en", es: "publications_es" },
   team: { de: "team", en: "team_en", es: "team_es" },
-  partners: { de: "partners", en: "partners", es: "partners" },
+  partners: { de: "partners", en: "partners_en", es: "partners_es" },
   site: { de: "site", en: "site_en", es: "site_es" }
 };
 
@@ -51,7 +53,7 @@ const contentDirectoryMap: Record<BaseCollectionName, Record<SiteLang, string>> 
   projects: { de: "content/de/projects", en: "content/en/projects", es: "content/es/projects" },
   publications: { de: "content/de/publications", en: "content/en/publications", es: "content/es/publications" },
   team: { de: "content/de/team", en: "content/en/team", es: "content/es/team" },
-  partners: { de: "content/de/partners", en: "content/de/partners", es: "content/de/partners" },
+  partners: { de: "content/de/partners", en: "content/en/partners", es: "content/es/partners" },
   site: { de: "content/de/site", en: "content/en/site", es: "content/es/site" }
 };
 

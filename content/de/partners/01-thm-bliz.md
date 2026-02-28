@@ -10,4 +10,5 @@ bullets:
   - "Beratung zu Barrierefreiheit und assistiven Workflows"
   - "Begleitung von Tests/Validierung in realen Nutzungsszenarien"
 logo: /partners/bliz-logo.svg
+logoAlt: "Logo des THM BliZ, Zentrum für blinde und sehbehinderte Studierende an der THM"
 ---

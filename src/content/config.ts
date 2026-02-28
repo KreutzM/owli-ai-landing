@@ -203,6 +203,7 @@ const partnerSchema = z.object({
   shortDescription: z.string(),
   bullets: z.array(z.string()),
   logo: z.string().optional(),
+  logoAlt: z.string().optional(),
   ...translationMetaFields
 });
 
@@ -279,6 +280,14 @@ const partners = defineCollection({
   loader: glob({ pattern: "*.md", base: "./content/de/partners" }),
   schema: partnerSchema
 });
+const partners_en = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/en/partners" }),
+  schema: partnerSchema
+});
+const partners_es = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./content/es/partners" }),
+  schema: partnerSchema
+});
 
 const site = defineCollection({
   loader: glob({ pattern: "*.md", base: "./content/de/site" }),
@@ -310,6 +319,8 @@ export const collections = {
   team_en,
   team_es,
   partners,
+  partners_en,
+  partners_es,
   site,
   site_en,
   site_es

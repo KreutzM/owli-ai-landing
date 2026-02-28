@@ -13,34 +13,68 @@ const { lang = "de", pathPrefix = "" } = Astro.props;
 const partners = await getPartners(lang);
 const universityPartners = partners.filter((partner) => partner.data.category === "Hochschulpartner");
 const businessPartners = partners.filter((partner) => partner.data.category === "Wirtschaftspartner");
+const copy = {
+  de: {
+    title: "Partner",
+    description: "Owli-AI arbeitet mit Partnern aus Hochschule und Wirtschaft zusammen, um Forschung, Praxis und Barrierefreiheit zu verbinden.",
+    keywords: ["Owli-AI Partner", "Hochschulpartner", "Wirtschaftspartner", "Barrierefreiheit"],
+    intro:
+      "Owli-AI ist ein Non-Profit-Projekt. Wir arbeiten eng mit Partnern aus Hochschule und Wirtschaft zusammen, um Forschung, Praxis und Barrierefreiheit sinnvoll zu verbinden.",
+    universityTitle: "Hochschulpartner",
+    businessTitle: "Wirtschaftspartner",
+    emptyUniversity: "Noch keine Hochschulpartner eingetragen.",
+    emptyBusiness: "Noch keine Wirtschaftspartner eingetragen."
+  },
+  en: {
+    title: "Partners",
+    description: "Owli-AI works with university and industry partners to connect research, practice, and accessibility.",
+    keywords: ["Owli-AI Partners", "University Partners", "Industry Partners", "Accessibility"],
+    intro:
+      "Owli-AI is a non-profit project. We work closely with partners from academia and industry to connect research, practice, and accessibility in a meaningful way.",
+    universityTitle: "University partners",
+    businessTitle: "Industry partners",
+    emptyUniversity: "No university partners listed yet.",
+    emptyBusiness: "No industry partners listed yet."
+  },
+  es: {
+    title: "Socios",
+    description: "Owli-AI colabora con socios universitarios y empresariales para unir investigacion, practica y accesibilidad.",
+    keywords: ["Socios Owli-AI", "Socios universitarios", "Socios empresariales", "Accesibilidad"],
+    intro:
+      "Owli-AI es un proyecto sin fines de lucro. Trabajamos en estrecha colaboracion con socios del ambito universitario y empresarial para unir investigacion, practica y accesibilidad de forma significativa.",
+    universityTitle: "Socios universitarios",
+    businessTitle: "Socios empresariales",
+    emptyUniversity: "Todavia no hay socios universitarios listados.",
+    emptyBusiness: "Todavia no hay socios empresariales listados."
+  }
+}[lang];
 ---
 
 <BaseLayout
-  title="Partner"
-  description="Owli-AI arbeitet mit Partnern aus Hochschule und Wirtschaft zusammen, um Forschung, Praxis und Barrierefreiheit zu verbinden."
-  keywords={["Owli-AI Partner", "Hochschulpartner", "Wirtschaftspartner", "Barrierefreiheit"]}
+  title={copy.title}
+  description={copy.description}
+  keywords={copy.keywords}
   lang={lang}
   pathPrefix={pathPrefix}
 >
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
-      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Partner</h1>
+      <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{copy.title}</h1>
       <p class="text-lg text-slate-700">
-        Owli-AI ist ein Non-Profit-Projekt. Wir arbeiten eng mit Partnern aus Hochschule und Wirtschaft zusammen, um
-        Forschung, Praxis und Barrierefreiheit sinnvoll zu verbinden.
+        {copy.intro}
       </p>
     </header>
 
     <section class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="hochschulpartner-title">
-      <h2 id="hochschulpartner-title" class="text-2xl font-semibold tracking-tight">Hochschulpartner</h2>
+      <h2 id="hochschulpartner-title" class="text-2xl font-semibold tracking-tight">{copy.universityTitle}</h2>
       {universityPartners.length === 0 ? (
-        <p class="text-slate-700">Noch keine Hochschulpartner eingetragen.</p>
+        <p class="text-slate-700">{copy.emptyUniversity}</p>
       ) : (
         <ol class="grid gap-4 sm:grid-cols-2">
           {
             universityPartners.map((partner) => (
               <li>
-                <PartnerCard partner={partner} />
+                <PartnerCard partner={partner} lang={lang} />
               </li>
             ))
           }
@@ -49,15 +83,15 @@ const businessPartners = partners.filter((partner) => partner.data.category === 
     </section>
 
     <section class="space-y-4 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="wirtschaftspartner-title">
-      <h2 id="wirtschaftspartner-title" class="text-2xl font-semibold tracking-tight">Wirtschaftspartner</h2>
+      <h2 id="wirtschaftspartner-title" class="text-2xl font-semibold tracking-tight">{copy.businessTitle}</h2>
       {businessPartners.length === 0 ? (
-        <p class="text-slate-700">Noch keine Wirtschaftspartner eingetragen.</p>
+        <p class="text-slate-700">{copy.emptyBusiness}</p>
       ) : (
         <ol class="grid gap-4 sm:grid-cols-2">
           {
             businessPartners.map((partner) => (
               <li>
-                <PartnerCard partner={partner} />
+                <PartnerCard partner={partner} lang={lang} />
               </li>
             ))
           }

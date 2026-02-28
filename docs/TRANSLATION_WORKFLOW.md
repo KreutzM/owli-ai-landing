@@ -13,7 +13,6 @@
 - Keep `slug`, `order`, `link`, `pdf`, file paths, citations, DOI, and code blocks unchanged.
 - Keep proper nouns unchanged unless a standard translated form exists (for example, "Germany").
 - Keep Markdown heading levels and list structure unchanged.
-- Collection exception: `partners` is currently DE source-only and is rendered on EN/ES pages via fallback. Do not create EN/ES partner copies unless explicitly requested.
 
 ## Tone Rules
 - German source may use `du` form.
@@ -31,7 +30,6 @@
 2. Ensure matching file exists in:
    - `content/en/<collection>/...`
    - `content/es/<collection>/...`
-   - Exception: skip this for `content/de/partners/*` while DE-only fallback is active.
 3. Copy source structure first (frontmatter keys + markdown sections).
 4. Translate conservatively without changing factual meaning.
 5. Run validation:
