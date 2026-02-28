@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PartnerCard from "../../components/partners/PartnerCard.astro";
 import { getPartners } from "../../lib/content";
-import { type LangPrefix, type SiteLang } from "../../lib/i18n";
+import { withPrefix, type LangPrefix, type SiteLang } from "../../lib/i18n";
 
 interface Props {
   lang?: SiteLang;
@@ -48,6 +48,24 @@ const copy = {
     emptyBusiness: "Todavia no hay socios empresariales listados."
   }
 }[lang];
+const pagePath = withPrefix("/partners", pathPrefix);
+const pageUrl = new URL(`${pagePath}/`, Astro.site ?? Astro.url).toString();
+const partnerListJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: copy.title,
+  url: pageUrl,
+  itemListElement: partners.map((partner, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    item: {
+      "@type": "Organization",
+      name: partner.data.name,
+      url: partner.data.website,
+      description: partner.data.shortDescription
+    }
+  }))
+};
 ---
 
 <BaseLayout
@@ -57,6 +75,9 @@ const copy = {
   lang={lang}
   pathPrefix={pathPrefix}
 >
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(partnerListJsonLd)} />
+  </Fragment>
   <section class="space-y-8">
     <header class="max-w-4xl space-y-3">
       <h1 class="text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">{copy.title}</h1>
