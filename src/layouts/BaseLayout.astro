@@ -37,7 +37,17 @@ const {
 
 const siteName = "Owli-AI";
 const pageTitle = title ? `${title} | ${siteName}` : siteName;
-const canonicalPathname = normalizePathname(canonicalPath ?? Astro.url.pathname);
+const toPublicPath = (pathname: string): string => {
+  const normalized = normalizePathname(pathname);
+
+  if (normalized === "/" || /\.[a-z0-9]+$/iu.test(normalized)) {
+    return normalized;
+  }
+
+  return `${normalized}/`;
+};
+
+const canonicalPathname = toPublicPath(canonicalPath ?? Astro.url.pathname);
 const canonicalUrl = new URL(canonicalPathname, Astro.site ?? Astro.url).toString();
 const ogImageUrl = ogImage.startsWith("http") ? ogImage : new URL(ogImage, Astro.site ?? Astro.url).toString();
 const pageKeywords = Array.isArray(keywords) ? keywords.join(", ") : keywords;
@@ -64,6 +74,7 @@ const ui = getUiStrings(lang);
     <link rel="canonical" href={canonicalUrl} />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="48x48" href="/icons/favicon-48.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <link rel="manifest" href="/icons/site.webmanifest" />
@@ -80,7 +91,7 @@ const ui = getUiStrings(lang);
         <link
           rel="alternate"
           hreflang={alternate.lang}
-          href={new URL(alternate.href, Astro.site ?? Astro.url).toString()}
+          href={new URL(toPublicPath(alternate.href), Astro.site ?? Astro.url).toString()}
         />
       ))
     }

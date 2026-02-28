@@ -34,6 +34,33 @@ const apps = await getApps(lang);
 const gpts = (await getGpts(lang)).slice(0, 3);
 const homeEntry = await getSiteBySlug("home", lang);
 const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
+const siteUrl = new URL("/", Astro.site ?? Astro.url).toString();
+const siteLogoUrl = new URL("/brand/owli-ai-logo-512.png", Astro.site ?? Astro.url).toString();
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": `${siteUrl}#organization`,
+      name: "Owli-AI",
+      url: siteUrl,
+      logo: {
+        "@type": "ImageObject",
+        url: siteLogoUrl
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": `${siteUrl}#website`,
+      url: siteUrl,
+      name: "Owli-AI",
+      publisher: {
+        "@id": `${siteUrl}#organization`
+      },
+      inLanguage: ["de-DE", "en-US", "es-ES"]
+    }
+  ]
+};
 ---
 
 <BaseLayout
@@ -43,6 +70,9 @@ const HomeContent = homeEntry ? (await render(homeEntry)).Content : null;
   lang={lang}
   pathPrefix={pathPrefix}
 >
+  <Fragment slot="head">
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </Fragment>
   <section class="space-y-10">
     <section class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8" aria-labelledby="brand-hero-title">
       <div class="absolute -right-20 -top-16 h-56 w-56 rounded-full bg-sky-100/70 blur-2xl" aria-hidden="true"></div>

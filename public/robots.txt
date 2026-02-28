@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://owli-ai.com/sitemap.xml
+Sitemap: https://owli-ai.com/sitemap-index.xml

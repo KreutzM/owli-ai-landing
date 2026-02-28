@@ -1,8 +1,9 @@
 export type SiteLang = "de" | "en" | "es";
 export type LangPrefix = "" | "/en" | "/es";
+export type AlternateLang = SiteLang | "x-default";
 
 export interface AlternateLink {
-  lang: SiteLang;
+  lang: AlternateLang;
   href: string;
 }
 
@@ -104,8 +105,16 @@ export function buildAlternates(pathname: string): AlternateLink[] {
     return [];
   }
 
-  return SITE_LANGS.map((lang) => ({
+  const localizedAlternates = SITE_LANGS.map((lang) => ({
     lang,
     href: toLanguagePath(basePath, lang)
   }));
+
+  return [
+    ...localizedAlternates,
+    {
+      lang: "x-default",
+      href: toLanguagePath(basePath, "de")
+    }
+  ];
 }
